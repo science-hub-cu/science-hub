@@ -18,3 +18,4 @@ web-build/
 
 # hide firebase auth 
 services/auth/firebase.js
+Services/auth/firebase.js
