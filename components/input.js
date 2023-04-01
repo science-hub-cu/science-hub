@@ -76,11 +76,12 @@ const style = StyleSheet.create({
   inputContainer: {
     height: 55,
     backgroundColor: COLORS.secBackground,
+    width:'85%',
     flexDirection: 'row',
     paddingHorizontal: 15,
     borderWidth: 0.5,
     alignItems: 'center',
-    borderRadius: 9
+    borderRadius: 9,
   },
   iconStyle: {
     fontSize: 22,

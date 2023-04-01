@@ -9,7 +9,7 @@ const Button = ({title,onPress=()=>{}})=>{
           style={{
             marginTop:20,
             height:50,
-            width:'90%',
+            width:'85%',
             backgroundColor:COLORS.blue,
             justifyContent:"center",
              borderRadius: 25,
