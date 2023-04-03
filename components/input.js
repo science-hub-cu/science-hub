@@ -1,30 +1,38 @@
 import React from 'react'
-import {
-  View,
-  Text,
-  StyleSheet,
-  error,
-  Image,
-  TouchableHighlight
-} from 'react-native'
-import { TextInput } from 'react-native-gesture-handler'
-// import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { View, Text, StyleSheet, Image, TextInput } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
+import AntDesign from 'react-native-vector-icons/AntDesign'
 import COLORS from '../assets/colors'
+
 const Input = ({
-  // label,
+  label,
   iconName,
+  iconLibrary,
   error,
   password,
   onFocus = () => {},
-  //... props to show what is in placeholder when there is no input
+  imageSource,
   ...props
 }) => {
   const [isFocused, setIsFocused] = React.useState(false)
   const [hidePassword, setHidePassword] = React.useState(true)
+
+  let IconComponent = Icon
+  switch (iconLibrary) {
+    case 'AntDesign':
+      IconComponent = AntDesign
+      break
+    // add cases for other libraries here
+    default:
+      IconComponent = Icon
+      break
+  }
+
   return (
     <View style={{}}>
-      <View style={style.view}></View>
+      <View style={style.view}>
+        {label && <Text style={style.label}>{label}</Text>}
+      </View>
       <View
         style={[
           style.inputContainer,
@@ -52,17 +60,27 @@ const Input = ({
           {...props}
         />
 
-        {!password && <Icon name={iconName} style={style.iconStyle}></Icon>}
+        {!password && (
+          <IconComponent
+            name={iconName}
+            style={style.iconStyle}
+            size={22}
+            color={COLORS.gray2}
+          />
+        )}
 
         {password && (
-          <Icon
+          <IconComponent
             onPress={() => {
-              setHidePassword(!hidePassword);
+              setHidePassword(!hidePassword)
             }}
-            name={!hidePassword ? "unlock" : "lock"}
+            name={!hidePassword ? 'unlock' : 'lock'}
             style={style.iconStyle}
-          ></Icon>
+            size={22}
+            color={COLORS.gray}
+          />
         )}
+        {imageSource && <Image source={imageSource} style={style.iconStyle} />}
       </View>
       {error && <Text style={{ color: COLORS.red }}>{error}</Text>}
     </View>
@@ -71,26 +89,32 @@ const Input = ({
 
 const style = StyleSheet.create({
   view: {
-    marginTop: 20
+    marginTop: 25
   },
   inputContainer: {
     height: 55,
     backgroundColor: COLORS.secBackground,
-    width:'85%',
+    width: '95%',
     flexDirection: 'row',
-    paddingHorizontal: 15,
     borderWidth: 0.5,
     alignItems: 'center',
     borderRadius: 9,
+    marginHorizontal: 10
   },
   iconStyle: {
-    fontSize: 22,
-    color: COLORS.gray,
     marginRight: 10
   },
   textInputStyle: {
+    paddingLeft: 20,
     color: COLORS.white,
     flex: 1
+  },
+  label: {
+    color: COLORS.white,
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10
   }
 })
+
 export default Input

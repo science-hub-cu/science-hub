@@ -9,10 +9,12 @@ const Button = ({title,onPress=()=>{}})=>{
           style={{
             marginTop:20,
             height:50,
-            width:'85%',
+            width:'95%',
             backgroundColor:COLORS.blue,
             justifyContent:"center",
              borderRadius: 25,
+             marginHorizontal:10,
+
 
             
           }}
