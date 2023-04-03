@@ -1,0 +1,59 @@
+Hmokshat App
+7mok4at: (img Hamoksha)
+Features of our application:
+==========================================================================================
+	- posts(up/down , comment ,save button (optional))
+		- sub page (post ... comments)
+	- add post
+-----------------------------------------------------------------------------------------
+	- material
+		- Stared material
+		- (add button)->All material
+		- Matrial pages(subject)
+			- add button
+		 	- card material (up/down/share(optional) )
+-----------------------------------------------------------------------------------------
+	- Profile 
+		- login (design / logic)
+		- register 
+		- profile
+		- setting (change departemnt, change user..password....)
+		- verfication page friend 
+		- saved post page (optional)
+-----------------------------------------------------------------------------------------
+	- Loadding page by logo (Optional)
+-----------------------------------------------------------------------------------------
+	- Chat Comminuty (optional)
+	- Chat private (optional)
+-----------------------------------------------------------------------------------------
+	- Notification (push notification)	
+-----------------------------------------------------------------------------------------
+	- points Calculation
+		- equation --> upvote 
+		- title change post(optional)
+-----------------------------------------------------------------------------------------
+	- Search Page 
+
+==========================================================
+todo
+design login (kenawi)
+design register (kenawi)
+
+design verify (انك تعمل verify لحد)   (fares)(bakar)
+design you are not verified (code mmu) (bakar) 
+logic verify         (bakar)
+
+logic login/resgister   (k3br)
+firebase connection (k3br)
+
+presentation (fares)(bakar)
+loading(optional)
+
+
+
+
+
+
+
+
+
