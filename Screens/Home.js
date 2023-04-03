@@ -1,12 +1,7 @@
+import React from 'react'
 import { Text, View } from 'react-native'
-import Button from '../components/Button'
-import Input from '../components/input'
-
-export default function Home () {
-  return (
-    <View style={styles.container}>
-      <Text>Home</Text>
-
-    </View>
-  )
+import { SafeAreaView } from 'react-native-safe-area-context'
+const HomeScreen = ({ navigation }) => {
+  return <SafeAreaView></SafeAreaView>
 }
+export default HomeScreen
