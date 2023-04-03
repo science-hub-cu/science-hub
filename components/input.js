@@ -77,7 +77,7 @@ const Input = ({
             name={!hidePassword ? 'unlock' : 'lock'}
             style={style.iconStyle}
             size={22}
-            color={COLORS.gray}
+            color={COLORS.gray2}
           />
         )}
         {imageSource && <Image source={imageSource} style={style.iconStyle} />}
