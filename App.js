@@ -1,25 +1,30 @@
+import React, { useState, useEffect } from 'react'
+import { createStackNavigator } from '@react-navigation/stack'
+import { NavigationContainer } from '@react-navigation/native'
 import { StatusBar } from 'expo-status-bar'
+import RegistrationScreen from './screens/auth/Register'
+import LoginScreen from './screens/auth/Login'
+import HomeScreen from './screens/Home'
 import { StyleSheet, Text, View } from 'react-native'
-import Button from './components/Button'
-import Input from './components/input'
 import COLORS from './assets/colors'
+//-------------------------------------------------------------------------------//
+const Stack = createStackNavigator()
 
-export default function App () {
+const App = () => {
   return (
-      <View style={styles.container}>
-        <Text>OP app !</Text>
-        <Button title='Login'></Button>
-
-        <Input
-          placeholder='Enter your passwrd here'
-          placeholderTextColor={COLORS.gray}
-          password
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{ headerShown: false }}>
+        <Stack.Screen
+          name='RegistrationScreen'
+          component={RegistrationScreen}
         />
-        <StatusBar style='auto' />
-      </View>
+        <Stack.Screen name='LoginScreen' component={LoginScreen} />
+        <Stack.Screen name='HomeScreen' component={HomeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   )
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -28,3 +33,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   }
 })
+export default App;
