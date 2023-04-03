@@ -11,6 +11,7 @@ const COLORS = {
     secBackground:'#1E1F22',
     navBar:'#201D1D',
     navBarBackground:'#27282A',
+    gray2:'#808080'
 
 
 };
