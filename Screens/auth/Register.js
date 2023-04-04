@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Text, StyleSheet, View, FlatList } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { Text, StyleSheet, View,Keyboard } from 'react-native'
+import { SafeAreaView,Alert } from 'react-native-safe-area-context'
 import COLORS from '../../assets/colors'
 import { useFonts } from 'expo-font'
 import Input from '../../components/input'
@@ -13,7 +13,56 @@ import { Picker } from '@react-native-picker/picker'
 const RegistrationScreen = ({ navigation }) => {
   const [selectedLevel, setSelectedLevel] = useState(null)
   const [selectedDepartment, setSelectedDepartment] = useState(null)
-
+  const [inputs, setInputs] = useState({
+    name: '',
+    code: '',
+    level: '',
+    department: '',
+    password: ''
+  })
+  const [errors, setErrors] = useState({})
+  const validate = () => {
+    Keyboard.dismiss()
+    let valid = true
+    if (!inputs.name) {
+      handleError('please enter your name', 'name')
+      valid = false
+    }
+    if (!inputs.name) {
+      handleError('please enter your name', 'name')
+      valid = false
+    }
+    if (!inputs.code) {
+      handleError('please enter your code', 'code')
+      valid = false
+    } else if (!inputs.code.match(/^[0-9]+$/)) {
+      handleError('please enter valid code', 'code')
+      valid = false
+    } else if (inputs.code.length != 7) {
+      handleError('the code must be 7 numbers', 'code')
+      valid = false
+    }
+    if (!inputs.password) {
+      handleError('please enter your password', 'password')
+      valid = false
+    } else if (inputs.password.length < 6) {
+      handleError('password is to small', 'password')
+      valid = false
+    }
+    return valid
+  }
+  // change to error state if there is error in any field
+  const handleError = (errorMessage, input) => {
+    setErrors(prevState => ({ ...prevState, [input]: errorMessage }))
+  }
+  /* 
+                            handleOnChange
+     to change the state for my varables (name,code,password,level,department)
+     it is make text = input; 
+  */
+  const handleOnChange = (text, input) => {
+    setInputs(prevState => ({ ...prevState, [input]: text }))
+  }
 
   const [fontLoaded] = useFonts({
     majalla: require('../../assets/fonts/majalla.ttf')
@@ -94,11 +143,17 @@ const RegistrationScreen = ({ navigation }) => {
           </View>
         </View>
         <Input
+          onChangeText={text => handleOnChange(text, 'name')}
+          onFocus={() => handleError(null, 'name')}
+          error={errors.name}
           placeholder='Username'
           placeholderTextColor={COLORS.gray2}
           imageSource={require('../../assets/images/User.png')}
         ></Input>
         <Input
+          onChangeText={text => handleOnChange(text, 'code')}
+          onFocus={() => handleError(null, 'code')}
+          error={errors.code}
           keyboardType='numeric'
           placeholder='Code'
           placeholderTextColor={COLORS.gray2}
@@ -119,7 +174,8 @@ const RegistrationScreen = ({ navigation }) => {
             dropdownIconColor={COLORS.gray2}
             style={{
               backgroundColor: COLORS.secBackground,
-              color: COLORS.gray2, margin: 1,
+              color: COLORS.gray2,
+              margin: 1
             }}
             selectedValue={selectedLevel}
             onValueChange={(itemValue, itemIndex) =>
@@ -165,7 +221,7 @@ const RegistrationScreen = ({ navigation }) => {
             />
           </Picker>
         </View>
-        
+
         <View
           style={{
             width: '95%',
@@ -174,16 +230,15 @@ const RegistrationScreen = ({ navigation }) => {
             borderColor: COLORS.white,
             marginHorizontal: 10,
             borderRadius: 5,
-            backgroundColor: COLORS.mainBackground,
-            
+            backgroundColor: COLORS.mainBackground
           }}
         >
           <Picker
-          dropdownIconColor={COLORS.gray2}
+            dropdownIconColor={COLORS.gray2}
             style={{
               backgroundColor: COLORS.secBackground,
               color: COLORS.gray2,
-              margin:1
+              margin: 1
             }}
             selectedValue={selectedDepartment}
             onValueChange={(itemValue, itemIndex) =>
@@ -195,7 +250,7 @@ const RegistrationScreen = ({ navigation }) => {
               value='Computer science'
               style={{
                 backgroundColor: COLORS.secBackground,
-                color: COLORS.gray2,
+                color: COLORS.gray2
               }}
             />
             <Picker.Item
@@ -228,12 +283,21 @@ const RegistrationScreen = ({ navigation }) => {
           </Picker>
         </View>
         <Input
-          password
           placeholder='Password'
           placeholderTextColor={COLORS.gray2}
+          onChangeText={text => {
+            handleOnChange(text, 'password')
+          }}
+          onFocus={() => handleError(null, 'password')}
+          error={errors.password}
+          password
         ></Input>
-        <View style={{paddingTop:20}}>
-        <Button title='Register'></Button>
+        <View style={{ paddingTop: 20 }}>
+          <Button title='Register' onPress={()=>{
+            if(validate()){
+
+            }
+          }}></Button>
         </View>
       </ScrollView>
     </SafeAreaView>

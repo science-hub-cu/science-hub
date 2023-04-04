@@ -82,7 +82,7 @@ const Input = ({
         )}
         {imageSource && <Image source={imageSource} style={style.iconStyle} />}
       </View>
-      {error && <Text style={{ color: COLORS.red }}>{error}</Text>}
+      {error && <Text style={style.errors}>{error}</Text>}
     </View>
   )
 }
@@ -114,6 +114,10 @@ const style = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 10
+  },
+  errors: {
+    color: COLORS.red,
+    paddingLeft: 20
   }
 })
 
