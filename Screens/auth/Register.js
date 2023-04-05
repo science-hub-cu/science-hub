@@ -5,7 +5,7 @@ import {
   View,
   Keyboard,
 } from "react-native";
-import { SafeAreaView, Alert } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 import COLORS from "../../assets/colors";
 import { useFonts } from "expo-font";
 import Input from "../../components/input";
@@ -29,7 +29,6 @@ const Departments = [
   { label: "Bio", key: "6" },
   { label: "keko", key: "7" },
 ];
-
 const RegistrationScreen = ({ navigation }) => {
   const [inputs, setInputs] = useState({
     name: "",
@@ -42,11 +41,6 @@ const RegistrationScreen = ({ navigation }) => {
   const [isRegister, setIsRegister] = useState(true)
   const [value, setValue] = useState(null);
   const [key, setKey] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
   const renderItem = (item) => {
     return (
       <View style={styles.item}>
@@ -154,6 +148,7 @@ const RegistrationScreen = ({ navigation }) => {
             }}
             onPress={() => {
               setIsRegister(false)
+              
             }}
           >
             Login
@@ -207,6 +202,7 @@ const RegistrationScreen = ({ navigation }) => {
         <View style={{ alignItems: "center", marginTop: 25 }}>
           <Dropdown
             style={styles.dropdown}
+            onChangeText={(text) => handleOnChange(text, "name")}
             placeholderStyle={styles.placeholderStyle}
             selectedTextStyle={styles.selectedTextStyle}
             inputSearchStyle={styles.inputSearchStyle}
@@ -221,6 +217,7 @@ const RegistrationScreen = ({ navigation }) => {
             value={value}
             onChange={(item) => {
               setValue(item.value);
+              handleOnChange(item.label.toString(), 'level')
             }}
             renderItem={renderItem}
           />
@@ -246,6 +243,7 @@ const RegistrationScreen = ({ navigation }) => {
             value={key}
             onChange={(item) => {
               setKey(item.key);
+              handleOnChange(item.label.toString(), 'department')
             }}
             renderItem={renderItem}
           />
