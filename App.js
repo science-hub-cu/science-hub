@@ -3,7 +3,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import RegistrationScreen from "./screens/auth/Register";
-import LoginScreen from "./screens/auth/Login";
 import HomeScreen from "./screens/Home";
 import { StyleSheet, Text, View } from "react-native";
 import COLORS from "./assets/colors";
@@ -18,7 +17,6 @@ const App = () => {
           name="RegistrationScreen"
           component={RegistrationScreen}
         />
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>

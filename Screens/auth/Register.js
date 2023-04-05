@@ -10,7 +10,6 @@ import COLORS from "../../assets/colors";
 import { useFonts } from "expo-font";
 import Input from "../../components/input";
 import Button from "../../components/Button";
-import LoginScreen from "./Login";
 import { ScrollView } from "react-native-gesture-handler";
 import { Dropdown } from "react-native-element-dropdown";
 
@@ -40,7 +39,7 @@ const RegistrationScreen = ({ navigation }) => {
     password: "",
   });
   const [errors, setErrors] = useState({});
-
+  const [isRegister, setIsRegister] = useState(true)
   const [value, setValue] = useState(null);
   const [key, setKey] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -115,7 +114,7 @@ const RegistrationScreen = ({ navigation }) => {
             fontWeight: 400,
           }}
         >
-          Register
+          {isRegister?"Register":"Login"}
         </Text>
         <Text
           style={{
@@ -147,34 +146,35 @@ const RegistrationScreen = ({ navigation }) => {
           <Text
             style={{
               textAlign: "center",
-              color: COLORS.white,
+              color: isRegister? COLORS.white:COLORS.blue,
               fontFamily: "majalla",
               fontSize: 25,
+              borderBottomWidth: !isRegister? 1:0,
+              borderBottomColor: COLORS.white
             }}
             onPress={() => {
-              navigation.navigate("LoginScreen");
+              setIsRegister(false)
             }}
           >
             Login
           </Text>
-          <View
-            style={{
-              marginLeft: "10%",
-              borderBottomWidth: 1,
-              borderBottomColor: COLORS.white,
-            }}
-          >
             <Text
               style={{
                 textAlign: "center",
-                color: COLORS.blue,
+                color: isRegister? COLORS.blue:COLORS.white,
                 fontFamily: "majalla",
                 fontSize: 25,
+                 marginLeft: "10%",
+              borderBottomWidth: isRegister? 1:0,
+              borderBottomColor: COLORS.white
               }}
+               onPress={() => {
+              setIsRegister(true)
+            }}
             >
               Register
             </Text>
-          </View>
+
         </View>
         <View
           style={{
@@ -190,6 +190,7 @@ const RegistrationScreen = ({ navigation }) => {
             placeholderTextColor={COLORS.gray2}
             imageSource={require("../../assets/images/User.png")}
           ></Input>
+          {isRegister&&
           <Input
             width="88%"
             onChangeText={(text) => handleOnChange(text, "code")}
@@ -200,8 +201,9 @@ const RegistrationScreen = ({ navigation }) => {
             placeholderTextColor={COLORS.gray2}
             iconName="hash"
           ></Input>
+          }
         </View>
-
+        {isRegister&&
         <View style={{ alignItems: "center", marginTop: 25 }}>
           <Dropdown
             style={styles.dropdown}
@@ -223,6 +225,10 @@ const RegistrationScreen = ({ navigation }) => {
             renderItem={renderItem}
           />
         </View>
+        }
+        {
+
+        isRegister&&
         <View style={{ alignItems: "center", marginTop: 25 }}>
           <Dropdown
             style={styles.dropdown}
@@ -244,6 +250,7 @@ const RegistrationScreen = ({ navigation }) => {
             renderItem={renderItem}
           />
         </View>
+        }
         <View
           style={{
             alignItems: "center",
@@ -263,7 +270,7 @@ const RegistrationScreen = ({ navigation }) => {
         </View>
         <View style={{ paddingTop: 5, alignItems: "center" }}>
           <Button
-            title="Register"
+             title= {isRegister?"Register":"Login"}
             onPress={() => {
               if (validate()) {
               }
