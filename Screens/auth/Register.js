@@ -3,9 +3,7 @@ import {
   Text,
   StyleSheet,
   View,
-  FlatList,
   Keyboard,
-  TouchableOpacity,
 } from "react-native";
 import { SafeAreaView, Alert } from "react-native-safe-area-context";
 import COLORS from "../../assets/colors";
@@ -14,9 +12,7 @@ import Input from "../../components/input";
 import Button from "../../components/Button";
 import LoginScreen from "./Login";
 import { ScrollView } from "react-native-gesture-handler";
-import { Picker } from "@react-native-picker/picker";
 import { Dropdown } from "react-native-element-dropdown";
-import AntDesign from "@expo/vector-icons/AntDesign";
 
 const levels = [
   { label: "level 1", value: "1" },
@@ -36,8 +32,6 @@ const Departments = [
 ];
 
 const RegistrationScreen = ({ navigation }) => {
-  const [selectedLevel, setSelectedLevel] = useState(null);
-  const [selectedDepartment, setSelectedDepartment] = useState(null);
   const [inputs, setInputs] = useState({
     name: "",
     code: "",
@@ -65,12 +59,12 @@ const RegistrationScreen = ({ navigation }) => {
   const validate = () => {
     Keyboard.dismiss();
     let valid = true;
-    if (!inputs.name) {
+    if (inputs.name==="") {
       handleError("please enter your name", "name");
       valid = false;
     }
-    if (!inputs.name) {
-      handleError("please enter your name", "name");
+    else if (!inputs.name.match(/^[A-Za-z]+$/)) {
+      handleError("your name should contains only letters", "name");
       valid = false;
     }
     if (!inputs.code) {
@@ -298,7 +292,7 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   item: {
-    padding: 17,
+    padding: 18,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
