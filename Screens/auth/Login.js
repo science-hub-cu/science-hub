@@ -1,20 +1,20 @@
-import React, { useState } from 'react'
-import { Text, StyleSheet, View, FlatList } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import COLORS from '../../assets/colors'
-import { useFonts } from 'expo-font'
-import Input from '../../components/input'
-import Button from '../../components/Button'
-import { AntDesign } from '@expo/vector-icons'
-import RegistrationScreen from './Register'
-import { ScrollView } from 'react-native-gesture-handler'
-import { Picker } from '@react-native-picker/picker'
+import React, { useState } from "react";
+import { Text, StyleSheet, View, FlatList } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import COLORS from "../../assets/colors";
+import { useFonts } from "expo-font";
+import Input from "../../components/input";
+import Button from "../../components/Button";
+import { AntDesign } from "@expo/vector-icons";
+import RegistrationScreen from "./Register";
+import { ScrollView } from "react-native-gesture-handler";
+import { Picker } from "@react-native-picker/picker";
 
 const LoginScreen = ({ navigation }) => {
   const [fontLoaded] = useFonts({
-    majalla: require('../../assets/fonts/majalla.ttf')
-  })
-  if (!fontLoaded) return null
+    majalla: require("../../assets/fonts/majalla.ttf"),
+  });
+  if (!fontLoaded) return null;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -22,9 +22,9 @@ const LoginScreen = ({ navigation }) => {
         <Text
           style={{
             fontSize: 32,
-            textAlign: 'center',
+            textAlign: "center",
             color: COLORS.white,
-            fontWeight: 400
+            fontWeight: 400,
           }}
         >
           Login
@@ -32,57 +32,56 @@ const LoginScreen = ({ navigation }) => {
         <Text
           style={{
             fontSize: 25,
-            textAlign: 'center',
+            textAlign: "center",
             color: COLORS.white,
             fontWeight: 400,
-            fontFamily: 'majalla',
-            paddingTop: 15
+            fontFamily: "majalla",
+            paddingTop: 15,
           }}
         >
-          {'  '}By signing in you are agreeing
+          {"  "}By signing in you are agreeing
         </Text>
         <Text
           style={{
             fontSize: 25,
-            textAlign: 'center',
+            textAlign: "center",
             color: COLORS.white,
             fontWeight: 400,
-            fontFamily: 'majalla'
+            fontFamily: "majalla",
           }}
         >
-          {'  '}our
+          {"  "}our
           <Text style={{ color: COLORS.blue }}> Term and privacy policy</Text>
         </Text>
-        <View style={{ flexDirection: 'row' }}>
+        <View
+          style={{ paddingTop: 20, marginLeft: "32.25%", flexDirection: "row" }}
+        >
           <Text
             style={{
-              paddingTop: 20,
-              textAlign: 'center',
+              textAlign: "center",
               color: COLORS.blue,
-              marginLeft: 110,
-              fontFamily: 'majalla',
+              fontFamily: "majalla",
               fontSize: 25,
               borderBottomWidth: 1,
-              borderBottomColor: COLORS.white
+              borderBottomColor: COLORS.white,
             }}
           >
             Login
           </Text>
           <View
             style={{
-              marginLeft: 50,
-              paddingTop: 20,
+              marginLeft: "10%",
             }}
           >
             <Text
               style={{
-                textAlign: 'center',
+                textAlign: "center",
                 color: COLORS.white,
-                fontFamily: 'majalla',
-                fontSize: 25
+                fontFamily: "majalla",
+                fontSize: 25,
               }}
               onPress={() => {
-                navigation.navigate('RegistrationScreen')
+                navigation.navigate("RegistrationScreen");
               }}
             >
               Register
@@ -90,27 +89,27 @@ const LoginScreen = ({ navigation }) => {
           </View>
         </View>
         <Input
-          placeholder='Username'
+          placeholder="Username"
           placeholderTextColor={COLORS.gray2}
-          imageSource={require('../../assets/images/User.png')}
+          imageSource={require("../../assets/images/User.png")}
         ></Input>
         <Input
           password
-          placeholder='Password'
+          placeholder="Password"
           placeholderTextColor={COLORS.gray2}
         ></Input>
-        <View style={{ paddingTop: 20 }}>
-          <Button title='Login'></Button>
+        <View style={{ paddingTop: 5, alignItems: "center" }}>
+          <Button title="Login"></Button>
         </View>
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.mainBackground
-  }
-})
+    backgroundColor: COLORS.mainBackground,
+  },
+});
 
-export default LoginScreen
+export default LoginScreen;
