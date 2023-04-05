@@ -26,13 +26,13 @@ const levels = [
 ];
 
 const Departments = [
-  { label: "Computer Scince", value: "1" },
-  { label: "Chem", value: "2" },
-  { label: "Ph", value: "3" },
-  { label: "math", value: "4" },
-  { label: "math/CS", value: "5" },
-  { label: "Bio", value: "6" },
-  { label: "keko", value: "7" },
+  { label: "Computer Scince", key: "1" },
+  { label: "Chem", key: "2" },
+  { label: "Ph", key: "3" },
+  { label: "math", key: "4" },
+  { label: "math/CS", key: "5" },
+  { label: "Bio", key: "6" },
+  { label: "keko", key: "7" },
 ];
 
 const RegistrationScreen = ({ navigation }) => {
@@ -48,6 +48,7 @@ const RegistrationScreen = ({ navigation }) => {
   const [errors, setErrors] = useState({});
 
   const [value, setValue] = useState(null);
+  const [key, setKey] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -57,14 +58,6 @@ const RegistrationScreen = ({ navigation }) => {
     return (
       <View style={styles.item}>
         <Text style={styles.textItem}>{item.label}</Text>
-        {item.value === value && (
-          <AntDesign
-            style={styles.icon}
-            color="black"
-            name="Safety"
-            size={20}
-          />
-        )}
       </View>
     );
   };
@@ -226,7 +219,7 @@ const RegistrationScreen = ({ navigation }) => {
             maxHeight={300}
             labelField="label"
             valueField="value"
-            placeholder="Level"
+            placeholder="Level..."
             search={0}
             // searchPlaceholder="Search..."
             value={value}
@@ -246,13 +239,13 @@ const RegistrationScreen = ({ navigation }) => {
             data={Departments}
             maxHeight={300}
             labelField="label"
-            valueField="value"
-            placeholder="Department"
+            valueField="key"
+            placeholder="Department..."
             search={0}
             // searchPlaceholder="Search..."
-            value={value}
+            value={key}
             onChange={(item) => {
-              setValue(item.value);
+              setKey(item.key);
             }}
             renderItem={renderItem}
           />
@@ -298,13 +291,11 @@ const styles = StyleSheet.create({
   dropdown: {
     borderWidth: 1,
     borderColor: COLORS.white,
-    // margin: 16,
     height: 55,
     width: "88%",
     backgroundColor: COLORS.secBackground,
     borderRadius: 9,
     padding: 12,
-    // shadowColor: "#000",
   },
   item: {
     padding: 17,
@@ -324,5 +315,6 @@ const styles = StyleSheet.create({
   },
   selectedTextStyle: {
     fontSize: 16,
+    color: "#fff",
   },
 });
