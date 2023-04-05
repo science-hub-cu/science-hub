@@ -12,6 +12,7 @@ const Input = ({
   password,
   onFocus = () => {},
   imageSource,
+  width = '95%', // Default width is 95%
   ...props
 }) => {
   const [isFocused, setIsFocused] = React.useState(false)
@@ -37,6 +38,7 @@ const Input = ({
         style={[
           style.inputContainer,
           {
+            width: width, // Set the width dynamically based on the `width` prop
             borderWidth: 1,
             borderColor: error
               ? COLORS.red
@@ -94,7 +96,6 @@ const style = StyleSheet.create({
   inputContainer: {
     height: 55,
     backgroundColor: COLORS.secBackground,
-    width: '95%',
     flexDirection: 'row',
     borderWidth: 0.5,
     alignItems: 'center',
