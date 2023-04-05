@@ -5,10 +5,10 @@ import COLORS from '../../assets/colors'
 import { useFonts } from 'expo-font'
 import Input from '../../components/input'
 import Button from '../../components/Button'
-import { AntDesign } from '@expo/vector-icons'
 import LoginScreen from './Login'
 import { ScrollView } from 'react-native-gesture-handler'
 import { Picker } from '@react-native-picker/picker'
+
 
 const RegistrationScreen = ({ navigation }) => {
   const [selectedLevel, setSelectedLevel] = useState(null)
@@ -112,9 +112,10 @@ const RegistrationScreen = ({ navigation }) => {
               paddingTop: 20,
               textAlign: 'center',
               color: COLORS.white,
-              marginLeft: 110,
+              marginLeft: "34%",
               fontFamily: 'majalla',
-              fontSize: 25
+              fontSize: 25,
+
             }}
             onPress={() => {
               navigation.navigate('LoginScreen')
@@ -124,7 +125,7 @@ const RegistrationScreen = ({ navigation }) => {
           </Text>
           <View
             style={{
-              marginLeft: 50,
+              marginLeft: "10%",
               paddingTop: 20,
               borderBottomWidth: 1,
               borderBottomColor: COLORS.white
