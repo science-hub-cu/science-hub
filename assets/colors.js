@@ -11,7 +11,11 @@ const COLORS = {
     secBackground:'#1E1F22',
     navBar:'#201D1D',
     navBarBackground:'#27282A',
-    gray2:'#808080'
+    gray2:'#808080',
+    starActive:'#EFDE44',
+    upvote:'#1120C5',
+    navbar:'#201D1D'
+
 
 
 };
