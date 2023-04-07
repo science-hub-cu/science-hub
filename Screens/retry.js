@@ -11,7 +11,6 @@ return <SafeAreaView style={styles.container}>
     </Image>
     <Text style={styles.text}>No internet connection</Text>
     <View style={{marginLeft:"25%"}}>
-    <Button title={"Reload Page"} width="60%"></Button>
     </View>
 </SafeAreaView>
 };

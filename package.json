@@ -11,7 +11,7 @@
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
     "@react-native-community/masked-view": "^0.1.11",
-    "@react-native-community/netinfo": "^9.3.8",
+    "@react-native-community/netinfo": "9.3.7",
     "@react-native-picker/picker": "2.4.8",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/stack": "^6.3.16",
@@ -20,7 +20,7 @@
     "expo-status-bar": "~1.4.4",
     "i": "^0.3.7",
     "react": "18.2.0",
-    "react-native": "0.71.3",
+    "react-native": "0.71.6",
     "react-native-dropdown-picker": "^5.4.6",
     "react-native-element-dropdown": "^2.9.0",
     "react-native-elements": "^3.4.3",
