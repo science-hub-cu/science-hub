@@ -1,8 +1,8 @@
-import React from 'react'
-import { View, Text, StyleSheet, Image, TextInput } from 'react-native'
-import Icon from 'react-native-vector-icons/Feather'
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import COLORS from '../assets/colors'
+import React from "react";
+import { View, Text, StyleSheet, Image, TextInput } from "react-native";
+import Icon from "react-native-vector-icons/Feather";
+import AntDesign from "react-native-vector-icons/AntDesign";
+import COLORS from "../constants/colors";
 
 const Input = ({
   label,
@@ -12,21 +12,21 @@ const Input = ({
   password,
   onFocus = () => {},
   imageSource,
-  width = '95%', // Default width is 95%
+  width = "95%", // Default width is 95%
   ...props
 }) => {
-  const [isFocused, setIsFocused] = React.useState(false)
-  const [hidePassword, setHidePassword] = React.useState(true)
+  const [isFocused, setIsFocused] = React.useState(false);
+  const [hidePassword, setHidePassword] = React.useState(true);
 
-  let IconComponent = Icon
+  let IconComponent = Icon;
   switch (iconLibrary) {
-    case 'AntDesign':
-      IconComponent = AntDesign
-      break
+    case "AntDesign":
+      IconComponent = AntDesign;
+      break;
     // add cases for other libraries here
     default:
-      IconComponent = Icon
-      break
+      IconComponent = Icon;
+      break;
   }
 
   return (
@@ -44,8 +44,8 @@ const Input = ({
               ? COLORS.red
               : isFocused
               ? COLORS.white
-              : COLORS.white
-          }
+              : COLORS.white,
+          },
         ]}
       >
         <TextInput
@@ -53,11 +53,11 @@ const Input = ({
           style={style.textInputStyle}
           autoCorrect={false}
           onFocus={() => {
-            onFocus()
-            setIsFocused(true)
+            onFocus();
+            setIsFocused(true);
           }}
           onBlur={() => {
-            setIsFocused(false)
+            setIsFocused(false);
           }}
           {...props}
         />
@@ -74,9 +74,9 @@ const Input = ({
         {password && (
           <IconComponent
             onPress={() => {
-              setHidePassword(!hidePassword)
+              setHidePassword(!hidePassword);
             }}
-            name={!hidePassword ? 'unlock' : 'lock'}
+            name={!hidePassword ? "unlock" : "lock"}
             style={style.iconStyle}
             size={22}
             color={COLORS.gray2}
@@ -86,40 +86,40 @@ const Input = ({
       </View>
       {error && <Text style={style.errors}>{error}</Text>}
     </View>
-  )
-}
+  );
+};
 
 const style = StyleSheet.create({
   view: {
-    marginTop: 25
+    marginTop: 25,
   },
   inputContainer: {
     height: 55,
     backgroundColor: COLORS.secBackground,
-    flexDirection: 'row',
+    flexDirection: "row",
     borderWidth: 0.5,
-    alignItems: 'center',
+    alignItems: "center",
     borderRadius: 9,
-    marginHorizontal: 10
+    marginHorizontal: 10,
   },
   iconStyle: {
-    marginRight: 10
+    marginRight: 10,
   },
   textInputStyle: {
     paddingLeft: 20,
     color: COLORS.white,
-    flex: 1
+    flex: 1,
   },
   label: {
     color: COLORS.white,
     fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 10
+    fontWeight: "bold",
+    marginBottom: 10,
   },
   errors: {
     color: COLORS.red,
-    paddingLeft: 20
-  }
-})
+    paddingLeft: 20,
+  },
+});
 
-export default Input
+export default Input;

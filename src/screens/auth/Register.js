@@ -1,14 +1,9 @@
 import React, { useState } from "react";
-import {
-  Text,
-  StyleSheet,
-  View,
-  Keyboard,
-} from "react-native";
+import { Text, StyleSheet, View, Keyboard } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import COLORS from "../../assets/colors";
+import COLORS from "../../constants/colors";
 import { useFonts } from "expo-font";
-import Input from "../../components/input";
+import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { ScrollView } from "react-native-gesture-handler";
 import { Dropdown } from "react-native-element-dropdown";
@@ -38,7 +33,7 @@ const RegistrationScreen = ({ navigation }) => {
     password: "",
   });
   const [errors, setErrors] = useState({});
-  const [isRegister, setIsRegister] = useState(true)
+  const [isRegister, setIsRegister] = useState(true);
   const [value, setValue] = useState(null);
   const [key, setKey] = useState(null);
   const renderItem = (item) => {
@@ -52,11 +47,10 @@ const RegistrationScreen = ({ navigation }) => {
   const validate = () => {
     Keyboard.dismiss();
     let valid = true;
-    if (inputs.name==="") {
+    if (inputs.name === "") {
       handleError("please enter your name", "name");
       valid = false;
-    }
-    else if (!inputs.name.match(/^[A-Za-z]+$/)) {
+    } else if (!inputs.name.match(/^[A-Za-z]+$/)) {
       handleError("your name should contains only letters", "name");
       valid = false;
     }
@@ -108,7 +102,7 @@ const RegistrationScreen = ({ navigation }) => {
             fontWeight: 400,
           }}
         >
-          {isRegister?"Register":"Login"}
+          {isRegister ? "Register" : "Login"}
         </Text>
         <Text
           style={{
@@ -140,36 +134,34 @@ const RegistrationScreen = ({ navigation }) => {
           <Text
             style={{
               textAlign: "center",
-              color: isRegister? COLORS.white:COLORS.blue,
+              color: isRegister ? COLORS.white : COLORS.blue,
               fontFamily: "majalla",
               fontSize: 25,
-              borderBottomWidth: !isRegister? 1:0,
-              borderBottomColor: COLORS.white
+              borderBottomWidth: !isRegister ? 1 : 0,
+              borderBottomColor: COLORS.white,
             }}
             onPress={() => {
-              setIsRegister(false)
-              
+              setIsRegister(false);
             }}
           >
             Login
           </Text>
-            <Text
-              style={{
-                textAlign: "center",
-                color: isRegister? COLORS.blue:COLORS.white,
-                fontFamily: "majalla",
-                fontSize: 25,
-                 marginLeft: "10%",
-              borderBottomWidth: isRegister? 1:0,
-              borderBottomColor: COLORS.white
-              }}
-               onPress={() => {
-              setIsRegister(true)
+          <Text
+            style={{
+              textAlign: "center",
+              color: isRegister ? COLORS.blue : COLORS.white,
+              fontFamily: "majalla",
+              fontSize: 25,
+              marginLeft: "10%",
+              borderBottomWidth: isRegister ? 1 : 0,
+              borderBottomColor: COLORS.white,
             }}
-            >
-              Register
-            </Text>
-
+            onPress={() => {
+              setIsRegister(true);
+            }}
+          >
+            Register
+          </Text>
         </View>
         <View
           style={{
@@ -185,70 +177,68 @@ const RegistrationScreen = ({ navigation }) => {
             placeholderTextColor={COLORS.gray2}
             imageSource={require("../../assets/images/User.png")}
           ></Input>
-          {isRegister&&
-          <Input
-            width="88%"
-            onChangeText={(text) => handleOnChange(text, "code")}
-            onFocus={() => handleError(null, "code")}
-            error={errors.code}
-            keyboardType="numeric"
-            placeholder="Code"
-            placeholderTextColor={COLORS.gray2}
-            iconName="hash"
-          ></Input>
-          }
+          {isRegister && (
+            <Input
+              width="88%"
+              onChangeText={(text) => handleOnChange(text, "code")}
+              onFocus={() => handleError(null, "code")}
+              error={errors.code}
+              keyboardType="numeric"
+              placeholder="Code"
+              placeholderTextColor={COLORS.gray2}
+              iconName="hash"
+            ></Input>
+          )}
         </View>
-        {isRegister&&
-        <View style={{ alignItems: "center", marginTop: 25 }}>
-          <Dropdown
-            style={styles.dropdown}
-            onChangeText={(text) => handleOnChange(text, "name")}
-            placeholderStyle={styles.placeholderStyle}
-            selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={styles.inputSearchStyle}
-            iconStyle={styles.iconStyle}
-            data={levels}
-            maxHeight={300}
-            labelField="label"
-            valueField="value"
-            placeholder="Level..."
-            search={0}
-            // searchPlaceholder="Search..."
-            value={value}
-            onChange={(item) => {
-              setValue(item.value);
-              handleOnChange(item.label.toString(), 'level')
-            }}
-            renderItem={renderItem}
-          />
-        </View>
-        }
-        {
-
-        isRegister&&
-        <View style={{ alignItems: "center", marginTop: 25 }}>
-          <Dropdown
-            style={styles.dropdown}
-            placeholderStyle={styles.placeholderStyle}
-            selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={styles.inputSearchStyle}
-            iconStyle={styles.iconStyle}
-            data={Departments}
-            maxHeight={300}
-            labelField="label"
-            valueField="key"
-            placeholder="Department..."
-            search={0}
-            // searchPlaceholder="Search..."
-            value={key}
-            onChange={(item) => {
-              setKey(item.key);
-              handleOnChange(item.label.toString(), 'department')
-            }}
-            renderItem={renderItem}
-          />
-        </View>
-        }
+        {isRegister && (
+          <View style={{ alignItems: "center", marginTop: 25 }}>
+            <Dropdown
+              style={styles.dropdown}
+              onChangeText={(text) => handleOnChange(text, "name")}
+              placeholderStyle={styles.placeholderStyle}
+              selectedTextStyle={styles.selectedTextStyle}
+              inputSearchStyle={styles.inputSearchStyle}
+              iconStyle={styles.iconStyle}
+              data={levels}
+              maxHeight={300}
+              labelField="label"
+              valueField="value"
+              placeholder="Level..."
+              search={0}
+              // searchPlaceholder="Search..."
+              value={value}
+              onChange={(item) => {
+                setValue(item.value);
+                handleOnChange(item.label.toString(), "level");
+              }}
+              renderItem={renderItem}
+            />
+          </View>
+        )}
+        {isRegister && (
+          <View style={{ alignItems: "center", marginTop: 25 }}>
+            <Dropdown
+              style={styles.dropdown}
+              placeholderStyle={styles.placeholderStyle}
+              selectedTextStyle={styles.selectedTextStyle}
+              inputSearchStyle={styles.inputSearchStyle}
+              iconStyle={styles.iconStyle}
+              data={Departments}
+              maxHeight={300}
+              labelField="label"
+              valueField="key"
+              placeholder="Department..."
+              search={0}
+              // searchPlaceholder="Search..."
+              value={key}
+              onChange={(item) => {
+                setKey(item.key);
+                handleOnChange(item.label.toString(), "department");
+              }}
+              renderItem={renderItem}
+            />
+          </View>
+        )}
         <View
           style={{
             alignItems: "center",
@@ -268,7 +258,7 @@ const RegistrationScreen = ({ navigation }) => {
         </View>
         <View style={{ paddingTop: 5, alignItems: "center" }}>
           <Button
-             title= {isRegister?"Register":"Login"}
+            title={isRegister ? "Register" : "Login"}
             onPress={() => {
               if (validate()) {
               }
