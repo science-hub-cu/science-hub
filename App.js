@@ -8,6 +8,7 @@ import { StyleSheet, Text, View } from "react-native";
 import COLORS from "./src/constants/colors";
 import RetryScreen from "./src/screens/retry";
 import NetInfo from "@react-native-community/netinfo";
+import "./src/config/firebaseConfig";
 
 const Stack = createStackNavigator();
 
