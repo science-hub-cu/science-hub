@@ -19,3 +19,4 @@ web-build/
 # hide firebase auth 
 src/config/firebaseConfig.js
 src/config/firebaseConfig.js
+src/config/firebaseConfig.js
