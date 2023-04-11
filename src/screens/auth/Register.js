@@ -41,6 +41,7 @@ const RegistrationScreen = ({ navigation }) => {
       handleError("your name should contains only letters", "name");
       valid = false;
     }
+    if(isRegister){
     if (!inputs.code) {
       handleError("please enter your code", "code");
       valid = false;
@@ -59,6 +60,7 @@ const RegistrationScreen = ({ navigation }) => {
       handleError("please choose your department", "department");
       valid = false;
     }
+  }
     if (!inputs.password) {
       handleError("please enter your password", "password");
       valid = false;
@@ -268,6 +270,9 @@ const RegistrationScreen = ({ navigation }) => {
             onPress={() => {
               if (validate()) {
                 // add auth function here 
+                console.log("tamam")
+              }else{
+                console.log("no");
               }
             }}
           ></Button>
