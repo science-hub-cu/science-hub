@@ -7,6 +7,12 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { ScrollView } from "react-native-gesture-handler";
 import { Dropdown } from "react-native-element-dropdown";
+import { auth, db } from "../../services/auth/firebase";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
 const levels = [
   { label: "level 1", value: "1" },
@@ -25,6 +31,39 @@ const Departments = [
   { label: "keko", key: "7" },
 ];
 const RegistrationScreen = ({ navigation }) => {
+  const handelSignup = async (data) => {
+    await createUserWithEmailAndPassword(
+      auth,
+      data.name + "@k3br.com",
+      data.password
+    )
+      .then((userCredential) => {
+        setDoc(doc(db, "users", userCredential.user.uid), {
+          Avatar: "img.png",
+          code: 2020000,
+          code_who_ver: 2020000,
+          dep: data.department,
+          is_ver: true,
+          level: data.level,
+          title: "King 7amok4a",
+          username: data.name,
+        }).then(() => {
+          navigation.navigate("HomeScreen", data.name);
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const handleLogin = async (username, password) => {
+    await signInWithEmailAndPassword(auth, username + "@k3br.com", password)
+      .then((userCredential) => {
+        navigation.navigate("HomeScreen", username);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const [inputs, setInputs] = useState({
     name: "",
     code: "",
@@ -261,6 +300,9 @@ const RegistrationScreen = ({ navigation }) => {
             title={isRegister ? "Register" : "Login"}
             onPress={() => {
               if (validate()) {
+                isRegister
+                  ? handelSignup(inputs)
+                  : handleLogin(inputs.name, inputs.password);
               }
             }}
           ></Button>
