@@ -1,4 +1,4 @@
-import React from "react";
+import React,{forwardRef} from "react";
 import { View, Text, StyleSheet, Image, TextInput } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import AntDesign from "react-native-vector-icons/AntDesign";
@@ -14,7 +14,7 @@ const Input = ({
   imageSource,
   width = "95%", // Default width is 95%
   ...props
-}) => {
+},ref) => {
   const [isFocused, setIsFocused] = React.useState(false);
   const [hidePassword, setHidePassword] = React.useState(true);
 
@@ -49,6 +49,7 @@ const Input = ({
         ]}
       >
         <TextInput
+          ref={ref}
           secureTextEntry={password && hidePassword}
           style={style.textInputStyle}
           autoCorrect={false}
@@ -121,5 +122,5 @@ const style = StyleSheet.create({
     paddingLeft: 20,
   },
 });
-
-export default Input;
+const forwardInput = forwardRef(Input);
+export default forwardInput;
