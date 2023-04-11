@@ -30,7 +30,7 @@ const Input = ({
   }
 
   return (
-    <View style={{}}>
+    <View>
       <View style={style.view}>
         {label && <Text style={style.label}>{label}</Text>}
       </View>

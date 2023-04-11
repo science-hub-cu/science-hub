@@ -51,6 +51,14 @@ const RegistrationScreen = ({ navigation }) => {
       handleError("the code must be 7 numbers", "code");
       valid = false;
     }
+    if (!inputs.level) {
+      handleError("please choose your level", "level");
+      valid = false;
+    }
+    if (!inputs.department) {
+      handleError("please choose your department", "department");
+      valid = false;
+    }
     if (!inputs.password) {
       handleError("please enter your password", "password");
       valid = false;
@@ -60,6 +68,7 @@ const RegistrationScreen = ({ navigation }) => {
     }
     return valid;
   };
+
   // change to error state if there is error in any field
   const handleError = (errorMessage, input) => {
     setErrors((prevState) => ({ ...prevState, [input]: errorMessage }));
@@ -91,12 +100,6 @@ const RegistrationScreen = ({ navigation }) => {
     }
     setKey(0);
     setValue(0);
-    // if (levelInputRef.current) {
-    //   levelInputRef.current.clear();
-    // }
-    // if (departmntInputRef.current) {
-    //   departmntInputRef.current.clear();
-    // }
     if (passwordInputRef.current) {
       passwordInputRef.current.clear();
     }
@@ -217,8 +220,10 @@ const RegistrationScreen = ({ navigation }) => {
             valueField={"value"}
             placeholder={"Level..."}
             value={value}
+            error={errors.level}
             onChange={(item) => {
               setValue(item.value);
+              handleError(null, "level");
               handleOnChange(item.label.toString(), "level");
             }}
           />
@@ -234,6 +239,7 @@ const RegistrationScreen = ({ navigation }) => {
             error={errors.department}
             onChange={(item) => {
               setKey(item.key);
+              handleError(null, "department");
               handleOnChange(item.label.toString(), "department");
             }}
           />
@@ -261,10 +267,8 @@ const RegistrationScreen = ({ navigation }) => {
             title={isRegister ? "Register" : "Login"}
             onPress={() => {
               if (validate()) {
+                // add auth function here 
               }
-              // console.log(inputs.name);
-              // console.log(inputs.department);
-              // console.log(inputs.level);
             }}
           ></Button>
         </View>
