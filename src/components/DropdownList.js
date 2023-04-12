@@ -34,10 +34,10 @@ const DropdownList = (
         valueField={valueField}
         placeholder={placeholder}
         value={value}
+        onFocus={onFocus}
         maxHeight={300}
         search={0}
         onChange={onChange}
-        onFocus={onFocus}
         renderItem={(item) => (
           <View style={styles.item}>
             <Text style={styles.textItem}>{item[labelField]}</Text>
@@ -74,15 +74,15 @@ const styles = StyleSheet.create({
   },
   textItem: {
     flex: 1,
-    fontSize: 16,
+    fontSize: 20,
     color: COLORS.white,
   },
   placeholderStyle: {
-    fontSize: 16,
+    fontSize: 20,
     color: COLORS.gray2,
   },
   selectedTextStyle: {
-    fontSize: 16,
+    fontSize: 20,
     color: COLORS.white,
   },
   errors: {
