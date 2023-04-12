@@ -9,11 +9,6 @@ const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-
-  // change to error state if there is error in any field
-  const handleError = (errorMessage, input) => {
-    setErrors((prevState) => ({ ...prevState, [input]: errorMessage }));
-  };
   const LoginPress = () => {
     let user = {
       username,
@@ -27,47 +22,6 @@ const LoginScreen = ({ navigation }) => {
       console.log("no");
     }
   };
-  const validate = () => {
-    Keyboard.dismiss();
-    let valid = true;
-    return valid;
-    if (inputs.name === "") {
-      handleError("please enter your name", "name");
-      valid = false;
-    } else if (!inputs.name.match(/^[A-Za-z]+$/)) {
-      handleError("your name should contains only letters", "name");
-      valid = false;
-    }
-    if (isRegister) {
-      if (!inputs.code) {
-        handleError("please enter your code", "code");
-        valid = false;
-      } else if (!inputs.code.match(/^[0-9]+$/)) {
-        handleError("please enter valid code", "code");
-        valid = false;
-      } else if (inputs.code.length != 7) {
-        handleError("the code must be 7 numbers", "code");
-        valid = false;
-      }
-      if (!inputs.level) {
-        handleError("please choose your level", "level");
-        valid = false;
-      }
-      if (!inputs.department) {
-        handleError("please choose your department", "department");
-        valid = false;
-      }
-    }
-    if (!inputs.password) {
-      handleError("please enter your password", "password");
-      valid = false;
-    } else if (inputs.password.length < 6) {
-      handleError("password is to small", "password");
-      valid = false;
-    }
-    return valid;
-  };
-
   return (
     <View>
       <View style={styles.centerAligment}>
