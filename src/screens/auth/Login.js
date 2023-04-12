@@ -1,10 +1,14 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Keyboard } from "react-native";
 import Button from "../../components/Button";
 import COLORS from "../../constants/colors";
 import Input from "../../components/Input";
+import DropdownList from "../../components/DropdownList";
+import levels from "../../constants/Levels";
+import Departments from "../../constants/Departments";
+import { signInValidation,disappearError } from "../../validations/SignInValidation";
 
-const LoginScreen = ({ navigation }) => {
+const RegistrationScreen = ({ navigation }) => {
   /********************** states  ***************************/
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -15,7 +19,12 @@ const LoginScreen = ({ navigation }) => {
       password,
     };
     console.log(user);
-    if (validate()) {
+    if (
+      signInValidation(
+        { username,password},
+        setErrors
+      )
+    ) {
       // add auth function here
       console.log("tamam");
     } else {
@@ -29,8 +38,8 @@ const LoginScreen = ({ navigation }) => {
           width="88%"
           onChangeText={(text) => setUsername(text)}
           value={username}
-          onFocus={() => handleError(null, "name")}
-          error={errors.name}
+          onFocus={() => disappearError("username", errors, setErrors)}
+          error={errors.username}
           placeholder="Username"
           placeholderTextColor={COLORS.gray2}
           iconName="account-circle-outline"
@@ -44,7 +53,7 @@ const LoginScreen = ({ navigation }) => {
           placeholderTextColor={COLORS.gray2}
           onChangeText={(text) => setPassword(text)}
           value={password}
-          onFocus={() => handleError(null, "password")}
+          onFocus={() => disappearError("password", errors, setErrors)}
           error={errors.password}
           password
         />
