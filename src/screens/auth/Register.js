@@ -41,26 +41,26 @@ const RegistrationScreen = ({ navigation }) => {
       handleError("your name should contains only letters", "name");
       valid = false;
     }
-    if(isRegister){
-    if (!inputs.code) {
-      handleError("please enter your code", "code");
-      valid = false;
-    } else if (!inputs.code.match(/^[0-9]+$/)) {
-      handleError("please enter valid code", "code");
-      valid = false;
-    } else if (inputs.code.length != 7) {
-      handleError("the code must be 7 numbers", "code");
-      valid = false;
+    if (isRegister) {
+      if (!inputs.code) {
+        handleError("please enter your code", "code");
+        valid = false;
+      } else if (!inputs.code.match(/^[0-9]+$/)) {
+        handleError("please enter valid code", "code");
+        valid = false;
+      } else if (inputs.code.length != 7) {
+        handleError("the code must be 7 numbers", "code");
+        valid = false;
+      }
+      if (!inputs.level) {
+        handleError("please choose your level", "level");
+        valid = false;
+      }
+      if (!inputs.department) {
+        handleError("please choose your department", "department");
+        valid = false;
+      }
     }
-    if (!inputs.level) {
-      handleError("please choose your level", "level");
-      valid = false;
-    }
-    if (!inputs.department) {
-      handleError("please choose your department", "department");
-      valid = false;
-    }
-  }
     if (!inputs.password) {
       handleError("please enter your password", "password");
       valid = false;
@@ -198,7 +198,9 @@ const RegistrationScreen = ({ navigation }) => {
             error={errors.name}
             placeholder="Username"
             placeholderTextColor={COLORS.gray2}
-            imageSource={require("../../assets/images/User.png")}
+            // imageSource={require("../../assets/images/User.png")}
+            iconName="account-circle-outline"
+            iconLibrary="MaterialCommunityIcons"
           ></Input>
           {isRegister && (
             <Input
@@ -269,9 +271,9 @@ const RegistrationScreen = ({ navigation }) => {
             title={isRegister ? "Register" : "Login"}
             onPress={() => {
               if (validate()) {
-                // add auth function here 
-                console.log("tamam")
-              }else{
+                // add auth function here
+                console.log("tamam");
+              } else {
                 console.log("no");
               }
             }}
