@@ -42,7 +42,6 @@ const AuthScreen = ({ navigation }) => {
             }}
             onPress={() => {
               setIsRegister(false);
-            //   resetAll();
             }}
           >
             Login
@@ -59,7 +58,6 @@ const AuthScreen = ({ navigation }) => {
             }}
             onPress={() => {
               setIsRegister(true);
-            //   resetAll();
             }}
           >
             Register

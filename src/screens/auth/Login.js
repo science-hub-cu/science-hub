@@ -4,32 +4,72 @@ import Button from "../../components/Button";
 import COLORS from "../../constants/colors";
 import { useFonts } from "expo-font";
 import Input from "../../components/Input";
-const LoginScreen = ({ navigation }) => {
-  const [inputs, setInputs] = useState({
-    name: "",
-    password: "",
-  });
+import DropdownList from "../../components/DropdownList";
+import levels from "../../constants/Levels";
+import Departments from "../../constants/Departments";
 
+const LoginScreen = ({ navigation }) => {
+  /********************** states  ***************************/
+  const [username, setUsername] = useState("");
+  const [code, setCode] = useState("");
+  const [password, setPassword] = useState("");
+  const [level, setLevel] = useState({ value: null, label: "" });
+  const [department, setDepartment] = useState({ key: null, label: "" });
+  const [errors, setErrors] = useState({});
+
+  // change to error state if there is error in any field
   const handleError = (errorMessage, input) => {
     setErrors((prevState) => ({ ...prevState, [input]: errorMessage }));
   };
-  /* 
-                            handleOnChange
-     to change the state for my varables (name,code,password,level,department)
-     it is make text = input; 
-  */
-  const handleOnChange = (text, input) => {
-    setInputs((prevState) => ({ ...prevState, [input]: text }));
+  const LoginPress = () => {
+    let user = {
+      username,
+      password,
+    };
+    console.log(user);
+    if (validate()) {
+      // add auth function here
+      console.log("tamam");
+    } else {
+      console.log("no");
+    }
   };
+
+  const resetForm = () => {
+    setUsername("");
+    setPassword("");
+  };
+
   const validate = () => {
     Keyboard.dismiss();
     let valid = true;
+    return valid;
     if (inputs.name === "") {
       handleError("please enter your name", "name");
       valid = false;
     } else if (!inputs.name.match(/^[A-Za-z]+$/)) {
       handleError("your name should contains only letters", "name");
       valid = false;
+    }
+    if (isRegister) {
+      if (!inputs.code) {
+        handleError("please enter your code", "code");
+        valid = false;
+      } else if (!inputs.code.match(/^[0-9]+$/)) {
+        handleError("please enter valid code", "code");
+        valid = false;
+      } else if (inputs.code.length != 7) {
+        handleError("the code must be 7 numbers", "code");
+        valid = false;
+      }
+      if (!inputs.level) {
+        handleError("please choose your level", "level");
+        valid = false;
+      }
+      if (!inputs.department) {
+        handleError("please choose your department", "department");
+        valid = false;
+      }
     }
     if (!inputs.password) {
       handleError("please enter your password", "password");
@@ -40,60 +80,43 @@ const LoginScreen = ({ navigation }) => {
     }
     return valid;
   };
+
   return (
     <View>
-      <View
-        style={{
-          alignItems: "center",
-        }}
-      >
+      <View style={styles.centerAligment}>
         <Input
-          ref={nameInputRef}
           width="88%"
-          onChangeText={(text) => handleOnChange(text, "name")}
+          onChangeText={(text) => setUsername(text)}
+          value={username}
           onFocus={() => handleError(null, "name")}
           error={errors.name}
           placeholder="Username"
           placeholderTextColor={COLORS.gray2}
           iconName="account-circle-outline"
           iconLibrary="MaterialCommunityIcons"
-        ></Input>
+        />
       </View>
-
-      <View
-        style={{
-          alignItems: "center",
-        }}
-      >
+      <View style={styles.centerAligment}>
         <Input
-          ref={passwordInputRef}
           width="88%"
           placeholder="Password"
           placeholderTextColor={COLORS.gray2}
-          onChangeText={(text) => {
-            handleOnChange(text, "password");
-          }}
+          onChangeText={(text) => setPassword(text)}
+          value={password}
           onFocus={() => handleError(null, "password")}
           error={errors.password}
           password
-        ></Input>
+        />
         <View style={styles.buttonView}>
-          <Button
-            title={"Login"}
-            onPress={() => {
-              if (validate()) {
-                // add auth function here
-                console.log("tamam");
-              } else {
-                console.log("no");
-              }
-            }}
-          ></Button>
+          <Button title={"Login"} onPress={() => LoginPress()}></Button>
         </View>
       </View>
     </View>
   );
 };
+
+export default LoginScreen;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -122,5 +145,7 @@ const styles = StyleSheet.create({
     marginLeft: "32.25%",
     flexDirection: "row",
   },
+  centerAligment: {
+    alignItems: "center",
+  },
 });
-export default LoginScreen;
