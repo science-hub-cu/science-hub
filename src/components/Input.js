@@ -1,25 +1,32 @@
-import React,{forwardRef} from "react";
+import React, { forwardRef } from "react";
 import { View, Text, StyleSheet, Image, TextInput } from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import COLORS from "../constants/colors";
 
-const Input = ({
-  label,
-  iconName,
-  iconLibrary,
-  error,
-  password,
-  onFocus = () => {},
-  imageSource,
-  width = "95%", // Default width is 95%
-  ...props
-},ref) => {
+const Input = (
+  {
+    label,
+    iconName,
+    iconLibrary,
+    error,
+    password,
+    onFocus = () => {},
+    imageSource,
+    width = "95%", // Default width is 95%
+    ...props
+  },
+  ref
+) => {
   const [isFocused, setIsFocused] = React.useState(false);
   const [hidePassword, setHidePassword] = React.useState(true);
 
   let IconComponent = Icon;
   switch (iconLibrary) {
+    case "MaterialCommunityIcons":
+      IconComponent = MaterialCommunityIcons;
+      break;
     case "AntDesign":
       IconComponent = AntDesign;
       break;
@@ -80,7 +87,7 @@ const Input = ({
             name={!hidePassword ? "unlock" : "lock"}
             style={style.iconStyle}
             size={22}
-            color={COLORS.gray2}
+            color={!hidePassword ? COLORS.red : COLORS.green}
           />
         )}
         {imageSource && <Image source={imageSource} style={style.iconStyle} />}
