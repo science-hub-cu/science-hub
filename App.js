@@ -10,6 +10,7 @@ import RetryScreen from "./src/screens/retry";
 import NetInfo from "@react-native-community/netinfo";
 import "./src/config/firebaseConfig";
 import { useFonts } from "expo-font";
+import VerifyScreen from "./src/screens/profileScreens/verifyScreen";
 
 const Stack = createStackNavigator();
 
@@ -47,6 +48,7 @@ const App = () => {
           component={RegistrationScreen}
         />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="VerifyScreen" component={VerifyScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
