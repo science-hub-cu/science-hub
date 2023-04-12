@@ -38,36 +38,33 @@ const AuthScreen = ({ navigation }) => {
     setInputs((prevState) => ({ ...prevState, [input]: text }));
   };
   const resetAll = () => {
-    handleOnChange("", "name");
-    
-    handleOnChange("", "code");
-    handleOnChange("", "password");
-    handleOnChange("", "department");
-    handleOnChange("", "level");
-    handleError(null, "name");
-    handleError(null, "code");
-    handleError(null, "password");
-    handleError(null, "level");
-    handleError(null, "department");
-    if (nameInputRef.current) {
-      nameInputRef.current.clear();
-    }
-    if (codeInputRef.current) {
-      codeInputRef.current.clear();
-    }
-    setKey(0);
-    setValue(0);
-    if (passwordInputRef.current) {
-      passwordInputRef.current.clear();
-    }
+    // handleOnChange("", "name");
+    // handleOnChange("", "code");
+    // handleOnChange("", "password");
+    // handleOnChange("", "department");
+    // handleOnChange("", "level");
+    // handleError(null, "name");
+    // handleError(null, "code");
+    // handleError(null, "password");
+    // handleError(null, "level");
+    // handleError(null, "department");
+    // if (nameInputRef.current) {
+    //   nameInputRef.current.clear();
+    // }
+    // if (codeInputRef.current) {
+    //   codeInputRef.current.clear();
+    // }
+    // setKey(0);
+    // setValue(0);
+    // if (passwordInputRef.current) {
+    //   passwordInputRef.current.clear();
+    // }
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <Text
-          style={styles.headerText}
-        >
+        <Text style={styles.headerText}>
           {isRegister ? "Register" : "Login"}
         </Text>
         <Text
@@ -82,15 +79,11 @@ const AuthScreen = ({ navigation }) => {
         >
           {"  "}By signing in you are agreeing
         </Text>
-        <Text
-          style={styles.text}
-        >
+        <Text style={styles.text}>
           {"  "}our
           <Text style={{ color: COLORS.blue }}> Term and privacy policy</Text>
         </Text>
-        <View
-          style={styles.rowView}
-        >
+        <View style={styles.rowView}>
           <Text
             style={{
               textAlign: "center",
@@ -125,7 +118,7 @@ const AuthScreen = ({ navigation }) => {
             Register
           </Text>
         </View>
-       { isRegister? <RegistrationScreen/>:<LoginScreen/>}
+        {isRegister ? <RegistrationScreen /> : <LoginScreen />}
       </ScrollView>
     </SafeAreaView>
   );

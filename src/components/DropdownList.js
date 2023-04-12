@@ -4,7 +4,16 @@ import COLORS from "../constants/colors";
 import { Dropdown } from "react-native-element-dropdown";
 
 const DropdownList = (
-  { labelField, valueField, placeholder, data, value, onChange, error },
+  {
+    labelField,
+    valueField,
+    placeholder,
+    data,
+    value,
+    onChange,
+    error,
+    onFocus,
+  },
   ref
 ) => {
   return (
@@ -15,9 +24,7 @@ const DropdownList = (
           styles.dropdown,
           {
             borderWidth: 1,
-            borderColor: error
-              ? COLORS.red
-              : COLORS.white,
+            borderColor: error ? COLORS.red : COLORS.white,
           },
         ]}
         placeholderStyle={styles.placeholderStyle}
@@ -30,6 +37,7 @@ const DropdownList = (
         maxHeight={300}
         search={0}
         onChange={onChange}
+        onFocus={onFocus}
         renderItem={(item) => (
           <View style={styles.item}>
             <Text style={styles.textItem}>{item[labelField]}</Text>
