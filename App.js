@@ -9,6 +9,7 @@ import COLORS from "./src/constants/colors";
 import RetryScreen from "./src/screens/retry";
 import NetInfo from "@react-native-community/netinfo";
 import "./src/config/firebaseConfig";
+import { useFonts } from "expo-font";
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,12 @@ const App = () => {
     };
   }, []); // add empty array to run only once
 
+  /******************* Loading resourses **************************/
+  const [fontLoaded] = useFonts({
+    majalla: require("./src/assets/fonts/majalla.ttf"),
+  });
+  if (!fontLoaded) return null;
+
   if (!isNetConnected) {
     return <RetryScreen />;
   }
@@ -34,10 +41,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen
-          name="AuthScreen"
-          component={AuthScreen}
-        />
+        <Stack.Screen name="AuthScreen" component={AuthScreen} />
         <Stack.Screen
           name="RegistrationScreen"
           component={RegistrationScreen}

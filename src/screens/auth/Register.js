@@ -9,19 +9,13 @@ import levels from "../../constants/Levels";
 import Departments from "../../constants/Departments";
 
 const RegistrationScreen = ({ navigation }) => {
-  /********************** states  **********/
+  /********************** states  ***************************/
   const [username, setUsername] = useState("");
   const [code, setCode] = useState("");
   const [password, setPassword] = useState("");
   const [level, setLevel] = useState({ value: null, label: "" });
   const [department, setDepartment] = useState({ key: null, label: "" });
   const [errors, setErrors] = useState({});
-
-  /********** Loading resourses **************/
-  const [fontLoaded] = useFonts({
-    majalla: require("../../assets/fonts/majalla.ttf"),
-  });
-  if (!fontLoaded) return null;
 
   // change to error state if there is error in any field
   const handleError = (errorMessage, input) => {

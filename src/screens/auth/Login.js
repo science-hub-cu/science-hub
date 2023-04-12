@@ -9,15 +9,7 @@ const LoginScreen = ({ navigation }) => {
     name: "",
     password: "",
   });
-  const nameInputRef = useRef(null);
-  const passwordInputRef = useRef(null);
-  const [errors, setErrors] = useState({});
-  const [isRegister, setIsRegister] = useState(true);
-  const [fontLoaded] = useFonts({
-    majalla: require("../../assets/fonts/majalla.ttf"),
-  });
-  if (!fontLoaded) return null;
-  // change to error state if there is error in any field
+
   const handleError = (errorMessage, input) => {
     setErrors((prevState) => ({ ...prevState, [input]: errorMessage }));
   };
