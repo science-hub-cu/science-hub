@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import { StatusBar } from "expo-status-bar";
 import RegistrationScreen from "./src/screens/auth/Register";
+import AuthScreen from "./src/screens/auth/authScreen";
 import HomeScreen from "./src/screens/Home";
 import { StyleSheet, Text, View } from "react-native";
 import COLORS from "./src/constants/colors";
@@ -34,6 +34,10 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen
+          name="AuthScreen"
+          component={AuthScreen}
+        />
         <Stack.Screen
           name="RegistrationScreen"
           component={RegistrationScreen}
