@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import { View, StyleSheet, Keyboard } from "react-native";
 import Button from "../../components/Button";
 import COLORS from "../../constants/colors";
-import { useFonts } from "expo-font";
 import Input from "../../components/Input";
 import DropdownList from "../../components/DropdownList";
 import levels from "../../constants/Levels";
@@ -30,7 +29,6 @@ const RegistrationScreen = ({ navigation }) => {
       department: department.label,
     };
     console.log(user);
-    resetForm();
     if (validate()) {
       // add auth function here
       console.log("tamam");
@@ -38,15 +36,6 @@ const RegistrationScreen = ({ navigation }) => {
       console.log("no");
     }
   };
-
-  const resetForm = () => {
-    setUsername("");
-    setCode("");
-    setPassword("");
-    setLevel({ value: null, label: "" });
-    setDepartment({ key: null, label: "" });
-  };
-
   const validate = () => {
     Keyboard.dismiss();
     let valid = true;

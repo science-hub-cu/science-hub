@@ -1,20 +1,13 @@
-import React, { useState, useRef } from "react";
+import React, { useState} from "react";
 import { View, StyleSheet, Keyboard } from "react-native";
 import Button from "../../components/Button";
 import COLORS from "../../constants/colors";
-import { useFonts } from "expo-font";
 import Input from "../../components/Input";
-import DropdownList from "../../components/DropdownList";
-import levels from "../../constants/Levels";
-import Departments from "../../constants/Departments";
 
 const LoginScreen = ({ navigation }) => {
   /********************** states  ***************************/
   const [username, setUsername] = useState("");
-  const [code, setCode] = useState("");
   const [password, setPassword] = useState("");
-  const [level, setLevel] = useState({ value: null, label: "" });
-  const [department, setDepartment] = useState({ key: null, label: "" });
   const [errors, setErrors] = useState({});
 
   // change to error state if there is error in any field
@@ -34,12 +27,6 @@ const LoginScreen = ({ navigation }) => {
       console.log("no");
     }
   };
-
-  const resetForm = () => {
-    setUsername("");
-    setPassword("");
-  };
-
   const validate = () => {
     Keyboard.dismiss();
     let valid = true;
