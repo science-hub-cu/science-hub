@@ -15,6 +15,7 @@ const Input = (
     onFocus = () => {},
     imageSource,
     width = "95%", // Default width is 95%
+    fontSize = 20,
     ...props
   },
   ref
@@ -58,7 +59,7 @@ const Input = (
         <TextInput
           ref={ref}
           secureTextEntry={password && hidePassword}
-          style={style.textInputStyle}
+          style={[style.textInputStyle, { fontSize: fontSize }]}
           autoCorrect={false}
           onFocus={() => {
             onFocus();
@@ -87,7 +88,7 @@ const Input = (
             name={!hidePassword ? "unlock" : "lock"}
             style={style.iconStyle}
             size={22}
-            color={!hidePassword ? COLORS.red : COLORS.green}
+            color={!hidePassword ? COLORS.white : COLORS.white}
           />
         )}
         {imageSource && <Image source={imageSource} style={style.iconStyle} />}
@@ -108,7 +109,6 @@ const style = StyleSheet.create({
     borderWidth: 0.5,
     alignItems: "center",
     borderRadius: 9,
-    marginHorizontal: 10,
   },
   iconStyle: {
     marginRight: 10,
