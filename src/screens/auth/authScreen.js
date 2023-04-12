@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import { Text, StyleSheet, View, Keyboard } from "react-native";
+import React, { useState } from "react";
+import { Text, StyleSheet, View} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import COLORS from "../../constants/colors";
 import { ScrollView } from "react-native-gesture-handler";

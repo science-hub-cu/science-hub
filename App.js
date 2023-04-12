@@ -4,7 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import RegistrationScreen from "./src/screens/auth/Register";
 import AuthScreen from "./src/screens/auth/authScreen";
 import HomeScreen from "./src/screens/Home";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet} from "react-native";
 import COLORS from "./src/constants/colors";
 import RetryScreen from "./src/screens/retry";
 import NetInfo from "@react-native-community/netinfo";
