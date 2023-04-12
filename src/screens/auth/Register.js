@@ -6,6 +6,10 @@ import Input from "../../components/Input";
 import DropdownList from "../../components/DropdownList";
 import levels from "../../constants/Levels";
 import Departments from "../../constants/Departments";
+import {
+  signUpValidation,
+  disappearError,
+} from "../../validations/SignUpValidation";
 
 const RegistrationScreen = ({ navigation }) => {
   /********************** states  ***************************/
@@ -15,11 +19,6 @@ const RegistrationScreen = ({ navigation }) => {
   const [level, setLevel] = useState({ value: null, label: "" });
   const [department, setDepartment] = useState({ key: null, label: "" });
   const [errors, setErrors] = useState({});
-
-  // change to error state if there is error in any field
-  const handleError = (errorMessage, input) => {
-    setErrors((prevState) => ({ ...prevState, [input]: errorMessage }));
-  };
   const registerPress = () => {
     let user = {
       username,
@@ -29,54 +28,18 @@ const RegistrationScreen = ({ navigation }) => {
       department: department.label,
     };
     console.log(user);
-    if (validate()) {
+    if (
+      signUpValidation(
+        { username, code, password, level, department },
+        setErrors
+      )
+    ) {
       // add auth function here
       console.log("tamam");
     } else {
       console.log("no");
     }
   };
-  const validate = () => {
-    Keyboard.dismiss();
-    let valid = true;
-    return valid;
-    if (inputs.name === "") {
-      handleError("please enter your name", "name");
-      valid = false;
-    } else if (!inputs.name.match(/^[A-Za-z]+$/)) {
-      handleError("your name should contains only letters", "name");
-      valid = false;
-    }
-    if (isRegister) {
-      if (!inputs.code) {
-        handleError("please enter your code", "code");
-        valid = false;
-      } else if (!inputs.code.match(/^[0-9]+$/)) {
-        handleError("please enter valid code", "code");
-        valid = false;
-      } else if (inputs.code.length != 7) {
-        handleError("the code must be 7 numbers", "code");
-        valid = false;
-      }
-      if (!inputs.level) {
-        handleError("please choose your level", "level");
-        valid = false;
-      }
-      if (!inputs.department) {
-        handleError("please choose your department", "department");
-        valid = false;
-      }
-    }
-    if (!inputs.password) {
-      handleError("please enter your password", "password");
-      valid = false;
-    } else if (inputs.password.length < 6) {
-      handleError("password is to small", "password");
-      valid = false;
-    }
-    return valid;
-  };
-
   return (
     <View>
       <View style={styles.centerAligment}>
@@ -84,8 +47,8 @@ const RegistrationScreen = ({ navigation }) => {
           width="88%"
           onChangeText={(text) => setUsername(text)}
           value={username}
-          onFocus={() => handleError(null, "name")}
-          error={errors.name}
+          onFocus={() => disappearError("username", errors, setErrors)}
+          error={errors.username}
           placeholder="Username"
           placeholderTextColor={COLORS.gray2}
           iconName="account-circle-outline"
@@ -95,7 +58,7 @@ const RegistrationScreen = ({ navigation }) => {
           width="88%"
           onChangeText={(text) => setCode(text)}
           value={code}
-          onFocus={() => handleError(null, "code")}
+          onFocus={() => disappearError("code", errors, setErrors)}
           error={errors.code}
           keyboardType="numeric"
           placeholder="Code"
@@ -111,7 +74,7 @@ const RegistrationScreen = ({ navigation }) => {
         placeholder={"Level..."}
         value={level.value}
         error={errors.level}
-        onFocus={() => handleError(null, "level")}
+        onFocus={() => disappearError("level", errors, setErrors)}
         onChange={(item) => setLevel(item)}
       />
       <DropdownList
@@ -121,7 +84,7 @@ const RegistrationScreen = ({ navigation }) => {
         placeholder={"Department..."}
         value={department.key}
         error={errors.department}
-        onFocus={() => handleError(null, "department")}
+        onFocus={() => disappearError("department", errors, setErrors)}
         onChange={(item) => setDepartment(item)}
       />
       <View style={styles.centerAligment}>
@@ -131,7 +94,7 @@ const RegistrationScreen = ({ navigation }) => {
           placeholderTextColor={COLORS.gray2}
           onChangeText={(text) => setPassword(text)}
           value={password}
-          onFocus={() => handleError(null, "password")}
+          onFocus={() => disappearError("password", errors, setErrors)}
           error={errors.password}
           password
         />
