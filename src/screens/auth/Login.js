@@ -3,12 +3,9 @@ import { View, StyleSheet, Keyboard } from "react-native";
 import Button from "../../components/Button";
 import COLORS from "../../constants/colors";
 import Input from "../../components/Input";
-import DropdownList from "../../components/DropdownList";
-import levels from "../../constants/Levels";
-import Departments from "../../constants/Departments";
 import { signInValidation,disappearError } from "../../validations/SignInValidation";
 
-const RegistrationScreen = ({ navigation }) => {
+const LoginScreen = ({ navigation }) => {
   /********************** states  ***************************/
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
