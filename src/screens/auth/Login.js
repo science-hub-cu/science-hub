@@ -3,7 +3,10 @@ import { View, StyleSheet, Keyboard } from "react-native";
 import Button from "../../components/Button";
 import COLORS from "../../constants/colors";
 import Input from "../../components/Input";
-import { signInValidation,disappearError } from "../../validations/SignInValidation";
+import {
+  signInValidation,
+  disappearError,
+} from "../../validations/SignInValidation";
 
 const LoginScreen = ({ navigation }) => {
   /********************** states  ***************************/
@@ -16,12 +19,7 @@ const LoginScreen = ({ navigation }) => {
       password,
     };
     console.log(user);
-    if (
-      signInValidation(
-        { username,password},
-        setErrors
-      )
-    ) {
+    if (signInValidation({ username, password }, setErrors)) {
       // add auth function here
       console.log("tamam");
     } else {
@@ -55,7 +53,11 @@ const LoginScreen = ({ navigation }) => {
           password
         />
         <View style={styles.buttonView}>
-          <Button title={"Login"} onPress={() => LoginPress()}></Button>
+          <Button
+            width="100%"
+            title={"Login"}
+            onPress={() => LoginPress()}
+          ></Button>
         </View>
       </View>
     </View>
