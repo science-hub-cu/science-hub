@@ -15,7 +15,7 @@ const Input = (
     onFocus = () => {},
     imageSource,
     width = "95%", // Default width is 95%
-    fontSize = 20,
+    fontSize = 16,
     ...props
   },
   ref

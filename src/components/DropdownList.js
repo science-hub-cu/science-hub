@@ -74,15 +74,15 @@ const styles = StyleSheet.create({
   },
   textItem: {
     flex: 1,
-    fontSize: 20,
+    fontSize: 16,
     color: COLORS.white,
   },
   placeholderStyle: {
-    fontSize: 20,
+    fontSize: 16,
     color: COLORS.gray2,
   },
   selectedTextStyle: {
-    fontSize: 20,
+    fontSize: 16,
     color: COLORS.white,
   },
   errors: {
