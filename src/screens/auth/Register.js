@@ -99,7 +99,11 @@ const RegistrationScreen = ({ navigation }) => {
           password
         />
         <View style={styles.buttonView}>
-          <Button title={"Register"} onPress={() => registerPress()}></Button>
+          <Button
+            width="100%"
+            title={"Register"}
+            onPress={() => registerPress()}
+          ></Button>
         </View>
       </View>
     </View>
