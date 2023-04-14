@@ -69,7 +69,7 @@ const LoginScreen = ({ navigation, state }) => {
           <Button
             width="100%"
             title={"Login"}
-            onPress={() => LoginPress()}
+            onPress={() => loginPress()}
           ></Button>
         </View>
       </View>
