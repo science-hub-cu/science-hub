@@ -10,8 +10,8 @@ import {
   signUpValidation,
   disappearError,
 } from "../../validations/SignUpValidation";
-
-const RegistrationScreen = ({ navigation }) => {
+ 
+const RegistrationScreen = ({ navigation, state }) => {
   /********************** states  ***************************/
   const [username, setUsername] = useState("");
   const [code, setCode] = useState("");
@@ -19,6 +19,17 @@ const RegistrationScreen = ({ navigation }) => {
   const [level, setLevel] = useState({ value: null, label: "" });
   const [department, setDepartment] = useState({ key: null, label: "" });
   const [errors, setErrors] = useState({});
+  
+  /****************  reset data when hide ***************/
+  if (state === "hide") {
+    if (username !== "") setUsername("");
+    if (code !== "") setCode("");
+    if (level.value !== null) level.value = null;
+    if (department.key !== null) department.key = null;
+    if (password !== "") setPassword("");
+    if (Object.keys(errors).length !== 0) setErrors({});
+  }
+ 
   const registerPress = () => {
     let user = {
       username,
@@ -66,7 +77,7 @@ const RegistrationScreen = ({ navigation }) => {
           iconName="hash"
         />
       </View>
-
+ 
       <DropdownList
         data={levels}
         labelField={"label"}
@@ -99,19 +110,15 @@ const RegistrationScreen = ({ navigation }) => {
           password
         />
         <View style={styles.buttonView}>
-          <Button
-            width="100%"
-            title={"Register"}
-            onPress={() => registerPress()}
-          ></Button>
+          <Button title={"Register"} onPress={() => registerPress()}></Button>
         </View>
       </View>
     </View>
   );
 };
-
+ 
 export default RegistrationScreen;
-
+ 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
