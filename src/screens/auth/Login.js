@@ -1,25 +1,38 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Keyboard } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Button from "../../components/Button";
 import COLORS from "../../constants/colors";
 import Input from "../../components/Input";
-import {
-  signInValidation,
-  disappearError,
-} from "../../validations/SignInValidation";
+import { signInValidation } from "../../validations/SignInValidation";
+import { disappearError } from "../../utils/uiHelper";
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = ({ navigation, state }) => {
   /********************** states  ***************************/
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const LoginPress = () => {
+
+  /****************  reset data when hide ***************/
+  if (state === "hide") {
+    if (username !== "") setUsername("");
+    if (password !== "") setPassword("");
+    if (Object.keys(errors).length !== 0) setErrors({});
+  }
+
+  const loginPress = () => {
     let user = {
       username,
       password,
     };
     console.log(user);
-    if (signInValidation({ username, password }, setErrors)) {
+    if (
+      signInValidation({ username, password }, (error) => {
+        setErrors((prevState) => ({
+          ...prevState,
+          ...error,
+        }));
+      })
+    ) {
       // add auth function here
       console.log("tamam");
     } else {
