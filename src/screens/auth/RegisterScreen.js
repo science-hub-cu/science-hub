@@ -1,16 +1,14 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Keyboard } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Button from "../../components/Button";
 import COLORS from "../../constants/colors";
 import Input from "../../components/Input";
 import DropdownList from "../../components/DropdownList";
 import levels from "../../constants/Levels";
 import Departments from "../../constants/Departments";
-import {
-  signUpValidation,
-  disappearError,
-} from "../../validations/SignUpValidation";
- 
+import { signUpValidation } from "../../validations/SignUpValidation";
+import { disappearError } from "../../utils/uiHelper";
+
 const RegistrationScreen = ({ navigation, state }) => {
   /********************** states  ***************************/
   const [username, setUsername] = useState("");
@@ -19,17 +17,17 @@ const RegistrationScreen = ({ navigation, state }) => {
   const [level, setLevel] = useState({ value: null, label: "" });
   const [department, setDepartment] = useState({ key: null, label: "" });
   const [errors, setErrors] = useState({});
-  
+
   /****************  reset data when hide ***************/
   if (state === "hide") {
     if (username !== "") setUsername("");
     if (code !== "") setCode("");
-    if (level.value !== null) level.value = null;
-    if (department.key !== null) department.key = null;
+    if (level.value !== null) setLevel({ value: null, label: "" });
+    if (department.key !== null) setDepartment({ key: null, label: "" });
     if (password !== "") setPassword("");
     if (Object.keys(errors).length !== 0) setErrors({});
   }
- 
+
   const registerPress = () => {
     let user = {
       username,
@@ -42,7 +40,12 @@ const RegistrationScreen = ({ navigation, state }) => {
     if (
       signUpValidation(
         { username, code, password, level, department },
-        setErrors
+        (error) => {
+          setErrors((prevState) => ({
+            ...prevState,
+            ...error,
+          }));
+        }
       )
     ) {
       // add auth function here
@@ -77,7 +80,7 @@ const RegistrationScreen = ({ navigation, state }) => {
           iconName="hash"
         />
       </View>
- 
+
       <DropdownList
         data={levels}
         labelField={"label"}
@@ -116,9 +119,9 @@ const RegistrationScreen = ({ navigation, state }) => {
     </View>
   );
 };
- 
+
 export default RegistrationScreen;
- 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
