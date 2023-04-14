@@ -14,28 +14,30 @@ import { ScrollView, Directions } from "react-native-gesture-handler";
 import COLORS from "../../constants/colors";
 import RegistrationScreen from "./Register";
 import LoginScreen from "./Login";
-
+ 
 const screenWidth = Dimensions.get("window").width;
-
+ 
 const AuthScreen = ({ navigation }) => {
   const [isRegister, setIsRegister] = useState(false);
-
+ 
   const { width, height } = Dimensions.get("window");
-
-  const [sliderLocation, setSliderLocation] = useState(0);
-
+ 
+  const [sliderLocation, setSliderLocation] = useState(width * (25 / 100));
+ 
+  const scrollRef = useRef(null);
+ 
   const setSliderPage = (event) => {
     const { x } = event.nativeEvent.contentOffset;
-    const max = (width * 40) / 100;
-    let v = (x * 40) / 100;
-
-    setIsRegister(v >= max / 2 ? 1 : 0);
-
+    const max = (2*width) * (25 / 100);
+    let v = (x + width) * (25 / 100);
+ 
+    setIsRegister(x >= width / 2 ? 1 : 0);
+ 
     setSliderLocation(Math.min(max, Math.round(v)));
-    console.log(v);
-    console.log(max);
+    //console.log(v);
+    // console.log(max);
   };
-
+ 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -68,33 +70,41 @@ const AuthScreen = ({ navigation }) => {
           <View style={styles.rowView}>
             <Text
               style={{
+                flex: 1,
                 textAlign: "center",
                 color: isRegister ? COLORS.white : COLORS.blue,
                 fontFamily: "majalla",
                 fontSize: 25,
+              }}
+              onPress={() => {
+                scrollRef.current.scrollTo({ x: 0 });
               }}
             >
               Login
             </Text>
             <Text
               style={{
+                flex: 1,
                 textAlign: "center",
                 color: isRegister ? COLORS.blue : COLORS.white,
                 fontFamily: "majalla",
                 fontSize: 25,
-                marginLeft: "10%",
+              }}
+              onPress={() => {
+                scrollRef.current.scrollTo({ x: width });
               }}
             >
               Register
             </Text>
           </View>
-          <View style={{ alignItems: "center" }}>
+          <View>
             <View
               style={[styles.paginationDots, { marginLeft: sliderLocation }]}
             />
           </View>
-
+ 
           <ScrollView
+            ref={scrollRef}
             style={{ flex: 1 }}
             horizontal={true}
             scrollEventThrottle={16}
@@ -107,7 +117,7 @@ const AuthScreen = ({ navigation }) => {
               <LoginScreen />
             </View>
             <View style={{ width: screenWidth }}>
-              <RegistrationScreen />
+              <RegistrationScreen state={isRegister?"show":"hide"} />
             </View>
           </ScrollView>
         </View>
@@ -115,7 +125,7 @@ const AuthScreen = ({ navigation }) => {
     </SafeAreaView>
   );
 };
-
+ 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -140,13 +150,14 @@ const styles = StyleSheet.create({
   },
   rowView: {
     paddingTop: 15,
-    marginLeft: "32.25%",
+    marginLeft: "25%",
     flexDirection: "row",
+    width: "50%",
+    justifyContent: "space-around",
   },
   paginationDots: {
-    marginRight: "25%",
     height: 2,
-    width: "18%",
+    width: "25%",
     backgroundColor: "#fff",
   },
 });
