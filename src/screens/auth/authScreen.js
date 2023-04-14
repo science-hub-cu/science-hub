@@ -12,8 +12,8 @@ import { PanGestureHandler } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScrollView, Directions } from "react-native-gesture-handler";
 import COLORS from "../../constants/colors";
-import RegistrationScreen from "./Register";
-import LoginScreen from "./Login";
+import RegistrationScreen from "./RegisterScreen";
+import LoginScreen from "./LoginScreen";
  
 const screenWidth = Dimensions.get("window").width;
  
@@ -34,8 +34,6 @@ const AuthScreen = ({ navigation }) => {
     setIsRegister(x >= width / 2 ? 1 : 0);
  
     setSliderLocation(Math.min(max, Math.round(v)));
-    //console.log(v);
-    // console.log(max);
   };
  
   return (

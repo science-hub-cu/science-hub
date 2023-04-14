@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import RegistrationScreen from "./src/screens/auth/Register";
+import RegistrationScreen from "./src/screens/auth/RegisterScreen"
 import AuthScreen from "./src/screens/auth/authScreen";
 import HomeScreen from "./src/screens/Home";
 import { StyleSheet} from "react-native";
