@@ -114,7 +114,7 @@ const AuthScreen = ({ navigation }) => {
             onScroll={setSliderPage}
           >
             <View style={{ width: screenWidth }}>
-              <LoginScreen />
+              <LoginScreen state={isRegister?"hide":"show"} />
             </View>
             <View style={{ width: screenWidth }}>
               <RegistrationScreen state={isRegister?"show":"hide"} />
