@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import RegistrationScreen from "./src/screens/auth/RegisterScreen"
+import RegistrationScreen from "./src/screens/auth/RegisterScreen";
 import AuthScreen from "./src/screens/auth/authScreen";
 import HomeScreen from "./src/screens/Home";
-import { StyleSheet} from "react-native";
+import { StyleSheet } from "react-native";
 import COLORS from "./src/constants/colors";
 import RetryScreen from "./src/screens/retry";
 import NetInfo from "@react-native-community/netinfo";
 import "./src/config/firebaseConfig";
 import { useFonts } from "expo-font";
 import VerifyScreen from "./src/screens/profileScreens/verifyScreen";
+import { onAuthStateChanged } from "@firebase/auth";
+import { getAuth } from "@firebase/auth";
 
 const Stack = createStackNavigator();
 
@@ -38,6 +40,11 @@ const App = () => {
   if (!isNetConnected) {
     return <RetryScreen />;
   }
+
+  onAuthStateChanged(getAuth(), (user) => {
+    console.log("-------Auth changed-----");
+    console.log(user);
+  });
 
   return (
     <NavigationContainer>

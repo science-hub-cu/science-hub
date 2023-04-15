@@ -8,6 +8,7 @@ import levels from "../../constants/Levels";
 import Departments from "../../constants/Departments";
 import { signUpValidation } from "../../validations/SignUpValidation";
 import { disappearError } from "../../utils/uiHelper";
+import UserService from "../../services/UserService";
 
 const RegistrationScreen = ({ navigation, state }) => {
   /********************** states  ***************************/
@@ -28,7 +29,16 @@ const RegistrationScreen = ({ navigation, state }) => {
     if (Object.keys(errors).length !== 0) setErrors({});
   }
 
-  const registerPress = () => {
+  const addError = (error) => {
+    setErrors((prevState) => ({
+      ...prevState,
+      ...error,
+    }));
+  };
+
+  /****************** ********************/
+
+  const registerPress = async () => {
     let user = {
       username,
       code,
@@ -36,20 +46,9 @@ const RegistrationScreen = ({ navigation, state }) => {
       level: level.label,
       department: department.label,
     };
-    console.log(user);
-    if (
-      signUpValidation(
-        { username, code, password, level, department },
-        (error) => {
-          setErrors((prevState) => ({
-            ...prevState,
-            ...error,
-          }));
-        }
-      )
-    ) {
-      // add auth function here
-      console.log("tamam");
+    // console.log(user);
+    if (signUpValidation(user, addError)) {
+      await UserService.registerNewUser(user).catch(console.log);
     } else {
       console.log("no");
     }

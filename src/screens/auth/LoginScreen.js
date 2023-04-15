@@ -5,6 +5,8 @@ import COLORS from "../../constants/colors";
 import Input from "../../components/Input";
 import { signInValidation } from "../../validations/SignInValidation";
 import { disappearError } from "../../utils/uiHelper";
+import UserService from "../../services/UserService";
+import { getAuth } from "@firebase/auth";
 
 const LoginScreen = ({ navigation, state }) => {
   /********************** states  ***************************/
@@ -19,24 +21,23 @@ const LoginScreen = ({ navigation, state }) => {
     if (Object.keys(errors).length !== 0) setErrors({});
   }
 
-  const loginPress = () => {
+  const addError = (error) => {
+    setErrors((prevState) => ({
+      ...prevState,
+      ...error,
+    }));
+  };
+
+  /**************** *******************************/
+
+  const loginPress = async () => {
     let user = {
       username,
       password,
     };
-    console.log(user);
-    if (
-      signInValidation({ username, password }, (error) => {
-        setErrors((prevState) => ({
-          ...prevState,
-          ...error,
-        }));
-      })
-    ) {
-      // add auth function here
-      console.log("tamam");
-    } else {
-      console.log("no");
+
+    if (signInValidation(user, addError)) {
+      await UserService.signInUser(username, password).catch(console.log);
     }
   };
   return (
