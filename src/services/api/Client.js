@@ -1,3 +1,8 @@
+/*** Client class
+ * @description class has static methods that work with API
+ * @author Mahmoud Atef
+ */
+
 import axios from "axios";
 
 export default class Client {
