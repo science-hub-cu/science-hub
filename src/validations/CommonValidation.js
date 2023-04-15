@@ -5,10 +5,10 @@ export const isValidUserName = (username) => {
   return username !== "" && username.match(/^[A-Za-z]+$/);
 };
 export const isValidLevel = (level) => {
-  return level.label;
+  return level !== undefined && level !== "";
 };
 export const isValidDepartment = (department) => {
-  return department.label;
+  return department !== undefined && department !== "";
 };
 export const isValidPassword = (password) => {
   return password !== undefined && password.length > 6;
