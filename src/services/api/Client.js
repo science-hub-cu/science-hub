@@ -14,20 +14,19 @@ export default class Client {
     return {
       AUTH_USER: "/auth",
       USER_ROUTE: "/user",
+      VERIFY_USER: "/user/verify",
     };
   }
 
   static async sendPostRequest(endPoint, body, authUser) {
     try {
-      const header = authUser
+      const headers = authUser
         ? { "auth-token": await authUser.getIdToken(/* forceRefresh */ true) }
         : {};
 
-      const response = await axios.post(
-        Client.endPointToUrl(endPoint),
-        body,
-        header
-      );
+      const response = await axios.post(Client.endPointToUrl(endPoint), body, {
+        headers,
+      });
       return response.data;
     } catch (error) {
       throw error;
