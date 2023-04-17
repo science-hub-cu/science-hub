@@ -15,12 +15,11 @@ const MyDrawer = () => {
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
-
         drawerStyle: {
           width: "85%",
           backgroundColor: COLORS.navBarBackground,
-          
         },
+        drawerType:"slide"
       }}
     >
       <Drawer.Screen name="HomeScreen" component={HomeScreen} />
