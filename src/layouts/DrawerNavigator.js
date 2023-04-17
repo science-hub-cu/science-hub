@@ -1,6 +1,7 @@
 import React from "react";
 import { View, SafeAreaView, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import Animated from "react-native-reanimated";
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -12,32 +13,37 @@ const Drawer = createDrawerNavigator();
 const MyDrawer = () => {
   return (
     <Drawer.Navigator
-      drawerContent={CustomDrawerContent}
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
-        headerShown: false,
+
         drawerStyle: {
           width: "85%",
+          backgroundColor: COLORS.navBarBackground,
+          
         },
       }}
     >
       <Drawer.Screen name="HomeScreen" component={HomeScreen} />
     </Drawer.Navigator>
   );
-  
 };
-const CustomDrawerContent=(props)=> {
+const CustomDrawerContent = (props) => {
   return (
     <DrawerContentScrollView
       {...props}
-      style={{ backgroundColor: COLORS.navBarBackground }}
+      
     >
       <View style={{ flexDirection: "row" }}>
-        <Ionicons name="notifications" size={32} style={{color:COLORS.white,marginTop:"2%"}} />
+        <Ionicons
+          name="notifications"
+          size={32}
+          style={{ color: COLORS.white, marginTop: "2%" }}
+        />
         <Text style={styles.title}>Notifications</Text>
       </View>
     </DrawerContentScrollView>
   );
-}
+};
 const styles = StyleSheet.create({
   title: {
     color: COLORS.white,
