@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import RegistrationScreen from "./src/screens/auth/RegisterScreen";
 import AuthScreen from "./src/screens/auth/authScreen";
 import HomeScreen from "./src/screens/Home";
 import { StyleSheet } from "react-native";
@@ -13,12 +12,33 @@ import { useFonts } from "expo-font";
 import VerifyScreen from "./src/screens/profileScreens/verifyScreen";
 import { onAuthStateChanged } from "@firebase/auth";
 import { getAuth } from "@firebase/auth";
+import { AuthContext, AuthContextProvider } from "./src/context/AuthContext";
+import ROUTES from "./src/constants/routes";
+import { useContext } from "react";
 
 const Stack = createStackNavigator();
 
+const NotAuthedStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name={ROUTES.AUTH_ROUTE} component={AuthScreen} />
+    </Stack.Navigator>
+  );
+};
+
+const AuthedStack = () => {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name={ROUTES.VERIFY_ROUTE} component={VerifyScreen} />
+      <Stack.Screen name={ROUTES.HOME_ROUTE} component={HomeScreen} />
+    </Stack.Navigator>
+  );
+};
+
 const App = () => {
   const [isNetConnected, setIsNetConnected] = useState(false);
-
+  // const { signIn, sigOut, user } = useContext(AuthContext);
+  const [user, setUser] = useState(null);
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state) => {
       console.log("Connection type", state.type);
@@ -44,20 +64,17 @@ const App = () => {
   onAuthStateChanged(getAuth(), (user) => {
     console.log("-------Auth changed-----");
     console.log(user);
+    setUser(user);
+    // if (user) setUser(user);
+    // else sigOut();
   });
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="AuthScreen" component={AuthScreen} />
-        <Stack.Screen
-          name="RegistrationScreen"
-          component={RegistrationScreen}
-        />
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
-        <Stack.Screen name="VerifyScreen" component={VerifyScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <AuthContext.Provider value={{ user }}>
+      <NavigationContainer>
+        {user ? <AuthedStack /> : <NotAuthedStack />}
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 };
 
