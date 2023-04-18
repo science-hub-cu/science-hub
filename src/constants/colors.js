@@ -14,8 +14,10 @@ const COLORS = {
   gray2: "#808080",
   starActive: "#EFDE44",
   upvote: "#1120C5",
-  navbar: "#201D1D",
   green: "#20771E",
   load: "#ccc",
+  blue1: "#5865F2",
+  gray1: "#A7A7A7",
+  graish: "#44464A",
 };
 export default COLORS;
