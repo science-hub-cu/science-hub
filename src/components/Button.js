@@ -1,13 +1,13 @@
 import React from "react";
 import { TouchableOpacity, Text } from "react-native";
 import COLORS from "../constants/colors";
-const Button = ({ title, onPress = () => {}, width = "88%" }) => {
+const Button = ({ title, onPress = () => {}, width = "88%", marginTop = 20, fontSize= 16 }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
       onPress={onPress}
       style={{
-        marginTop: 20,
+        marginTop: marginTop,
         height: 50,
         width: width,
         backgroundColor: COLORS.blue,
@@ -20,7 +20,7 @@ const Button = ({ title, onPress = () => {}, width = "88%" }) => {
         style={{
           color: COLORS.white,
           fontWeight: "bold",
-          fontSize: 16,
+          fontSize: fontSize,
           textAlign: "center",
         }}
       >
