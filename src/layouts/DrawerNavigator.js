@@ -10,8 +10,9 @@ import {
 } from "@react-navigation/drawer";
 import COLORS from "../constants/colors";
 import HomeScreen from "../screens/Home";
-const Drawer = createDrawerNavigator();
-const MyDrawer = () => {
+import VerifyScreen from "../screens/profileScreens/verifyScreen";
+export const Drawer = createDrawerNavigator();
+export const CustomizedDrawer = ({ children }) => {
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawerContent {...props} />}
@@ -25,15 +26,15 @@ const MyDrawer = () => {
         drawerType: "slide",
       }}
     >
-      <Drawer.Screen name="HomeScreen" component={HomeScreen} />
+      {children}
     </Drawer.Navigator>
   );
 };
 const CustomDrawerContent = (props) => {
-      const [fontLoaded] = useFonts({
-        Trebuchet: require("../assets/fonts/trebuc.ttf"),
-      });
-      if (!fontLoaded) return null;
+  const [fontLoaded] = useFonts({
+    Trebuchet: require("../assets/fonts/trebuc.ttf"),
+  });
+  if (!fontLoaded) return null;
   return (
     <DrawerContentScrollView {...props}>
       <View
@@ -61,4 +62,4 @@ const styles = StyleSheet.create({
     fontFamily: "Trebuchet",
   },
 });
-export default MyDrawer;
+// export default CustomizedDrawer;

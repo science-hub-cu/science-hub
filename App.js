@@ -10,11 +10,13 @@ import NetInfo from "@react-native-community/netinfo";
 import "./src/config/firebaseConfig";
 import { useFonts } from "expo-font";
 import VerifyScreen from "./src/screens/profileScreens/verifyScreen";
+import Profile from "./src/screens/profile/Profile";
 import { onAuthStateChanged } from "@firebase/auth";
 import { getAuth } from "@firebase/auth";
 import { AuthContext, AuthContextProvider } from "./src/context/AuthContext";
 import ROUTES from "./src/constants/routes";
 import { useContext } from "react";
+import { CustomizedDrawer, Drawer } from "./src/layouts/DrawerNavigator";
 
 const Stack = createStackNavigator();
 
@@ -28,10 +30,15 @@ const NotAuthedStack = () => {
 
 const AuthedStack = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name={ROUTES.VERIFY_ROUTE} component={VerifyScreen} />
-      <Stack.Screen name={ROUTES.HOME_ROUTE} component={HomeScreen} />
-    </Stack.Navigator>
+    <CustomizedDrawer>
+      <Drawer.Screen name={ROUTES.HOME_ROUTE} component={HomeScreen} />
+      <Drawer.Screen
+        name={ROUTES.VERIFY_ROUTE}
+        component={VerifyScreen}
+        screenOptions={{ headerShown: false }}
+      />
+      <Drawer.Screen name={ROUTES.PROFILE_ROUTE} component={Profile} />
+    </CustomizedDrawer>
   );
 };
 
@@ -54,6 +61,7 @@ const App = () => {
   /******************* Loading resourses **************************/
   const [fontLoaded] = useFonts({
     majalla: require("./src/assets/fonts/majalla.ttf"),
+    Trebuchet: require("./src/assets/fonts/Trebuchet-MS-Italic.ttf"),
   });
   if (!fontLoaded) return null;
 
