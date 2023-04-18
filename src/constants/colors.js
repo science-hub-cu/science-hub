@@ -16,5 +16,6 @@ const COLORS = {
   upvote: "#1120C5",
   navbar: "#201D1D",
   green: "#20771E",
+  load: "#ccc",
 };
 export default COLORS;
