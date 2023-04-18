@@ -9,6 +9,8 @@ import Departments from "../../constants/Departments";
 import { signUpValidation } from "../../validations/SignUpValidation";
 import { disappearError } from "../../utils/uiHelper";
 import UserService from "../../services/UserService";
+import { useRef } from "react";
+import LoadingButton from "../../components/loadingButton";
 
 const RegistrationScreen = ({ navigation, state }) => {
   /********************** states  ***************************/
@@ -18,7 +20,7 @@ const RegistrationScreen = ({ navigation, state }) => {
   const [level, setLevel] = useState({ value: null, label: "" });
   const [department, setDepartment] = useState({ key: null, label: "" });
   const [errors, setErrors] = useState({});
-
+  const btnRef = useRef(null);
   /****************  reset data when hide ***************/
   if (state === "hide") {
     if (username !== "") setUsername("");
@@ -39,18 +41,29 @@ const RegistrationScreen = ({ navigation, state }) => {
   /****************** ********************/
 
   const registerPress = async () => {
-    let user = {
-      username,
-      code,
-      password,
-      level: level.label,
-      department: department.label,
-    };
-    // console.log(user);
-    if (signUpValidation(user, addError)) {
-      await UserService.registerNewUser(user).catch(console.log);
-    } else {
-      console.log("no");
+    try {
+      let user = {
+        username,
+        code,
+        password,
+        level: level.label,
+        department: department.label,
+      };
+      // console.log(user);
+      if (signUpValidation(user, addError))
+        await UserService.registerNewUser(user);
+    } catch (error) {
+      console.log(error);
+      if (error.response && error.response.status === 400) {
+        error.response.data.errors.forEach((element) => {
+          let er = {};
+          er[element.param] = element.msg;
+          addError(er);
+          // console.log(element);
+        });
+      }
+    } finally {
+      btnRef.current?.setLoading(false);
     }
   };
   return (
@@ -112,7 +125,12 @@ const RegistrationScreen = ({ navigation, state }) => {
           password
         />
         <View style={styles.buttonView}>
-          <Button title={"Register"} onPress={() => registerPress()}></Button>
+          <LoadingButton
+            ref={btnRef}
+            title={"Register"}
+            onPress={() => registerPress()}
+            width="100%"
+          ></LoadingButton>
         </View>
       </View>
     </View>
@@ -141,8 +159,10 @@ const styles = StyleSheet.create({
   },
   buttonView: {
     paddingTop: 5,
+    marginBottom: 20,
     alignItems: "center",
     width: "88%",
+    marginTop: 10,
   },
   rowView: {
     paddingTop: "10%",
