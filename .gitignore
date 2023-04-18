@@ -17,7 +17,5 @@ web-build/
 .metro-health-check*
 
 # hide firebase auth 
-services/auth/firebase.js
-Services/auth/firebase.js
-# src/services/auth/firebase.js
-
+src/config/firebaseConfig.js
+src/config/firebaseConfig.js
