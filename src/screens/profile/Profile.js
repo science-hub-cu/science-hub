@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
 import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import COLORS from "../../constants/colors";
@@ -52,118 +59,122 @@ const Profile = () => {
   };
 
   return (
-    <>
-      <LinearGradient
-        colors={[COLORS.blue1, COLORS.mainBackground]}
-        start={[0, 0]}
-        end={[0, 1]}
-        locations={[0, 0.8854]}
-        style={styles.container}
-      >
-        <View style={styles.container1}>
-          <View
-            style={styles.circle} //avatar
-          />
-          <TouchableOpacity style={styles.button} onPress={handlerEditavatar}>
-            <Text style={{ color: COLORS.white, fontWeight: "bold" }}>
-              Edit avatar
-            </Text>
-          </TouchableOpacity>
-
-          <View style={styles.nameAndcode}>
-            <Text style={styles.text}>{username}</Text>
-            <Text style={styles.text1}>
-              {" #"}
-              {code}
-            </Text>
-          </View>
-
-          <Text style={styles.Title}>{title}</Text>
-
-          <Text style={styles.points}>you have {points} points</Text>
-
-          <TouchableOpacity style={styles.addpost} onPress={addpost}>
-            <Icon
-              name="plus"
-              style={{
-                color: COLORS.white,
-                marginRight: 5,
-                marginTop: 6,
-                marginLeft: 10,
-              }}
-            />
-            <Text style={{ color: COLORS.white, fontSize: 13 }}>Add post</Text>
-          </TouchableOpacity>
-        </View>
-      </LinearGradient>
-
-      <View style={styles.container2}>
-        <View
-          style={{
-            position: "absolute",
-            backgroundColor: COLORS.navBarBackground,
-            alignItems: "center",
-            justifyContent: "center",
-            width: "100%",
-            height: "8%",
-          }}
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={{ flex: 1 }}>
+        <LinearGradient
+          colors={[COLORS.blue1, COLORS.mainBackground]}
+          start={[0, 0]}
+          end={[0, 1]}
+          locations={[0, 0.8854]}
+          style={styles.container}
         >
-          <Text
+          <View style={styles.container1}>
+            <View
+              style={styles.circle} //avatar
+            />
+            <TouchableOpacity style={styles.button} onPress={handlerEditavatar}>
+              <Text style={{ color: COLORS.white, fontWeight: "bold" }}>
+                Edit avatar
+              </Text>
+            </TouchableOpacity>
+
+            <View style={styles.nameAndcode}>
+              <Text style={styles.text}>{username}</Text>
+              <Text style={styles.text1}>
+                {" #"}
+                {code}
+              </Text>
+            </View>
+
+            <Text style={styles.Title}>{title}</Text>
+
+            <Text style={styles.points}>you have {points} points</Text>
+
+            <TouchableOpacity style={styles.addpost} onPress={addpost}>
+              <Icon
+                name="plus"
+                style={{
+                  color: COLORS.white,
+                  marginRight: 5,
+                  marginTop: 6,
+                  marginLeft: 10,
+                }}
+              />
+              <Text style={{ color: COLORS.white, fontSize: 13 }}>
+                Add post
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </LinearGradient>
+
+        <View style={styles.container2}>
+          <View
             style={{
-              color: "white",
+              position: "absolute",
+              backgroundColor: COLORS.navBarBackground,
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
+              height: "8%",
             }}
           >
-            Settings
-          </Text>
+            <Text
+              style={{
+                color: "white",
+              }}
+            >
+              Settings
+            </Text>
+          </View>
+          <View style={{ top: "8%" }}>
+            {/* Profile button */}
+            <ProfileButton
+              title="Change username"
+              onPress={changeusername}
+              iconname={pen}
+            ></ProfileButton>
+
+            <ProfileButton
+              title="Change password"
+              onPress={changepassword}
+              iconname={lock}
+            ></ProfileButton>
+
+            <ProfileButton
+              title="Change department"
+              onPress={changedepartment}
+              iconname={bta3}
+            ></ProfileButton>
+
+            <ProfileButton
+              title="Verify friend"
+              onPress={verifyfriend}
+              iconname={s7}
+            ></ProfileButton>
+            <ProfileButton
+              title="Saved posts"
+              onPress={savedposts}
+              iconname={save}
+            ></ProfileButton>
+            <ProfileButton
+              title="Delete my account"
+              onPress={deletemyaccount}
+              iconname={x}
+            ></ProfileButton>
+            <ProfileButton
+              title="Report user"
+              onPress={reportuser}
+              iconname={i}
+            ></ProfileButton>
+            <ProfileButton
+              title="Help Center & questions"
+              onPress={helpcenter}
+              iconname={help}
+            ></ProfileButton>
+          </View>
         </View>
-        <View style={{ top: "8%" }}>
-          {/* Profile button */}
-          <ProfileButton
-            title="Change username"
-            onPress={changeusername}
-            iconname={pen}
-          ></ProfileButton>
-
-          <ProfileButton
-            title="Change password"
-            onPress={changepassword}
-            iconname={lock}
-          ></ProfileButton>
-
-          <ProfileButton
-            title="Change department"
-            onPress={changedepartment}
-            iconname={bta3}
-          ></ProfileButton>
-
-          <ProfileButton
-            title="Verify friend"
-            onPress={verifyfriend}
-            iconname={s7}
-          ></ProfileButton>
-          <ProfileButton
-            title="Saved posts"
-            onPress={savedposts}
-            iconname={save}
-          ></ProfileButton>
-          <ProfileButton
-            title="Delete my account"
-            onPress={deletemyaccount}
-            iconname={x}
-          ></ProfileButton>
-          <ProfileButton
-            title="Report user"
-            onPress={reportuser}
-            iconname={i}
-          ></ProfileButton>
-          <ProfileButton
-            title="Help Center & questions"
-            onPress={helpcenter}
-            iconname={help}
-          ></ProfileButton>
-        </View>
-      </View>
-    </>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
