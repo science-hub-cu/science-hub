@@ -24,7 +24,6 @@ import Button from "../../components/Button";
 import UserService from "../../services/UserService";
 import { useLayoutEffect } from "react";
 import ROUTES from "../../constants/routes";
-
 const Profile = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [username, setUserName] = useState("k3br");
@@ -99,7 +98,6 @@ const Profile = ({ navigation }) => {
               fontColor="#fff"
               backgroundColor="transparent"
               borderWidth={1}
-              marginTop={"3%"}
               onPress={handlerEditavatar}
             />
 
@@ -114,20 +112,16 @@ const Profile = ({ navigation }) => {
             <Text style={styles.Title}>{title}</Text>
 
             <Text style={styles.points}>you have {points} points</Text>
-
-            <TouchableOpacity style={styles.addpost} onPress={addpost}>
-              <Icon
-                name="plus"
-                style={{
-                  color: COLORS.white,
-                  // marginRight: 5,
-                  // marginLeft: 10,
-                }}
-              />
-              <Text style={{ color: COLORS.white, fontSize: 13 }}>
-                Add post
-              </Text>
-            </TouchableOpacity>
+            <Button
+              title={"add post"}
+              fontSize={13}
+              marginTop="2%"
+              width="24%"
+              height="10%"
+              backgroundColor={COLORS.graish}
+              onPress={addpost}
+              icon="plus"
+            />
           </View>
         </LinearGradient>
         <View style={styles.container2}>
@@ -206,23 +200,18 @@ const Profile = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    // height: "60%",
   },
   topSection: {
     top: 0,
-    // left: "4%",
-    // top: "50%",
     paddingLeft: "4%",
     paddingTop: "30%",
     paddingBottom: 10,
     flex: 1,
     flexDirection: "column",
     justifyContent: "flex-start",
-    // backgroundColor: "red",
   },
   circle: {
     width: "25%",
-    // height: "20%",
     aspectRatio: 1 / 1,
     borderColor: COLORS.white,
     borderRadius: 180,
@@ -242,7 +231,7 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     fontSize: 20,
     fontWeight: "400",
-    color: "rgba(255, 255, 255, 0.5)",
+    color: COLORS.gray2,
   },
 
   Title: {
@@ -253,25 +242,9 @@ const styles = StyleSheet.create({
   points: {
     fontStyle: "normal",
     fontWeight: "400",
-    color: "rgba(255, 255, 255, 0.5)",
-  },
-  addpost: {
-    // borderColor: COLORS.white,
-    marginTop: 10,
-    paddingHorizontal: 5,
-    // borderWidth: 1,
-    borderRadius: 25,
-    width: "24%",
-    backgroundColor: COLORS.graish,
-    flexDirection: "row",
-    fontSize: 13,
-    alignItems: "center",
-    alignContent: "center",
-    justifyContent: "space-around",
+    color: COLORS.gray2,
   },
   container2: {
-    // width: "100%",
-    // height: "40%",
     backgroundColor: "#33363F",
   },
 });
