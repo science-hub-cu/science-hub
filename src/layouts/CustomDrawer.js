@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import COLORS from "../constants/colors";
-
+import Notifications from "../components/notifications";
 const CustomDrawerContent = (props) => {
   const [fontLoaded] = useFonts({
     Trebuchet: require("../assets/fonts/trebuc.ttf"),
@@ -22,6 +22,7 @@ const CustomDrawerContent = (props) => {
         <Ionicons name="notifications" size={32} style={styles.title} />
         <Text style={styles.title}> Notifications</Text>
       </View>
+        <Notifications />
     </DrawerContentScrollView>
   );
 };
