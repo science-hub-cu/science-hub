@@ -11,7 +11,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import COLORS from "../../constants/colors";
 import ProfileButton from "../../components/ProfileButton";
 
-import Icon from "react-native-vector-icons/FontAwesome";
 import bta3 from "../../assets/icons/bta3.png";
 import help from "../../assets/icons/help.png";
 import i from "../../assets/icons/i.png";
@@ -99,6 +98,7 @@ const Profile = ({ navigation }) => {
               backgroundColor="transparent"
               borderWidth={1}
               onPress={handlerEditavatar}
+              opacity={.2}
             />
 
             <View style={styles.nameAndcode}>
@@ -120,6 +120,7 @@ const Profile = ({ navigation }) => {
               backgroundColor={COLORS.graish}
               onPress={addpost}
               icon="plus"
+              opacity={.2}
             />
           </View>
         </LinearGradient>

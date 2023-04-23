@@ -3,6 +3,7 @@ import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import COLORS from "../constants/colors";
 import Icon from "react-native-vector-icons/FontAwesome";
 
+
 const Button = ({
   title,
   icon = "",
@@ -15,10 +16,11 @@ const Button = ({
   fontColor = COLORS.white,
   borderColor = COLORS.white,
   borderWidth = 0,
+  opacity=0.7
 }) => {
   return (
     <TouchableOpacity
-      activeOpacity={0.2}
+      activeOpacity={opacity}
       onPress={onPress}
       style={{
         marginTop: marginTop,
@@ -34,10 +36,13 @@ const Button = ({
     >
       {icon !== "" && <Icon name={icon} style={styles.icon} />}
       <Text
-        style={[{
-          color: fontColor,
-          fontSize: fontSize
-        },styles.text]}
+        style={[
+          {
+            color: fontColor,
+            fontSize: fontSize,
+          },
+          styles.text,
+        ]}
       >
         {title}
       </Text>
