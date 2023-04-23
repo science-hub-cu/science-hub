@@ -22,6 +22,7 @@ const LoginScreen = ({ navigation, state }) => {
     if (username !== "") setUsername("");
     if (password !== "") setPassword("");
     if (Object.keys(errors).length !== 0) setErrors({});
+    if (Object.keys(invalid).length !== 0) setInvalid("");
   }
 
   const addError = (error) => {
