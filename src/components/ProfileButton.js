@@ -2,7 +2,7 @@ import React from "react";
 import { TouchableNativeFeedback, Text, Image, View } from "react-native";
 import COLORS from "../constants/colors";
 import { MaterialIcons } from "@expo/vector-icons";
-const ProfileButton = ({ title, iconname, onPress = () => {} }) => {
+const ProfileButton = ({ title, iconname, style, onPress = () => {} }) => {
   return (
     <TouchableNativeFeedback onPress={onPress}>
       <View
@@ -10,7 +10,10 @@ const ProfileButton = ({ title, iconname, onPress = () => {} }) => {
           justifyContent: "space-between",
           alignItems: "center",
           flexDirection: "row",
-          height: "11%",
+          paddingVertical: 4,
+          // marginVertical: 10,
+          minHeight: 18,
+          // height: "11%",
         }}
       >
         <View style={{ flexDirection: "row" }}>

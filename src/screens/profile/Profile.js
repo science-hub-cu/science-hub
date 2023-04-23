@@ -20,13 +20,29 @@ import pen from "../../assets/icons/pen.png";
 import s7 from "../../assets/icons/s7.png";
 import save from "../../assets/icons/save.png";
 import x from "../../assets/icons/x.png";
+import Button from "../../components/Button";
+import UserService from "../../services/UserService";
+import { useLayoutEffect } from "react";
+import ROUTES from "../../constants/routes";
 
-const Profile = () => {
-  const [username, setuserName] = useState("k3br");
+const Profile = ({ navigation }) => {
+  const [loading, setLoading] = useState(true);
+  const [username, setUserName] = useState("k3br");
   const [code, setCode] = useState("2027115");
   const [points, setPointes] = useState("0");
   const [title, setTilte] = useState("Your Title");
 
+  useLayoutEffect(() => {
+    setLoading(true);
+    UserService.getCurrentUserData()
+      .then((user) => {
+        setCode(user.code);
+        setUserName(user.username);
+        setTilte(user.title);
+        setPointes(user.points);
+      })
+      .finally(() => setLoading(false));
+  }, []);
   handlerEditavatar = () => {
     console.log("EditAvatar preesed");
   };
@@ -43,6 +59,7 @@ const Profile = () => {
     console.log("changedepartment preesed");
   };
   verifyfriend = () => {
+    navigation.navigate(ROUTES.VERIFY_ROUTE);
     console.log("verifyfriend preesed");
   };
   savedposts = () => {
@@ -58,9 +75,13 @@ const Profile = () => {
     console.log("helpcenter preesed");
   };
 
-  return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView contentContainerStyle={{ flex: 1 }}>
+  return loading ? (
+    <View>
+      <Text>Loading.....</Text>
+    </View>
+  ) : (
+    <SafeAreaView style={{ height: "100%", backgroundColor: "#33363F" }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <LinearGradient
           colors={[COLORS.blue1, COLORS.mainBackground]}
           start={[0, 0]}
@@ -68,12 +89,12 @@ const Profile = () => {
           locations={[0, 0.8854]}
           style={styles.container}
         >
-          <View style={styles.container1}>
+          <View style={styles.topSection}>
             <View
               style={styles.circle} //avatar
             />
             <TouchableOpacity style={styles.button} onPress={handlerEditavatar}>
-              <Text style={{ color: COLORS.white, fontWeight: "bold" }}>
+              <Text style={{ color: COLORS.white /*fontWeight: "bold" */ }}>
                 Edit avatar
               </Text>
             </TouchableOpacity>
@@ -95,9 +116,8 @@ const Profile = () => {
                 name="plus"
                 style={{
                   color: COLORS.white,
-                  marginRight: 5,
-                  marginTop: 6,
-                  marginLeft: 10,
+                  // marginRight: 5,
+                  // marginLeft: 10,
                 }}
               />
               <Text style={{ color: COLORS.white, fontSize: 13 }}>
@@ -106,16 +126,12 @@ const Profile = () => {
             </TouchableOpacity>
           </View>
         </LinearGradient>
-
         <View style={styles.container2}>
           <View
             style={{
-              position: "absolute",
               backgroundColor: COLORS.navBarBackground,
               alignItems: "center",
-              justifyContent: "center",
-              width: "100%",
-              height: "8%",
+              paddingVertical: 1,
             }}
           >
             <Text
@@ -126,8 +142,8 @@ const Profile = () => {
               Settings
             </Text>
           </View>
-          <View style={{ top: "8%" }}>
-            {/* Profile button */}
+          {/* Profile buttons  */}
+          <View>
             <ProfileButton
               title="Change username"
               onPress={changeusername}
@@ -171,6 +187,11 @@ const Profile = () => {
               onPress={helpcenter}
               iconname={help}
             ></ProfileButton>
+            <ProfileButton
+              title="Log Out"
+              onPress={() => UserService.signOut()}
+              iconname={help}
+            ></ProfileButton>
           </View>
         </View>
       </ScrollView>
@@ -181,29 +202,36 @@ const Profile = () => {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: "60%",
+    // height: "60%",
   },
-  container1: {
-    left: "4%",
-    top: "50%",
+  topSection: {
+    top: 0,
+    // left: "4%",
+    // top: "50%",
+    paddingLeft: "4%",
+    paddingTop: "30%",
+    paddingBottom: 10,
     flex: 1,
     flexDirection: "column",
     justifyContent: "flex-start",
+    // backgroundColor: "red",
   },
   circle: {
     width: "25%",
-    height: "20%",
+    // height: "20%",
+    aspectRatio: 1 / 1,
     borderColor: COLORS.white,
     borderRadius: 180,
     backgroundColor: COLORS.gray1,
   },
   button: {
     borderColor: COLORS.white,
-    marginTop: 5,
-    borderWidth: 2,
+    marginTop: 12,
+    borderWidth: 1,
     borderRadius: 20,
     width: "28%",
-    height: "5%",
+    // height: "5%",
+    paddingVertical: 2,
     backgroundColor: "transparent",
     alignItems: "center",
     justifyContent: "center",
@@ -237,18 +265,22 @@ const styles = StyleSheet.create({
     color: "rgba(255, 255, 255, 0.5)",
   },
   addpost: {
-    borderColor: COLORS.white,
+    // borderColor: COLORS.white,
     marginTop: 10,
-    borderWidth: 1,
+    paddingHorizontal: 5,
+    // borderWidth: 1,
     borderRadius: 25,
     width: "24%",
     backgroundColor: COLORS.graish,
     flexDirection: "row",
     fontSize: 13,
+    alignItems: "center",
+    alignContent: "center",
+    justifyContent: "space-around",
   },
   container2: {
-    width: "100%",
-    height: "40%",
+    // width: "100%",
+    // height: "40%",
     backgroundColor: "#33363F",
   },
 });
