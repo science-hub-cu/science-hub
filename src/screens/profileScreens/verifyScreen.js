@@ -158,6 +158,7 @@ const VerifyScreen = ({ navigation }) => {
           <Button
             marginTop={5}
             width="90%"
+            height="20%"
             fontSize={20}
             title={"Verify"}
             onPress={() => verifyCode()}

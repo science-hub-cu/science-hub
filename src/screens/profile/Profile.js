@@ -115,7 +115,6 @@ const Profile = ({ navigation }) => {
             <Button
               title={"add post"}
               fontSize={13}
-              marginTop="2%"
               width="24%"
               height="10%"
               backgroundColor={COLORS.graish}
