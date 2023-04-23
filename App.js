@@ -36,7 +36,7 @@ const AuthedStack = () => {
       <Drawer.Screen
         name={ROUTES.VERIFY_ROUTE}
         component={VerifyScreen}
-        screenOptions={{ headerShown: false }}
+        options={{ headerShown: false }}
       />
     </CustomizedDrawer>
   );
