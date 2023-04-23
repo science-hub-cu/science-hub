@@ -31,13 +31,13 @@ const NotAuthedStack = () => {
 const AuthedStack = () => {
   return (
     <CustomizedDrawer>
+      <Drawer.Screen name={ROUTES.PROFILE_ROUTE} component={Profile} />
       <Drawer.Screen name={ROUTES.HOME_ROUTE} component={HomeScreen} />
       <Drawer.Screen
         name={ROUTES.VERIFY_ROUTE}
         component={VerifyScreen}
         screenOptions={{ headerShown: false }}
       />
-      <Drawer.Screen name={ROUTES.PROFILE_ROUTE} component={Profile} />
     </CustomizedDrawer>
   );
 };
