@@ -36,26 +36,18 @@ const Input = (
       IconComponent = Icon;
       break;
   }
+  const borderStyles = {
+    width: width,
+    borderWidth: 1,
+    borderColor: error ? COLORS.red : isFocused ? COLORS.white : COLORS.white,
+  };
 
   return (
     <View>
       <View style={style.view}>
         {label && <Text style={style.label}>{label}</Text>}
       </View>
-      <View
-        style={[
-          style.inputContainer,
-          {
-            width: width, // Set the width dynamically based on the `width` prop
-            borderWidth: 1,
-            borderColor: error
-              ? COLORS.red
-              : isFocused
-              ? COLORS.white
-              : COLORS.white,
-          },
-        ]}
-      >
+      <View style={[style.inputContainer, borderStyles]}>
         <TextInput
           ref={ref}
           secureTextEntry={password && hidePassword}

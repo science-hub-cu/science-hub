@@ -50,19 +50,15 @@ const DropdownList = (
 };
 const styles = StyleSheet.create({
   view: {
-    // alignItems: "center",
     marginTop: 25,
-    // flex: 1,
   },
   dropdown: {
     borderWidth: 1,
-    //  borderColor: COLORS.white,
     height: 55,
     width: "88%",
     backgroundColor: COLORS.secBackground,
     borderRadius: 9,
     padding: 12,
-    // alignItems: "center",
     marginHorizontal: "6%",
   },
   item: {

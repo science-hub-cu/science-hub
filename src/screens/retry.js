@@ -1,7 +1,6 @@
 import React from "react";
 import { View, SafeAreaView, StyleSheet, Image, Text } from "react-native";
 import COLORS from "../constants/colors";
-import Button from "../components/Button";
 const RetryScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
@@ -10,7 +9,7 @@ const RetryScreen = () => {
         style={styles.image}
       ></Image>
       <Text style={styles.text}>No internet connection</Text>
-      <View style={{ marginLeft: "25%" }}></View>
+      <View style={styles.view}></View>
     </SafeAreaView>
   );
 };
@@ -19,6 +18,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.mainBackground,
+  },
+  view: {
+    marginLeft: "25%",
   },
   image: {
     width: 120,
@@ -32,9 +34,6 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     fontSize: 20,
     alignSelf: "center",
-
-    // marginHorizontal:"20%"
-    // paddingHorizontal:"10%"
   },
 });
 export default RetryScreen;
