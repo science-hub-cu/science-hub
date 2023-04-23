@@ -78,4 +78,8 @@ export default class UserService {
       throw error;
     }
   }
+
+  static async signOut() {
+    await getAuth().signOut();
+  }
 }
