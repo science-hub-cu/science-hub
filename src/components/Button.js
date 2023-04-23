@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, Text } from "react-native";
 import COLORS from "../constants/colors";
-const Button = ({ title, onPress = () => {}, width = "88%", marginTop = 20, fontSize= 16 }) => {
+const Button = ({ title, onPress = () => {}, width = "88%", marginTop = 20, fontSize= 16,backgroundColor=COLORS.blue,fontColor=COLORS.white }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
@@ -10,7 +10,7 @@ const Button = ({ title, onPress = () => {}, width = "88%", marginTop = 20, font
         marginTop: marginTop,
         height: 50,
         width: width,
-        backgroundColor: COLORS.blue,
+        backgroundColor: backgroundColor,
         justifyContent: "center",
         borderRadius: 25,
         marginHorizontal: 10,
@@ -18,7 +18,7 @@ const Button = ({ title, onPress = () => {}, width = "88%", marginTop = 20, font
     >
       <Text
         style={{
-          color: COLORS.white,
+          color: fontColor,
           fontWeight: "bold",
           fontSize: fontSize,
           textAlign: "center",
