@@ -93,11 +93,15 @@ const Profile = ({ navigation }) => {
             <View
               style={styles.circle} //avatar
             />
-            <TouchableOpacity style={styles.button} onPress={handlerEditavatar}>
-              <Text style={{ color: COLORS.white /*fontWeight: "bold" */ }}>
-                Edit avatar
-              </Text>
-            </TouchableOpacity>
+            <Button
+              title={"Edit avatar"}
+              width="28%"
+              fontColor="#fff"
+              backgroundColor="transparent"
+              borderWidth={1}
+              marginTop={"3%"}
+              onPress={handlerEditavatar}
+            />
 
             <View style={styles.nameAndcode}>
               <Text style={styles.text}>{username}</Text>
@@ -224,19 +228,6 @@ const styles = StyleSheet.create({
     borderRadius: 180,
     backgroundColor: COLORS.gray1,
   },
-  button: {
-    borderColor: COLORS.white,
-    marginTop: 12,
-    borderWidth: 1,
-    borderRadius: 20,
-    width: "28%",
-    // height: "5%",
-    paddingVertical: 2,
-    backgroundColor: "transparent",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
   nameAndcode: {
     flexDirection: "row",
     width: "100%",
