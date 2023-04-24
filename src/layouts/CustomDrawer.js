@@ -32,9 +32,12 @@ export default CustomDrawerContent;
 const styles = StyleSheet.create({
   title: {
     color: COLORS.white,
-    fontWeight: 400,
-    fontSize: 32,
-    fontFamily: "Trebuchet",
-    marginBottom:"2%"
+    fontSize: 30,
+    fontFamily: "TrebuchetMS",
+    marginBottom: "5%",
+    marginTop:"2%",
+    verticalAlign:"top",
+    fontStyle:"normal",
+
   },
 });

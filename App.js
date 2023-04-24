@@ -65,6 +65,7 @@ const App = () => {
   const [fontLoaded] = useFonts({
     majalla: require("./src/assets/fonts/majalla.ttf"),
     Trebuchet: require("./src/assets/fonts/Trebuchet-MS-Italic.ttf"),
+    TrebuchetMS:require("./src/assets/fonts/Trebuchet-MS-Italic.ttf")
   });
   if (!fontLoaded) return null;
 
