@@ -17,12 +17,13 @@ import { AuthContext, AuthContextProvider } from "./src/context/AuthContext";
 import ROUTES from "./src/constants/routes";
 import { useContext } from "react";
 import { CustomizedDrawer, Drawer } from "./src/layouts/DrawerNavigator";
-import { StatusBar } from "react-native";
+import { StatusBar, I18nManager } from "react-native";
 
 const Stack = createStackNavigator();
-// hide status bar 
+// hide status bar
 StatusBar.setHidden(true);
-
+I18nManager.allowRTL(false);
+I18nManager.forceRTL(false);
 const NotAuthedStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -47,6 +48,7 @@ const AuthedStack = () => {
 
 const App = () => {
   const [isNetConnected, setIsNetConnected] = useState(false);
+    state = { rtl: false };
   // const { signIn, sigOut, user } = useContext(AuthContext);
   const [user, setUser] = useState(null);
   useEffect(() => {
@@ -55,7 +57,6 @@ const App = () => {
       console.log("Is connected?", state.isConnected);
       setIsNetConnected(state.isConnected);
     });
-
     return () => {
       unsubscribe();
     };
@@ -65,7 +66,7 @@ const App = () => {
   const [fontLoaded] = useFonts({
     majalla: require("./src/assets/fonts/majalla.ttf"),
     Trebuchet: require("./src/assets/fonts/Trebuchet-MS-Italic.ttf"),
-    TrebuchetMS:require("./src/assets/fonts/Trebuchet-MS-Italic.ttf")
+    TrebuchetMS: require("./src/assets/fonts/Trebuchet-MS-Italic.ttf"),
   });
   if (!fontLoaded) return null;
 
@@ -80,7 +81,11 @@ const App = () => {
     // if (user) setUser(user);
     // else sigOut();
   });
-
+ const rtlText = this.state.rtl && {
+   textAlign: "right",
+   writingDirection: "rtl",
+ };
+ const rtlView = this.state.rtl && { flexDirection: "row-reverse" };
   return (
     <AuthContext.Provider value={{ user }}>
       <NavigationContainer>
