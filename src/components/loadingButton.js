@@ -8,6 +8,7 @@ const LoadingButton = forwardRef(
     const [isLoading, setIsLoading] = useState(false);
 
     const handlePress = () => {
+      if (isLoading) return;
       setIsLoading(true);
       onPress();
     };
