@@ -10,6 +10,19 @@ export const CustomizedDrawer = ({ children }) => {
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
+        headerTitleStyle:{
+          color:COLORS.white,
+          textAlign:"center",
+        
+        },
+        headerStyle:{
+          backgroundColor:COLORS.secBackground,
+        },
+        headerTintColor:COLORS.white,
+        drawerIcon:{
+          color:COLORS.white,
+          backgroundColor:COLORS.white
+        },
         drawerStyle: {
           width: "85%",
           backgroundColor: COLORS.navBarBackground,
