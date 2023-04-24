@@ -17,12 +17,12 @@ import { AuthContext, AuthContextProvider } from "./src/context/AuthContext";
 import ROUTES from "./src/constants/routes";
 import { useContext } from "react";
 import { CustomizedDrawer, Drawer } from "./src/layouts/DrawerNavigator";
-import { StatusBar, I18nManager } from "react-native";
+import { I18nManager } from "react-native";
+import CustomStatusBar from "./src/layouts/CustomStatusBar";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 const Stack = createStackNavigator();
-// hide status bar
-StatusBar.setHidden(true);
-//RTL 
+//RTL
 I18nManager.allowRTL(false);
 I18nManager.forceRTL(false);
 const NotAuthedStack = () => {
@@ -49,7 +49,7 @@ const AuthedStack = () => {
 
 const App = () => {
   const [isNetConnected, setIsNetConnected] = useState(false);
-    state = { rtl: false };
+  state = { rtl: false };
   // const { signIn, sigOut, user } = useContext(AuthContext);
   const [user, setUser] = useState(null);
   useEffect(() => {
@@ -82,17 +82,20 @@ const App = () => {
     // if (user) setUser(user);
     // else sigOut();
   });
- const rtlText = this.state.rtl && {
-   textAlign: "right",
-   writingDirection: "rtl",
- };
- const rtlView = this.state.rtl && { flexDirection: "row-reverse" };
+  const rtlText = this.state.rtl && {
+    textAlign: "right",
+    writingDirection: "rtl",
+  };
+  const rtlView = this.state.rtl && { flexDirection: "row-reverse" };
   return (
-    <AuthContext.Provider value={{ user }}>
-      <NavigationContainer>
-        {user ? <AuthedStack /> : <NotAuthedStack />}
-      </NavigationContainer>
-    </AuthContext.Provider>
+    <SafeAreaProvider>
+      <CustomStatusBar backgroundColor="white" />
+      <AuthContext.Provider value={{ user }}>
+        <NavigationContainer>
+          {user ? <AuthedStack /> : <NotAuthedStack />}
+        </NavigationContainer>
+      </AuthContext.Provider>
+    </SafeAreaProvider>
   );
 };
 
