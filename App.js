@@ -17,8 +17,11 @@ import { AuthContext, AuthContextProvider } from "./src/context/AuthContext";
 import ROUTES from "./src/constants/routes";
 import { useContext } from "react";
 import { CustomizedDrawer, Drawer } from "./src/layouts/DrawerNavigator";
+import { StatusBar } from "react-native";
 
 const Stack = createStackNavigator();
+// hide status bar 
+StatusBar.setHidden(true);
 
 const NotAuthedStack = () => {
   return (
