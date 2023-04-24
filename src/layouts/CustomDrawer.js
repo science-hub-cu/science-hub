@@ -1,16 +1,10 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useFonts } from "expo-font";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import COLORS from "../constants/colors";
-import Notifications from "../components/notifications";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import Notifications from "../components/Notifications";
 const CustomDrawerContent = (props) => {
-  const [fontLoaded] = useFonts({
-    Trebuchet: require("../assets/fonts/trebuc.ttf"),
-  });
-  if (!fontLoaded) return null;
   return (
     <DrawerContentScrollView {...props}>
       <View

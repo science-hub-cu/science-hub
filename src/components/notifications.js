@@ -9,37 +9,33 @@ const Notifications = ({
   onPress = () => {},
 }) => {
   return (
-    <TouchableOpacity
-      activeOpacity={0.7}
-      onPress={onPress}
-      
-      >
-    <View style={styles.container}>
-      <View style={styles.imageView}>
-        <Image
-          style={styles.image}
-          source={{
-            uri: image,
-          }}
-        ></Image>
-      </View>
-      <View style={{ marginLeft: "3%" }}>
-        <View style={{ flexDirection: "row" }}>
-          <Text
-            style={{
-              color: COLORS.blue1,
-              fontSize: 15,
+    <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
+      <View style={styles.container}>
+        <View style={styles.imageView}>
+          <Image
+            style={styles.image}
+            source={{
+              uri: image,
             }}
-          >
-            {userName}
-          </Text>
-          <Text style={{ marginLeft: "3%", color: COLORS.white }}>
-            {action}
-          </Text>
+          ></Image>
         </View>
-        <Text style={{ color: COLORS.white }}>{time}</Text>
+        <View style={{ marginLeft: "3%" }}>
+          <View style={{ flexDirection: "row" }}>
+            <Text
+              style={{
+                color: COLORS.blue1,
+                fontSize: 15,
+              }}
+            >
+              {userName}
+            </Text>
+            <Text style={{ marginLeft: "3%", color: COLORS.white }}>
+              {action}
+            </Text>
+          </View>
+          <Text style={{ color: COLORS.white }}>{time}</Text>
+        </View>
       </View>
-    </View>
     </TouchableOpacity>
   );
 };

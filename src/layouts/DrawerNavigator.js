@@ -17,6 +17,7 @@ export const CustomizedDrawer = ({ children }) => {
         },
         headerStyle:{
           backgroundColor:COLORS.secBackground,
+          height:65
         },
         headerTintColor:COLORS.white,
         drawerIcon:{

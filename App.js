@@ -82,20 +82,13 @@ const App = () => {
     // if (user) setUser(user);
     // else sigOut();
   });
-  const rtlText = this.state.rtl && {
-    textAlign: "right",
-    writingDirection: "rtl",
-  };
-  const rtlView = this.state.rtl && { flexDirection: "row-reverse" };
+
   return (
-    <SafeAreaProvider>
-      <CustomStatusBar backgroundColor="white" />
       <AuthContext.Provider value={{ user }}>
         <NavigationContainer>
           {user ? <AuthedStack /> : <NotAuthedStack />}
         </NavigationContainer>
       </AuthContext.Provider>
-    </SafeAreaProvider>
   );
 };
 
