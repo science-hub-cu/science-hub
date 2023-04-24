@@ -20,3 +20,4 @@ const CustomStatusBar = ({
   );
 };
 export default CustomStatusBar;
+
