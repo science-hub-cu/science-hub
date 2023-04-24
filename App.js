@@ -22,6 +22,7 @@ import { StatusBar, I18nManager } from "react-native";
 const Stack = createStackNavigator();
 // hide status bar
 StatusBar.setHidden(true);
+//RTL 
 I18nManager.allowRTL(false);
 I18nManager.forceRTL(false);
 const NotAuthedStack = () => {
