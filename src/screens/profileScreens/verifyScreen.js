@@ -1,3 +1,9 @@
+/**
+ * Verify screen
+ * @author abdelrahman aboelyaziz , Mahmoud atef
+ * @desc page dependence to library (https://www.npmjs.com/package/react-native-otp-textinput?activeTab=readme)
+ */
+
 import React, { useState, useRef, createRef, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import OTPTextInput from "react-native-otp-textinput";
