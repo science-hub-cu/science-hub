@@ -1,5 +1,12 @@
-import React, { useState, useRef } from "react";
+/**
+ * Verify screen
+ * @author abdelrahman aboelyaziz , Mahmoud atef
+ * @desc page dependence to library (https://www.npmjs.com/package/react-native-otp-textinput?activeTab=readme)
+ */
+
+import React, { useState, useRef, createRef, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
+import OTPTextInput from "react-native-otp-textinput";
 import {
   Text,
   View,
@@ -10,160 +17,68 @@ import {
   Keyboard,
 } from "react-native";
 import COLORS from "../../constants/colors";
-import Icon from "react-native-vector-icons/AntDesign";
-import Input from "../../components/Input";
-import Button from "../../components/Button";
+import { ScrollView } from "react-native-gesture-handler";
+import LoadingButton from "../../components/LoadingButton";
+import UserService from "../../services/UserService";
 
+const COUNT_OF_DIGITS = 7;
 const VerifyScreen = ({ navigation }) => {
-  const firstInput = useRef();
-  const secondInput = useRef();
-  const thirdInput = useRef();
-  const fourthInput = useRef();
-  const fifthInput = useRef();
-  const sixthInput = useRef();
-  const seventhInput = useRef();
-  const [otp, setOtp] = useState({
-    1: "",
-    2: "",
-    3: "",
-    4: "",
-    5: "",
-    6: "",
-    7: "",
-  });
+  const btn = useRef(null);
+  const otpInput = useRef(null);
 
-  const verifyCode = () => {};
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      btn.current.setLoading(false);
+      btn.current.setDisable(true);
+      otpInput.current.clear();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
+  const verifyCode = () => {
+    // btn.current.setLoading(false);
+    const code = otpInput.current.state.otpText.join("");
+    console.log(code);
+    // UserService.verifyUser()
+  };
+  const handleTextChange = (text) => {
+    if (text.length === COUNT_OF_DIGITS) {
+      btn.current.setLoading(false);
+      Keyboard.dismiss();
+    } else btn.current.setDisable(true);
+  };
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="dark-content" />
-        <View style={styles.topNav}>
-          <Text style={styles.header}>Verify page</Text>
-          <Icon
-            style={styles.icon}
-            name="left"
-            size={25}
-            color="#fff"
-            onPress={() => navigation.goBack()}
-          />
-        </View>
-        <View style={styles.content}>
-          <Text style={styles.caption}>
-            Enter your friend code to verify him:{" "}
-          </Text>
-          <View style={styles.otpContainer}>
-            <View style={styles.otpBox}>
-              <TextInput
-                style={styles.otpText}
-                keyboardType="number-pad"
-                maxLength={1}
-                caretHidden={true}
-                ref={firstInput}
-                onChangeText={(text) => {
-                  setOtp({ ...otp, 1: text });
-                  text && secondInput.current.focus();
-                }}
-              />
-            </View>
-            <View style={styles.otpBox}>
-              <TextInput
-                style={styles.otpText}
-                keyboardType="number-pad"
-                maxLength={1}
-                caretHidden={true}
-                ref={secondInput}
-                onChangeText={(text) => {
-                  setOtp({ ...otp, 2: text });
-                  text
-                    ? thirdInput.current.focus()
-                    : firstInput.current.focus();
-                }}
-              />
-            </View>
-            <View style={styles.otpBox}>
-              <TextInput
-                style={styles.otpText}
-                keyboardType="number-pad"
-                maxLength={1}
-                caretHidden={true}
-                ref={thirdInput}
-                onChangeText={(text) => {
-                  setOtp({ ...otp, 3: text });
-                  text
-                    ? fourthInput.current.focus()
-                    : secondInput.current.focus();
-                }}
-              />
-            </View>
-            <View style={styles.otpBox}>
-              <TextInput
-                style={styles.otpText}
-                keyboardType="number-pad"
-                maxLength={1}
-                caretHidden={true}
-                ref={fourthInput}
-                onChangeText={(text) => {
-                  setOtp({ ...otp, 4: text });
-                  text
-                    ? fifthInput.current.focus()
-                    : thirdInput.current.focus();
-                }}
-              />
-            </View>
-            <View style={styles.otpBox}>
-              <TextInput
-                style={styles.otpText}
-                keyboardType="number-pad"
-                maxLength={1}
-                caretHidden={true}
-                ref={fifthInput}
-                onChangeText={(text) => {
-                  setOtp({ ...otp, 4: text });
-                  text
-                    ? sixthInput.current.focus()
-                    : fourthInput.current.focus();
-                }}
-              />
-            </View>
-            <View style={styles.otpBox}>
-              <TextInput
-                style={styles.otpText}
-                keyboardType="number-pad"
-                maxLength={1}
-                caretHidden={true}
-                ref={sixthInput}
-                onChangeText={(text) => {
-                  setOtp({ ...otp, 4: text });
-                  text
-                    ? seventhInput.current.focus()
-                    : fifthInput.current.focus();
-                }}
-              />
-            </View>
-            <View style={styles.LotpBox}>
-              <TextInput
-                style={styles.otpText}
-                keyboardType="number-pad"
-                maxLength={1}
-                caretHidden={true}
-                ref={seventhInput}
-                onChangeText={(text) => {
-                  setOtp({ ...otp, 4: text });
-                  !text && sixthInput.current.focus();
-                }}
-              />
-            </View>
+        <ScrollView
+          style={{ flex: 1 }}
+          contentContainerStyle={{ minHeight: "100%" }}
+        >
+          <View style={styles.content}>
+            <Text style={styles.caption}>
+              Enter your friend code to verify him:{" "}
+            </Text>
+            <OTPTextInput
+              inputCount={COUNT_OF_DIGITS}
+              textInputStyle={styles.otpBox}
+              containerStyle={styles.otpContainer}
+              tintColor={COLORS.blue}
+              offTintColor={COLORS.white}
+              handleTextChange={handleTextChange}
+              ref={otpInput}
+            />
+            <LoadingButton
+              ref={btn}
+              marginTop={5}
+              width="90%"
+              height={50}
+              fontSize={20}
+              title={"Verify"}
+              onPress={() => verifyCode()}
+              disabled={true}
+            ></LoadingButton>
           </View>
-          <Button
-            marginTop={5}
-            width="90%"
-            height="20%"
-            fontSize={20}
-            title={"Verify"}
-            onPress={() => verifyCode()}
-          ></Button>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );
@@ -177,29 +92,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.mainBackground,
   },
-
-  topNav: {
-    position: "relative",
-    width: "100%",
-    height: 90,
-    backgroundColor: COLORS.secBackground,
-  },
-
-  header: {
-    left: 50,
-    top: 50,
-    fontSize: 20,
-    color: "#fff",
-  },
-
-  icon: {
-    left: 15,
-    top: 25,
-  },
-
   content: {
-    marginTop: 190,
+    height: "100%",
+    flexGrow: 1,
+    flex: 1,
     alignItems: "center",
+    justifyContent: "center",
   },
 
   caption: {
@@ -210,30 +108,23 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   otpContainer: {
-    marginHorizontal: 20,
-    marginBottom: 20,
     justifyContent: "space-evenly",
-    alignItems: "center",
-    flexDirection: "row",
+    width: "100%",
+    padding: 5,
+    marginBottom: 10,
   },
   otpBox: {
-    borderRadius: 5,
     borderColor: "#fff",
-    borderWidth: 0.5,
-    marginRight: 8,
-  },
-  LotpBox: {
+    borderWidth: 1,
+    borderBottomWidth: 1,
     borderRadius: 5,
-    borderColor: "#fff",
-    borderWidth: 0.5,
-  },
-  otpText: {
+    borderBottomEndRadius: 5,
+    margin: 0,
     fontSize: 22,
-    color: "#fff",
-    padding: 0,
-    textAlign: "center",
-    paddingHorizontal: 11,
-    paddingVertical: 10,
+    fontWeight: "bold",
+    color: COLORS.white,
+    width: `${100 / (COUNT_OF_DIGITS + 1)}%`,
+    aspectRatio: 1 / 1,
   },
 });
 

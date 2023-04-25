@@ -10,7 +10,7 @@ import { signUpValidation } from "../../validations/SignUpValidation";
 import { disappearError } from "../../utils/uiHelper";
 import UserService from "../../services/UserService";
 import { useRef } from "react";
-import LoadingButton from "../../components/loadingButton";
+import LoadingButton from "../../components/LoadingButton";
 
 const RegistrationScreen = ({ navigation, state }) => {
   /********************** states  ***************************/
