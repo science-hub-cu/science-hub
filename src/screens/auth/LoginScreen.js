@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { View, StyleSheet } from "react-native";
-import LoadingButton from "../../components/loadingButton";
+import LoadingButton from "../../components/LoadingButton";
 import COLORS from "../../constants/colors";
 import Input from "../../components/Input";
 import { signInValidation } from "../../validations/SignInValidation";
