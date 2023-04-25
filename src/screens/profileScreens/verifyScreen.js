@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import COLORS from "../../constants/colors";
 import { ScrollView } from "react-native-gesture-handler";
-import LoadingButton from "../../components/loadingButton";
+import LoadingButton from "../../components/LoadingButton";
 import UserService from "../../services/UserService";
 
 const COUNT_OF_DIGITS = 7;
