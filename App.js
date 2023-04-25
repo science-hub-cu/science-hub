@@ -15,11 +15,9 @@ import { onAuthStateChanged } from "@firebase/auth";
 import { getAuth } from "@firebase/auth";
 import { AuthContext, AuthContextProvider } from "./src/context/AuthContext";
 import ROUTES from "./src/constants/routes";
-import { useContext } from "react";
 import { CustomizedDrawer, Drawer } from "./src/layouts/DrawerNavigator";
 import { I18nManager } from "react-native";
-import CustomStatusBar from "./src/layouts/CustomStatusBar";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import CustomizedHeaderBackButton from "./src/components/CustomizedHeaderBackButton";
 
 const Stack = createStackNavigator();
 //RTL
@@ -41,7 +39,12 @@ const AuthedStack = () => {
       <Drawer.Screen
         name={ROUTES.VERIFY_ROUTE}
         component={VerifyScreen}
-        options={{ headerShown: false }}
+        options={({ navigation }) => ({
+          headerLeft: () => (
+            <CustomizedHeaderBackButton navigation={navigation} />
+          ),
+          title: "Verify page",
+        })}
       />
     </CustomizedDrawer>
   );
@@ -50,7 +53,6 @@ const AuthedStack = () => {
 const App = () => {
   const [isNetConnected, setIsNetConnected] = useState(false);
   state = { rtl: false };
-  // const { signIn, sigOut, user } = useContext(AuthContext);
   const [user, setUser] = useState(null);
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state) => {
@@ -79,16 +81,14 @@ const App = () => {
     console.log("-------Auth changed-----");
     console.log(user);
     setUser(user);
-    // if (user) setUser(user);
-    // else sigOut();
   });
 
   return (
-      <AuthContext.Provider value={{ user }}>
-        <NavigationContainer>
-          {user ? <AuthedStack /> : <NotAuthedStack />}
-        </NavigationContainer>
-      </AuthContext.Provider>
+    <AuthContext.Provider value={{ user }}>
+      <NavigationContainer>
+        {user ? <AuthedStack /> : <NotAuthedStack />}
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 };
 
@@ -102,4 +102,3 @@ const styles = StyleSheet.create({
 });
 
 export default App;
-
