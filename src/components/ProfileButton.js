@@ -54,6 +54,7 @@ const ProfileButton = ({ title, iconname, onPress = () => {} }) => {
           // marginVertical: 10,
           minHeight: 18,
           // height: "11%",
+          paddingLeft: 10,
         }}
       >
         <View style={{ flexDirection: "row" }}>

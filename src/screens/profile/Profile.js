@@ -34,6 +34,9 @@ const Profile = ({ navigation }) => {
         setUserName(user.username);
         setTilte(user.title);
         setPointes(user.points);
+        const BgColor = user.avatar.cover ?? "default";
+        if (BgColor === "gold")
+          setgradientcolors([COLORS.gold, COLORS.mainBackground]);
       })
       .finally(() => setLoading(false));
   }, []);
@@ -64,9 +67,7 @@ const Profile = ({ navigation }) => {
   helpcenter = () => {
     console.log("helpcenter preesed");
   };
-  handelbutton = () => {
-    console.log("wierd button on top of screen pressed");
-  };
+  handelbutton = () => navigation.toggleDrawer();
   return loading ? (
     <Loading />
   ) : (

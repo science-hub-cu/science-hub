@@ -19,5 +19,6 @@ const COLORS = {
   blue1: "#5865F2",
   gray1: "#A7A7A7",
   graish: "#44464A",
+  gold: "#FFD700",
 };
 export default COLORS;
