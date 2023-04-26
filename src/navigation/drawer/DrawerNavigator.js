@@ -14,7 +14,7 @@ export const DrawerNavigator = ({ children }) => {
         },
         headerStyle: {
           backgroundColor: COLORS.secBackground,
-          height: 65,
+          // height: 65,
         },
         headerTintColor: COLORS.white,
         drawerIcon: {
@@ -28,6 +28,7 @@ export const DrawerNavigator = ({ children }) => {
           borderRightColor: COLORS.mainBackground,
         },
         drawerType: "slide",
+        headerShadowVisible: false,
       }}
     >
       {children}
