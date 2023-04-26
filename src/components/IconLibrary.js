@@ -79,7 +79,7 @@ export const ProfileIcon = ({ color, opacity }) => {
     </Svg>
   );
 };
-export const changeusernameicon = () => {
+export const Changeusernameicon = () => {
   return (
     <Svg width={21} height={21} viewBox="0 0 21 21" fill="none">
       <Path
@@ -91,7 +91,7 @@ export const changeusernameicon = () => {
     </Svg>
   );
 };
-export const changepassword = () => {
+export const Changepassword = () => {
   return (
     <Svg width={21} height={21} viewBox="0 0 21 21" fill="none">
       <Path
@@ -109,9 +109,9 @@ export const changepassword = () => {
     </Svg>
   );
 };
-export const changedepartment = () => {
+export const Changedepartment = () => {
   return (
-    <Svg width={width} height={height} viewBox="0 0 21 21" fill="none">
+    <Svg width={21} height={21} viewBox="0 0 21 21" fill="none">
       <Path
         d="M3.5 11.875C3.5 9.98938 3.5 9.04657 4.08579 8.46079C4.67157 7.875 5.61438 7.875 7.5 7.875H13.5C15.3856 7.875 16.3284 7.875 16.9142 8.46079C17.5 9.04657 17.5 9.98938 17.5 11.875V12.375C17.5 15.2034 17.5 16.6176 16.6213 17.4963C15.7426 18.375 14.3284 18.375 11.5 18.375H9.5C6.67157 18.375 5.25736 18.375 4.37868 17.4963C3.5 16.6176 3.5 15.2034 3.5 12.375V11.875Z"
         stroke="white"
@@ -127,7 +127,7 @@ export const changedepartment = () => {
     </Svg>
   );
 };
-export const verifyfriend = () => {
+export const Verifyfriend = () => {
   return (
     <Svg width={23} height={23} viewBox="0 0 23 23">
       <Circle cx={11.5} cy={11.5} r={8.625} stroke="white" strokeWidth={2} />
@@ -139,7 +139,7 @@ export const verifyfriend = () => {
     </Svg>
   );
 };
-export const savedposts = () => {
+export const Savedposts = () => {
   return (
     <Svg width={24} height={24} viewBox="0 0 24 24" fill="none">
       <Path
@@ -150,19 +150,19 @@ export const savedposts = () => {
     </Svg>
   );
 };
-export const deleteacc = () => {
+export const Deleteacc = () => {
   return (
     <Svg width={23} height={23} viewBox="0 0 23 23" fill="none">
       <Path
         d="M17.25 5.75L5.75 17.25"
-        stroke={white}
+        stroke="white"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <Path
         d="M5.75 5.75L17.25 17.25"
-        stroke={white}
+        stroke="white"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -170,7 +170,7 @@ export const deleteacc = () => {
     </Svg>
   );
 };
-export const reportuser = () => {
+export const Reportuser = () => {
   return (
     <Svg width="19" height="19" viewBox="0 0 19 19" fill="none">
       <Path
@@ -193,9 +193,9 @@ export const reportuser = () => {
     </Svg>
   );
 };
-export const helpcenter = () => {
+export const Helpcenter = () => {
   return (
-    <Svg viewBox="0 0 21 21">
+    <Svg viewBox="0 0 21 21" width={21} height={21}>
       <Circle cx="10.5" cy="10.5" r="7.875" stroke="white" strokeWidth="2" />
       <Circle cx="10.5" cy="15.75" r="0.4375" stroke="white" />
       <Path
@@ -208,10 +208,10 @@ export const helpcenter = () => {
 };
 export const Logout = () => {
   return (
-    <Svg viewBox="0 0 24 24" width={24} height={24}>
+    <Svg viewBox="0 0 21 21" width={21} height={21}>
       <Path
         d="M3.273 3.273A.998.998 0 0 0 2.21 4.336v15.328c0 .552.448 1 1 1h12.109a.998.998 0 0 0 .707-1.707L9.207 13.793a.997.997 0 0 1-.293-.707V10h10c.552 0 1-.448 1-1s-.448-1-1-1h-10V5.914a.997.997 0 0 1 .293-.707l5.809-5.809a.998.998 0 0 0-.707-1.707H3.211c-.36 0-.68.196-.853.508zm4.367 11.473c.267.266.621.4.974.4s.707-.134.974-.4c.536-.536.536-1.405 0-1.94L7.939 9H16c.552 0 1-.448 1-1s-.448-1-1-1H7.939l.675-.675c.536-.536.536-1.405 0-1.94-.536-.536-1.405-.536-1.94 0L3.393 7.726c-.536.536-.536 1.405 0 1.94l6.247 6.08z"
-        fill={"white"}
+        fill="white"
       />
     </Svg>
   );

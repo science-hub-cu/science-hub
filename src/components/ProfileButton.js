@@ -1,8 +1,50 @@
 import React from "react";
-import { TouchableNativeFeedback, Text, Image, View } from "react-native";
+import { TouchableNativeFeedback, Text, View } from "react-native";
 import COLORS from "../constants/colors";
 import { MaterialIcons } from "@expo/vector-icons";
-const ProfileButton = ({ title, iconname, style, onPress = () => {} }) => {
+import {
+  Changeusernameicon,
+  Changepassword,
+  Changedepartment,
+  Verifyfriend,
+  Savedposts,
+  Helpcenter,
+  Deleteacc,
+  Reportuser,
+  Logout,
+} from "./IconLibrary";
+const Myicon = (iconname) => {
+  iconname = iconname.iconname;
+  let content;
+  if (iconname == "Cus") {
+    content = <Changeusernameicon />;
+  } else if (iconname == "Cpass") {
+    content = <Changepassword />;
+  } else if (iconname == "Cdep") {
+    content = <Changedepartment />;
+  } else if (iconname == "VF") {
+    content = <Verifyfriend />;
+  } else if (iconname == "SP") {
+    content = <Savedposts />;
+  } else if (iconname == "HC") {
+    content = <Helpcenter />;
+  } else if (iconname == "DA") {
+    content = <Deleteacc />;
+  } else if (iconname == "RU") {
+    content = <Reportuser />;
+  } else {
+    content = (
+      <MaterialIcons
+        name="logout"
+        color={COLORS.white}
+        style={{ fontSize: 25 }}
+      />
+    );
+  }
+  return content;
+};
+const ProfileButton = ({ title, iconname, onPress = () => {} }) => {
+  console.log(iconname);
   return (
     <TouchableNativeFeedback onPress={onPress}>
       <View
@@ -10,17 +52,14 @@ const ProfileButton = ({ title, iconname, style, onPress = () => {} }) => {
           justifyContent: "space-between",
           alignItems: "center",
           flexDirection: "row",
-          paddingVertical: 4,
+          paddingVertical: 8,
           // marginVertical: 10,
           minHeight: 18,
           // height: "11%",
         }}
       >
         <View style={{ flexDirection: "row" }}>
-          <Image
-            source={iconname}
-            style={{ width: 18, height: 18, marginLeft: 18 }}
-          />
+          <Myicon iconname={iconname} />
           <Text
             style={{
               color: COLORS.white,

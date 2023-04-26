@@ -11,14 +11,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import COLORS from "../../constants/colors";
 import ProfileButton from "../../components/ProfileButton";
 import Loading from "../Loading";
-// import bta3 from "../../assets/icons/bta3.png";
-// import help from "../../assets/icons/help.png";
-// import i from "../../assets/icons/i.png";
-// import lock from "../../assets/icons/lock.png";
-// import pen from "../../assets/icons/pen.png";
-// import s7 from "../../assets/icons/s7.png";
-// import save from "../../assets/icons/save.png";
-// import x from "../../assets/icons/x.png";
 import Button from "../../components/Button";
 import UserService from "../../services/UserService";
 import { useLayoutEffect } from "react";
@@ -139,50 +131,53 @@ const Profile = ({ navigation }) => {
             <ProfileButton
               title="Change username"
               onPress={changeusername}
-              iconname={pen}
+              iconname="Cus"
             ></ProfileButton>
 
             <ProfileButton
               title="Change password"
               onPress={changepassword}
-              iconname={lock}
+              iconname="Cpass"
             ></ProfileButton>
 
             <ProfileButton
               title="Change department"
               onPress={changedepartment}
-              iconname={bta3}
+              iconname="Cdep"
             ></ProfileButton>
 
             <ProfileButton
               title="Verify friend"
               onPress={verifyfriend}
-              iconname={s7}
+              iconname="VF"
             ></ProfileButton>
+
             <ProfileButton
               title="Saved posts"
               onPress={savedposts}
-              iconname={save}
+              iconname="SP"
             ></ProfileButton>
+
             <ProfileButton
               title="Delete my account"
               onPress={deletemyaccount}
-              iconname={x}
+              iconname="DA"
             ></ProfileButton>
+
             <ProfileButton
               title="Report user"
               onPress={reportuser}
-              iconname={i}
+              iconname="RU"
             ></ProfileButton>
             <ProfileButton
-              title="Help Center & questions"
+              title="Help Center&questions"
               onPress={helpcenter}
-              iconname={help}
+              iconname="HC"
             ></ProfileButton>
             <ProfileButton
               title="Log Out"
               onPress={() => UserService.signOut()}
-              iconname={Logout}
+              iconname="LG"
             ></ProfileButton>
           </View>
         </View>
@@ -194,6 +189,7 @@ const Profile = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
+    height: "50%",
   },
   topSection: {
     top: 0,
