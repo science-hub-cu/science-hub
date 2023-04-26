@@ -11,7 +11,6 @@ import {
   Helpcenter,
   Deleteacc,
   Reportuser,
-  Logout,
 } from "./IconLibrary";
 const Myicon = (iconname) => {
   iconname = iconname.iconname;
@@ -37,14 +36,13 @@ const Myicon = (iconname) => {
       <MaterialIcons
         name="logout"
         color={COLORS.white}
-        style={{ fontSize: 25 }}
+        style={{ fontSize: 21 }}
       />
     );
   }
   return content;
 };
 const ProfileButton = ({ title, iconname, onPress = () => {} }) => {
-  console.log(iconname);
   return (
     <TouchableNativeFeedback onPress={onPress}>
       <View
@@ -52,7 +50,7 @@ const ProfileButton = ({ title, iconname, onPress = () => {} }) => {
           justifyContent: "space-between",
           alignItems: "center",
           flexDirection: "row",
-          paddingVertical: 8,
+          paddingVertical: 6,
           // marginVertical: 10,
           minHeight: 18,
           // height: "11%",

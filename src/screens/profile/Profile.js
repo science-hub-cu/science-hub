@@ -15,13 +15,17 @@ import Button from "../../components/Button";
 import UserService from "../../services/UserService";
 import { useLayoutEffect } from "react";
 import ROUTES from "../../constants/routes";
+import { Svg, Rect } from "react-native-svg";
 const Profile = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [username, setUserName] = useState("k3br");
   const [code, setCode] = useState("2027115");
   const [points, setPointes] = useState("0");
   const [title, setTilte] = useState("Your Title");
-
+  const [gradientcolors, setgradientcolors] = useState([
+    COLORS.blue1,
+    COLORS.mainBackground,
+  ]);
   useLayoutEffect(() => {
     setLoading(true);
     UserService.getCurrentUserData()
@@ -60,19 +64,48 @@ const Profile = ({ navigation }) => {
   helpcenter = () => {
     console.log("helpcenter preesed");
   };
-
+  handelbutton = () => {
+    console.log("wierd button on top of screen pressed");
+  };
   return loading ? (
     <Loading />
   ) : (
     <SafeAreaView style={{ height: "100%", backgroundColor: "#33363F" }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <LinearGradient
-          colors={[COLORS.blue1, COLORS.mainBackground]}
+          colors={gradientcolors}
           start={[0, 0]}
           end={[0, 1]}
           locations={[0, 0.8854]}
           style={styles.container}
         >
+          <TouchableOpacity
+            style={{ padding: 15, flexDirection: "row-reverse" }}
+            onPress={handelbutton}
+          >
+            <Svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+              <Rect
+                x="4"
+                y="5"
+                width="16"
+                height="5"
+                rx="1"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinejoin="round"
+              />
+              <Rect
+                x="4"
+                y="14"
+                width="16"
+                height="5"
+                rx="1"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinejoin="round"
+              />
+            </Svg>
+          </TouchableOpacity>
           <View style={styles.topSection}>
             <View
               style={styles.circle} //avatar
@@ -86,7 +119,6 @@ const Profile = ({ navigation }) => {
               onPress={handlerEditavatar}
               opacity={0.2}
             />
-
             <View style={styles.nameAndcode}>
               <Text style={styles.text}>{username}</Text>
               <Text style={styles.text1}>
@@ -94,9 +126,7 @@ const Profile = ({ navigation }) => {
                 {code}
               </Text>
             </View>
-
             <Text style={styles.Title}>{title}</Text>
-
             <Text style={styles.points}>you have {points} points</Text>
             <Button
               title={"add post"}
@@ -189,7 +219,6 @@ const Profile = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: "50%",
   },
   topSection: {
     top: 0,
