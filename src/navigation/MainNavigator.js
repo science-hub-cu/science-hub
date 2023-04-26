@@ -12,7 +12,7 @@ import CustomizedHeaderBackButton from "../components/CustomizedHeaderBackButton
 import { Drawer, DrawerNavigator } from "./drawer/DrawerNavigator";
 import BottomNavBar from "./BottomNavBar";
 /** Screens */
-import VerifyScreen from "../screens/profileScreens/VerifyScreen";
+import VerifyScreen from "../screens/profile/VerifyScreen";
 import AuthScreen from "../screens/auth/authScreen";
 
 const Stack = createStackNavigator();
