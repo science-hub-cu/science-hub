@@ -79,6 +79,55 @@ export default class UserService {
     }
   }
 
+  static async changeUserName(username) {
+    try {
+      // get token
+      return await Client.sendPostRequest(
+        Client.endPoints.CHANGE_USERNAME,
+        { username },
+        getAuth().currentUser
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+  static async changePassword(oldpassword, password) {
+    try {
+      // get token
+      return await Client.sendPostRequest(
+        Client.endPoints.CHANGE_USERNAME,
+        { oldpassword, password },
+        getAuth().currentUser
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+  static async changeDepartment(department) {
+    try {
+      // get token
+      return await Client.sendPostRequest(
+        Client.endPoints.CHANGE_DEPARTMENT_LEVEL,
+        { department },
+        getAuth().currentUser
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+  static async changeLevel(level) {
+    try {
+      // get token
+      return await Client.sendPostRequest(
+        Client.endPoints.CHANGE_DEPARTMENT_LEVEL,
+        { level },
+        getAuth().currentUser
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+
   static async signOut() {
     await getAuth().signOut();
   }

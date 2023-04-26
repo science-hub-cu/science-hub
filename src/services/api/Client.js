@@ -13,8 +13,11 @@ export default class Client {
   static get endPoints() {
     return {
       AUTH_USER: "/auth",
-      USER_ROUTE: "/user",
       VERIFY_USER: "/user/verify",
+      USER_ROUTE: "/user",
+      CHANGE_USERNAME: "/user/change/username",
+      CHANGE_PASSWORD: "/user/change/password",
+      CHANGE_DEPARTMENT_LEVEL: "/user/change/deplevel",
     };
   }
 
