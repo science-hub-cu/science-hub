@@ -47,19 +47,15 @@ const Profile = ({ navigation }) => {
   addpost = () => {
     console.log("Addpost preesed");
   };
-  changeusername = () => {
-    console.log("changeusername preesed");
-  };
+  changeusername = () => navigation.navigate(ROUTES.CHANGE_USERNAME_ROUTE);
   changepassword = () => {
     console.log("changepassword preesed");
   };
   changedepartment = () => {
     console.log("changedepartment preesed");
   };
-  verifyfriend = () => {
-    navigation.navigate(ROUTES.VERIFY_ROUTE);
-    console.log("verifyfriend preesed");
-  };
+  verifyfriend = () => navigation.navigate(ROUTES.VERIFY_ROUTE);
+
   savedposts = () => {
     console.log("savedposts preesed");
   };
@@ -98,7 +94,7 @@ const Profile = ({ navigation }) => {
               backgroundColor="transparent"
               borderWidth={1}
               onPress={handlerEditavatar}
-              opacity={.2}
+              opacity={0.2}
             />
 
             <View style={styles.nameAndcode}>
@@ -120,7 +116,7 @@ const Profile = ({ navigation }) => {
               backgroundColor={COLORS.graish}
               onPress={addpost}
               icon="plus"
-              opacity={.2}
+              opacity={0.2}
             />
           </View>
         </LinearGradient>

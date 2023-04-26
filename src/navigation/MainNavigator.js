@@ -14,6 +14,7 @@ import BottomNavBar from "./BottomNavBar";
 /** Screens */
 import VerifyScreen from "../screens/profile/VerifyScreen";
 import AuthScreen from "../screens/auth/authScreen";
+import ChangeUserNameScreen from "../screens/profile/ChangeUserNameScreen";
 
 const Stack = createStackNavigator();
 
@@ -56,6 +57,10 @@ export default function MainNavigator() {
           })}
         >
           <Drawer.Screen name={ROUTES.VERIFY_ROUTE} component={VerifyScreen} />
+          <Drawer.Screen
+            name={ROUTES.CHANGE_USERNAME_ROUTE}
+            component={ChangeUserNameScreen}
+          />
         </Drawer.Group>
       </DrawerNavigator>
     );
