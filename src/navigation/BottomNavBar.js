@@ -1,60 +1,52 @@
-import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import COLORS from '../constants/colors';
+import React from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import COLORS from "../constants/colors";
+import ROUTES from "../constants/routes";
 
 //Screens used in the bottom navigation bar.
-import HomeScreen from '../screens/Home';
+import HomeScreen from "../screens/Home";
+import Profile from "../screens/profile/Profile";
+import MaterialHome from "../screens/material/MaterialHome";
+import AddScreen from "../screens/AddScreen";
+import SearchScreen from "../screens/SearchScreen";
 
 //Icons' components.
-import { HomeIcon } from '../components/IconLibrary';
-import { AddIcon } from '../components/IconLibrary';
-import { MaterialIcon } from '../components/IconLibrary';
-import { SearchIcon } from '../components/IconLibrary';
-import { ProfileIcon } from '../components/IconLibrary';
+import { routeToIcon } from "./NavigationHelper";
 
-
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialTopTabNavigator();
 
 function BottomNavBar() {
-
-  //To specify the pressed icon.
-  const icons = {
-    Home: HomeIcon,
-    Material: MaterialIcon,
-    Add: AddIcon,
-    Search: SearchIcon,
-    Profile: ProfileIcon
-  };
-
   return (
     <Tab.Navigator
+      tabBarPosition="bottom"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color }) => {
-          const IconComponent = icons[route.name];
+          const IconComponent = routeToIcon(route.name);
           let opacity = focused ? 1 : 0.3;
-
           return <IconComponent color={color} opacity={opacity} />;
         },
+        tabBarPressColor: "transparent",
+        // lazy: true,
         tabBarShowLabel: false,
-        tabBarActiveTintColor: 'white',
-        tabBarInactiveTintColor: 'white',
-        tabBarStyle: [
-            {
-                height: 45,
-                display: 'flex', 
-                backgroundColor: COLORS.navBar,
-            },
-            null
-        ],
-        headerShown: false,
-      })}>
+        tabBarActiveTintColor: "white",
+        tabBarInactiveTintColor: "white",
+        tabBarBounces: false,
+        tabBarIndicatorStyle: { height: 0 },
+        tabBarStyle: {
+          height: 45,
+          display: "flex",
+          backgroundColor: COLORS.navBar,
+        },
 
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Material" component={HomeScreen} />
-      <Tab.Screen name="Add" component={HomeScreen} />
-      <Tab.Screen name="Search" component={HomeScreen} />
-      <Tab.Screen name="Profile" component={HomeScreen} />
-      
+        headerShown: false,
+      })}
+    >
+      <Tab.Screen name={ROUTES.FEED_ROUTE} component={HomeScreen} />
+      <Tab.Screen name={ROUTES.MATERIAL_ROUTE} component={MaterialHome} />
+      <Tab.Screen name={ROUTES.ADD_ROUTE} component={AddScreen} />
+      <Tab.Screen name={ROUTES.SEARCH_ROUTE} component={SearchScreen} />
+      <Tab.Screen name={ROUTES.PROFILE_ROUTE} component={Profile} />
     </Tab.Navigator>
   );
 }
