@@ -10,7 +10,7 @@ import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import COLORS from "../../constants/colors";
 import ProfileButton from "../../components/ProfileButton";
-
+import Loading from "../Loading";
 import bta3 from "../../assets/icons/bta3.png";
 import help from "../../assets/icons/help.png";
 import i from "../../assets/icons/i.png";
@@ -70,9 +70,7 @@ const Profile = ({ navigation }) => {
   };
 
   return loading ? (
-    <View>
-      <Text>Loading.....</Text>
-    </View>
+    <Loading />
   ) : (
     <SafeAreaView style={{ height: "100%", backgroundColor: "#33363F" }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
