@@ -1,28 +1,25 @@
 import React from "react";
-import CustomDrawerContent from "./CustomDrawer";
-import {
-  createDrawerNavigator,
-} from "@react-navigation/drawer";
-import COLORS from "../constants/colors";
+import CustomDrawerContent from "./CustomDrawerContent";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import COLORS from "../../constants/colors";
 export const Drawer = createDrawerNavigator();
-export const CustomizedDrawer = ({ children }) => {
+export const DrawerNavigator = ({ children }) => {
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
-        headerTitleStyle:{
-          color:COLORS.white,
-          textAlign:"center",
-        
+        headerTitleStyle: {
+          color: COLORS.white,
+          textAlign: "center",
         },
-        headerStyle:{
-          backgroundColor:COLORS.secBackground,
-          height:65
+        headerStyle: {
+          backgroundColor: COLORS.secBackground,
+          height: 65,
         },
-        headerTintColor:COLORS.white,
-        drawerIcon:{
-          color:COLORS.white,
-          backgroundColor:COLORS.white
+        headerTintColor: COLORS.white,
+        drawerIcon: {
+          color: COLORS.white,
+          backgroundColor: COLORS.white,
         },
         drawerStyle: {
           width: "85%",
