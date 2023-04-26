@@ -4,6 +4,7 @@ import { useFonts } from "expo-font";
 import { I18nManager } from "react-native";
 import { AuthProvider } from "./src/context/AuthContext";
 import MainNavigator from "./src/navigation/MainNavigator";
+import { NotificationProvider } from "./src/context/NotificationContext";
 
 //RTL
 I18nManager.allowRTL(false);
@@ -37,7 +38,9 @@ const App = () => {
 
   return (
     <AuthProvider>
-      <MainNavigator></MainNavigator>
+      <NotificationProvider>
+        <MainNavigator></MainNavigator>
+      </NotificationProvider>
     </AuthProvider>
   );
 };
