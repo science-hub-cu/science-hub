@@ -11,14 +11,14 @@ import { LinearGradient } from "expo-linear-gradient";
 import COLORS from "../../constants/colors";
 import ProfileButton from "../../components/ProfileButton";
 import Loading from "../Loading";
-import bta3 from "../../assets/icons/bta3.png";
-import help from "../../assets/icons/help.png";
-import i from "../../assets/icons/i.png";
-import lock from "../../assets/icons/lock.png";
-import pen from "../../assets/icons/pen.png";
-import s7 from "../../assets/icons/s7.png";
-import save from "../../assets/icons/save.png";
-import x from "../../assets/icons/x.png";
+// import bta3 from "../../assets/icons/bta3.png";
+// import help from "../../assets/icons/help.png";
+// import i from "../../assets/icons/i.png";
+// import lock from "../../assets/icons/lock.png";
+// import pen from "../../assets/icons/pen.png";
+// import s7 from "../../assets/icons/s7.png";
+// import save from "../../assets/icons/save.png";
+// import x from "../../assets/icons/x.png";
 import Button from "../../components/Button";
 import UserService from "../../services/UserService";
 import { useLayoutEffect } from "react";
@@ -182,7 +182,7 @@ const Profile = ({ navigation }) => {
             <ProfileButton
               title="Log Out"
               onPress={() => UserService.signOut()}
-              iconname={help}
+              iconname={Logout}
             ></ProfileButton>
           </View>
         </View>
