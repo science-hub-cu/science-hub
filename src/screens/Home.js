@@ -1,13 +1,40 @@
 import React from "react";
-import { View, SafeAreaView, StyleSheet, Text, Image } from "react-native";
+import {
+  View,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  Image,
+  FlatList,
+} from "react-native";
 import COLORS from "../constants/colors";
 import Post from "../components/Post";
 import { ScrollView } from "react-native-gesture-handler";
 const HomeScreen = () => {
+  const data = [
+    {
+      id: "1",
+      imageSource:
+        "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+    },
+    { id: "2", imageSource: "" },
+    {
+      id: "3",
+      imageSource:
+        "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+    },
+    { id: "4", imageSource: "" },
+    { id: "5", imageSource: "" },
+  ];
+
+  const renderItem = ({ item }) => <Post imageSource={item.imageSource} />;
   return (
     <SafeAreaView style={styles.container}>
-        <Post imageSource="https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80" />
-        <Post />
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+      />
     </SafeAreaView>
   );
 };
