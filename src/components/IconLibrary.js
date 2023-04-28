@@ -43,9 +43,9 @@ export const AddIcon = ({ color, opacity }) => {
 export const SearchIcon = ({ color, opacity }) => {
   return (
     <Svg
-      width={32}
-      height={32}
-      viewBox="0 0 32 32"
+      width={24}
+      height={24}
+      viewBox="0 0 28 28"
       fill={color}
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -57,8 +57,8 @@ export const SearchIcon = ({ color, opacity }) => {
       <Line
         x1="24"
         y1="24"
-        x2="26.6667"
-        y2="26.6667"
+        x2="30.6667"
+        y2="30.6667"
         stroke={color}
         strokeOpacity={opacity}
         strokeWidth="2"
