@@ -1,13 +1,17 @@
+import React, { useState, useRef } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import COLORS from "../constants/colors";
 
-const Post = () => {
+const Post = ({
+  imageSource = "",
+}) => {
+  const [imageExist, setIsImageExist] = useState(imageSource!="");
   return (
     <View style={styles.postContaner}>
       <View style={styles.Header}>
         <View style={styles.imageView}>
           <Image
-            style={styles.image}
+            style={styles.userImage}
             source={{
               uri: "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
             }}
@@ -27,9 +31,18 @@ const Post = () => {
           <Text style={{ color: COLORS.gray }}>Title</Text>
         </View>
       </View>
-      <Text style={styles.content}>rdthjeryjeryjyerjeyrjy</Text>
+      <Text style={styles.content}>
+        rdthjeryjeryjyerjeyrjyrdthjeryjeryjyerjeyrjyrdthjeryjeryjyerjeyrjyrdthjeryjeryjyerjeyrjy
+      </Text>
+      {imageExist && (
+        <Image
+          style={styles.image}
+          source={{
+            uri: imageSource,
+          }}
+        ></Image>
+      )}
     </View>
-    
   );
 };
 
@@ -38,8 +51,8 @@ const styles = StyleSheet.create({
   postContaner: {
     backgroundColor: COLORS.secBackground,
     marginBottom: 9,
-    marginTop:1,
-    minHeight:160,
+    marginTop: 1,
+    minHeight: 160,
   },
   imageView: {
     width: 40,
@@ -53,10 +66,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 6,
   },
-  image: {
+  userImage: {
     width: "100%",
     height: "100%",
     borderRadius: 50,
+  },
+  image: {
+    marginTop: 9,
+    width: "100%",
+    height: 300,
   },
   text: {
     color: COLORS.white,
@@ -68,8 +86,7 @@ const styles = StyleSheet.create({
   },
   content: {
     color: COLORS.white,
-    paddingHorizontal:"3%",
-    
+    paddingHorizontal: "3%",
   },
   //   container: {
   //     flex: 1,
