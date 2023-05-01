@@ -47,12 +47,8 @@ const Profile = ({ navigation }) => {
     console.log("Addpost preesed");
   };
   changeusername = () => navigation.navigate(ROUTES.CHANGE_USERNAME_ROUTE);
-  changepassword = () => {
-    console.log("changepassword preesed");
-  };
-  changedepartment = () => {
-    console.log("changedepartment preesed");
-  };
+  changepassword = () => navigation.navigate(ROUTES.CHANGE_PASSWORD_ROUTE);
+  changedepartment = () => navigation.navigate(ROUTES.CHANGE_DEP_ROUTE);
   verifyfriend = () => navigation.navigate(ROUTES.VERIFY_ROUTE);
 
   savedposts = () => {

@@ -15,7 +15,8 @@ import BottomNavBar from "./BottomNavBar";
 import VerifyScreen from "../screens/profile/VerifyScreen";
 import AuthScreen from "../screens/auth/authScreen";
 import ChangeUserNameScreen from "../screens/profile/ChangeUserNameScreen";
-
+import ChangePassword from "../screens/profile/ChangePassword";
+import ChangeDepartment from "../screens/profile/ChangeDepartment";
 const Stack = createStackNavigator();
 
 export default function MainNavigator() {
@@ -60,6 +61,14 @@ export default function MainNavigator() {
           <Drawer.Screen
             name={ROUTES.CHANGE_USERNAME_ROUTE}
             component={ChangeUserNameScreen}
+          />
+          <Drawer.Screen
+            name={ROUTES.CHANGE_PASSWORD_ROUTE}
+            component={ChangePassword}
+          />
+          <Drawer.Screen
+            name={ROUTES.CHANGE_DEP_ROUTE}
+            component={ChangeDepartment}
           />
         </Drawer.Group>
       </DrawerNavigator>
