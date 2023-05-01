@@ -1,5 +1,5 @@
 /**
- * Change Username screen
+ * Change Password screen
  */
 
 import React, { useState, useRef, createRef, useEffect } from "react";
@@ -17,11 +17,12 @@ import LoadingButton from "../../components/LoadingButton";
 import UserService from "../../services/UserService";
 import Input from "../../components/Input";
 import { disappearError } from "../../utils/uiHelper";
-import { isValidUserName } from "../../validations/CommonValidation";
+import { isValidPassword } from "../../validations/CommonValidation";
 
-const ChangeUserNameScreen = ({ navigation }) => {
+const ChangePassword = ({ navigation }) => {
   const btn = useRef(null);
-  const [username, setUsername] = useState("");
+  const [oldpassword, setOldPassword] = useState("");
+  const [newpassword, setNewPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [invalid, setInvalid] = useState("");
   const addError = (error) => {
@@ -39,18 +40,27 @@ const ChangeUserNameScreen = ({ navigation }) => {
     return unsubscribe;
   }, [navigation]);
 
-  const updateUserName = async () => {
+  const updatePassword = async () => {
     try {
-      if (isValidUserName(username)) {
-        // await UserService.signInUser(username); // change logic
-        // console.log(await getAuth().currentUser.getIdToken());
-        console.log("succ");
+      if (isValidPassword(oldpassword) && isValidPassword(newpassword)) {
+        // services
+      } else if (isValidPassword(newpassword)) {
+        addError({
+          password: "password must be at least 6 digits",
+        });
+      } else if (isValidPassword(oldpassword)) {
+        addError({
+          password1: "password must be at least 6 digits",
+        });
       } else {
-        addError({ username: "your name should contains only letters" });
+        addError({
+          password: "password must be at least 6 digits",
+          password1: "password must be at least 6 digits",
+        });
       }
     } catch (error) {
       if (error.response && error.response.status === 401)
-        setInvalid("Invalid Username , username must be only chars");
+        setInvalid("Invalid Password , password must be at least 6 digits");
       console.log(error);
     } finally {
       btn.current?.setLoading(false);
@@ -65,30 +75,33 @@ const ChangeUserNameScreen = ({ navigation }) => {
           contentContainerStyle={{ minHeight: "100%" }}
         >
           <View style={styles.content}>
-            <View style={{ width: "100%", marginLeft: "10%" }}>
-              <Text style={{ color: COLORS.white, fontSize: 15 }}>
-                by changing Username blah blah we know{" \n"}
-                you won't read this just dont it change it alot
-              </Text>
-              <Input
-                width="88%"
-                onChangeText={(text) => setUsername(text)}
-                value={username}
-                onFocus={() => disappearError("username", errors, setErrors)}
-                error={errors.username}
-                placeholder="Username"
-                placeholderTextColor={COLORS.gray2}
-              />
-            </View>
+            <Input
+              width="88%"
+              placeholder="OldPassword"
+              placeholderTextColor={COLORS.gray2}
+              onChangeText={(text) => setOldPassword(text)}
+              value={oldpassword}
+              onFocus={() => disappearError("password", errors, setErrors)}
+              error={errors.password}
+              password
+            />
+            <Input
+              width="88%"
+              placeholder="NewPassword"
+              placeholderTextColor={COLORS.gray2}
+              onChangeText={(text) => setNewPassword(text)}
+              value={newpassword}
+              onFocus={() => disappearError("password1", errors, setErrors)}
+              error={errors.password1}
+              password
+            />
             <Text style={styles.error}>{invalid}</Text>
             <LoadingButton
               ref={btn}
-              width="90%"
-              height={50}
-              fontSize={20}
+              width="88%"
               title={"update"}
-              onPress={() => updateUserName()}
-              disabled={true}
+              onPress={() => updatePassword()}
+              disabled={false}
             ></LoadingButton>
           </View>
         </ScrollView>
@@ -107,8 +120,10 @@ const styles = StyleSheet.create({
   },
   content: {
     height: "100%",
-    flexGrow: 1,
     flex: 1,
+    flexGrow: 1,
+    flexDirection: "column",
+
     alignItems: "center",
     justifyContent: "center",
   },
@@ -122,4 +137,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ChangeUserNameScreen;
+export default ChangePassword;
