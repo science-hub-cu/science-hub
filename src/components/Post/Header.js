@@ -2,29 +2,37 @@ import React, { useState, useRef } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import COLORS from "../../constants/colors";
 
-const Header = ({ userName = "", userImage = "", title = "hamoksa" }) => {
+const Header = ({ userName = "", userAvatar = "", title = "hamoksa" }) => {
   return (
     <View style={styles.Header}>
-      <View style={styles.imageView}>
-        <Image
-          style={styles.userImage}
-          source={{
-            uri: userImage,
-          }}
-        ></Image>
-      </View>
-      <View style={{ marginLeft: "3%" }}>
-        <View style={{ flexDirection: "row" }}>
-          <Text
-            style={{
-              color: COLORS.white,
-              fontSize: 15,
+      {
+        // make this on press open screen where can buy the avatar
+      }
+      <TouchableOpacity>
+        <View style={styles.imageView}>
+          <Image
+            style={styles.userImage}
+            source={{
+              uri: userAvatar,
             }}
-          >
-            {userName}
-          </Text>
+          ></Image>
         </View>
-        <Text style={{ color: COLORS.gray }}>{title}</Text>
+      </TouchableOpacity>
+      <View style={styles.userDate}>
+        {
+          //make this on press open small screen about user
+        }
+        <TouchableOpacity onPress={{}}>
+          <View style={styles.row}>
+            <Text style={styles.username}>{userName}</Text>
+          </View>
+        </TouchableOpacity>
+        {
+          //make this on press open screen where can buy the title
+        }
+        <TouchableOpacity onPress={{}}>
+          <Text style={styles.title}>{title}</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -32,7 +40,6 @@ const Header = ({ userName = "", userImage = "", title = "hamoksa" }) => {
 export default Header;
 
 const styles = StyleSheet.create({
-
   imageView: {
     width: 40,
     height: 40,
@@ -50,7 +57,17 @@ const styles = StyleSheet.create({
     height: "100%",
     borderRadius: 50,
   },
-
-
-
+  username: {
+    color: COLORS.white,
+    fontSize: 15,
+  },
+  title: {
+    color: COLORS.gray,
+  },
+  row: {
+    flexDirection: "row",
+  },
+  userDate: {
+    marginLeft: "3%",
+  },
 });
