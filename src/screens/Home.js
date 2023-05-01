@@ -57,7 +57,7 @@ const HomeScreen = () => {
       imageSource:
         "https://www.unigreet.com/wp-content/uploads/2022/11/100-very-special-good-morning-images-quotes-photos-751x1024.jpg",
       title: "hamoksa",
-      content: "sthsteysedryser",
+      content: "جود مورنينج عليكم يا اخواتي",
       userAvatar:
         "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
     },

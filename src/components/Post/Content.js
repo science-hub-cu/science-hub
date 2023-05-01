@@ -25,13 +25,11 @@ const styles = StyleSheet.create({
   image: {
     marginTop: 9,
     width: "100%",
-    height: 300,
-    resizeMode: "cover",
-    overflow: "hidden",
+    height: undefined,
+    aspectRatio: 1,
   },
   content: {
     color: COLORS.white,
     paddingHorizontal: "3%",
   },
-
 });
