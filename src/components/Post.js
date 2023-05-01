@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.secBackground,
     marginBottom: 9,
     marginTop: 1,
-    minHeight: 160,
+    minHeight: 0,
   },
   imageView: {
     width: 40,
@@ -75,6 +75,8 @@ const styles = StyleSheet.create({
     marginTop: 9,
     width: "100%",
     height: 300,
+    resizeMode:"cover",
+    overflow:"hidden",
   },
   text: {
     color: COLORS.white,
