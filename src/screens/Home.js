@@ -14,20 +14,64 @@ const HomeScreen = () => {
   const data = [
     {
       id: "1",
+      userName: "omar",
       imageSource:
         "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+      title: "hamoksa",
+      content: "rwagearhah",
+      userImage:
+        "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
     },
-    { id: "2", imageSource: "" },
+    {
+      id: "2",
+      userName: "k3bar",
+      imageSource: "",
+      title: "hamoksa",
+      content: "erayaeh",
+      userImage:
+        "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+    },
     {
       id: "3",
+      userName: "faris",
       imageSource:
         "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+      title: "hamoksa ",
+      content: "sthsteysedryser",
+      userImage:
+        "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
     },
-    { id: "4", imageSource: "" },
-    { id: "5", imageSource: "" },
+    {
+      id: "4",
+      userName: "bakar",
+      imageSource:
+        "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+      title: "hamoksa ",
+      content: "sthsteysedryser",
+      userImage:
+        "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+    },
+    {
+      id: "5",
+      userName: "aboElyazed",
+      imageSource:
+        "https://www.unigreet.com/wp-content/uploads/2022/11/100-very-special-good-morning-images-quotes-photos-751x1024.jpg",
+      title: "hamoksa",
+      content: "sthsteysedryser",
+      userImage:
+        "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+    },
   ];
 
-  const renderItem = ({ item }) => <Post imageSource={item.imageSource} />;
+  const renderItem = ({ item }) => (
+    <Post
+      userImage={item.userImage}
+      userName={item.userName}
+      imageSource={item.imageSource}
+      title={item.title}
+      content={item.content}
+    />
+  );
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
@@ -60,7 +104,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginTop: 6,
-    
   },
   row: {
     flexDirection: "row",
