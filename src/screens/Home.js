@@ -19,7 +19,7 @@ const HomeScreen = () => {
         "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
       title: "hamoksa",
       content: "rwagearhah",
-      userImage:
+      userAvatar:
         "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
     },
     {
@@ -28,7 +28,7 @@ const HomeScreen = () => {
       imageSource: "",
       title: "hamoksa",
       content: "erayaeh",
-      userImage:
+      userAvatar:
         "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
     },
     {
@@ -38,7 +38,7 @@ const HomeScreen = () => {
         "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
       title: "hamoksa ",
       content: "sthsteysedryser",
-      userImage:
+      userAvatar:
         "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
     },
     {
@@ -48,7 +48,7 @@ const HomeScreen = () => {
         "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
       title: "hamoksa ",
       content: "sthsteysedryser",
-      userImage:
+      userAvatar:
         "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
     },
     {
@@ -58,14 +58,14 @@ const HomeScreen = () => {
         "https://www.unigreet.com/wp-content/uploads/2022/11/100-very-special-good-morning-images-quotes-photos-751x1024.jpg",
       title: "hamoksa",
       content: "sthsteysedryser",
-      userImage:
+      userAvatar:
         "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
     },
   ];
 
   const renderItem = ({ item }) => (
     <Post
-      userImage={item.userImage}
+      userAvatar={item.userAvatar}
       userName={item.userName}
       imageSource={item.imageSource}
       title={item.title}
