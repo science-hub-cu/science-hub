@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import COLORS from "../../constants/colors";
 import {
@@ -8,32 +8,49 @@ import {
   SavePostIcon,
 } from "../IconLibrary";
 
-const Footer=()=>{
-return (
-  <View style={styles.footer}>
-    <View style={styles.iconContainer}>
+const Footer = () => {
+  const [voteCount, setVoteCount] = useState(0);
+  const [isUpvoted, setIsUpvoted] = useState(false);
+  const [isDownvoted, setIsDownvoted] = useState(false);
+
+  const handleUpVote = () => {
+    if (!isUpvoted && !isDownvoted) {
+      setVoteCount(voteCount + 1);
+      setIsUpvoted(true);
+     }
+  };
+
+  const handleDownVote = () => {
+    if (!isDownvoted && !isUpvoted) { 
+      setVoteCount(voteCount - 1);
+      setIsDownvoted(true);
+    }
+  }
+  return (
+    <View style={styles.footer}>
+      <View style={styles.iconContainer}>
+        <TouchableOpacity onPress={handleUpVote}>
+          <UpVoteIcon />
+        </TouchableOpacity>
+        <Text style={styles.number}>{voteCount}</Text>
+        <TouchableOpacity onPress={handleDownVote}>
+          <DownVoteIcon />
+        </TouchableOpacity>
+      </View>
       <TouchableOpacity onPress={() => {}}>
-        <UpVoteIcon />
+        <View style={styles.iconContainer}>
+          <CommentIcon />
+          <Text style={styles.text}> Comment</Text>
+        </View>
       </TouchableOpacity>
-      <Text style={styles.number}>{10}</Text>
       <TouchableOpacity onPress={() => {}}>
-        <DownVoteIcon />
+        <View style={styles.iconContainer}>
+          <SavePostIcon />
+          <Text style={styles.text}> Save Post</Text>
+        </View>
       </TouchableOpacity>
     </View>
-    <TouchableOpacity onPress={() => {}}>
-      <View style={styles.iconContainer}>
-        <CommentIcon />
-        <Text style={styles.text}> Comment</Text>
-      </View>
-    </TouchableOpacity>
-    <TouchableOpacity onPress={() => {}}>
-      <View style={styles.iconContainer}>
-        <SavePostIcon />
-        <Text style={styles.text}> Save Post</Text>
-      </View>
-    </TouchableOpacity>
-  </View>
-);
+  );
 };
 export default Footer;
 
