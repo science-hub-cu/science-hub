@@ -15,9 +15,21 @@ import COLORS from "../../constants/colors";
 import { ScrollView } from "react-native-gesture-handler";
 import LoadingButton from "../../components/LoadingButton";
 import UserService from "../../services/UserService";
+import Input from "../../components/Input";
+import { disappearError } from "../../utils/uiHelper";
+import { isValidUserName } from "../../validations/CommonValidation";
 
 const ChangeUserNameScreen = ({ navigation }) => {
   const btn = useRef(null);
+  const [username, setUsername] = useState("");
+  const [errors, setErrors] = useState({});
+
+  const addError = (error) => {
+    setErrors((prevState) => ({
+      ...prevState,
+      ...error,
+    }));
+  };
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -27,8 +39,22 @@ const ChangeUserNameScreen = ({ navigation }) => {
     return unsubscribe;
   }, [navigation]);
 
-  const updateUserName = () => {
-    console.log("Update pressed.");
+  const updateUserName = async () => {
+    try {
+      if (isValidUserName(username)) {
+        // await UserService.signInUser(username); // change logic
+        // console.log(await getAuth().currentUser.getIdToken());
+        console.log("succ");
+      } else {
+        addError({ username: "your name should contains only letters" });
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401)
+        setInvalid("Invalid Username , username must be only chars");
+      console.log(error);
+    } finally {
+      btn.current?.setLoading(false);
+    }
   };
 
   return (
@@ -39,10 +65,23 @@ const ChangeUserNameScreen = ({ navigation }) => {
           contentContainerStyle={{ minHeight: "100%" }}
         >
           <View style={styles.content}>
-            <Text style={styles.caption}>
-              Update Username -- not compelet...
-            </Text>
-
+            <View
+              style={{ marginBottom: "8%", width: "100%", marginLeft: "10%" }}
+            >
+              <Text style={{ color: COLORS.white, fontSize: 15 }}>
+                by changing Username blah blah we know{" \n"}
+                you won't read this just dont it change it alot
+              </Text>
+              <Input
+                width="88%"
+                onChangeText={(text) => setUsername(text)}
+                value={username}
+                onFocus={() => disappearError("username", errors, setErrors)}
+                error={errors.username}
+                placeholder="Username"
+                placeholderTextColor={COLORS.gray2}
+              />
+            </View>
             <LoadingButton
               ref={btn}
               marginTop={5}
