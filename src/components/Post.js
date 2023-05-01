@@ -1,11 +1,15 @@
 import React, { useState, useRef } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import COLORS from "../constants/colors";
+import {
+  UpVoteIcon,
+  DownVoteIcon,
+  CommentIcon,
+  SavePostIcon,
+} from "./IconLibrary";
 
-const Post = ({
-  imageSource = "",
-}) => {
-  const [imageExist, setIsImageExist] = useState(imageSource!="");
+const Post = ({ imageSource = "" }) => {
+  const [imageExist, setIsImageExist] = useState(imageSource != "");
   return (
     <View style={styles.postContaner}>
       <View style={styles.Header}>
@@ -42,6 +46,21 @@ const Post = ({
           }}
         ></Image>
       )}
+      <View style={styles.container}>
+        <View style={styles.iconContainer}>
+          <UpVoteIcon />
+          <Text style={styles.number}>{10}</Text>
+          <DownVoteIcon />
+        </View>
+        <View style={styles.iconContainer}>
+          <CommentIcon />
+          <Text style={{ color: COLORS.gray2 }}> Comment</Text>
+        </View>
+        <View style={styles.iconContainer}>
+          <SavePostIcon />
+          <Text style={{ color: COLORS.gray2 }}> Save Post</Text>
+        </View>
+      </View>
     </View>
   );
 };
@@ -75,8 +94,8 @@ const styles = StyleSheet.create({
     marginTop: 9,
     width: "100%",
     height: 300,
-    resizeMode:"cover",
-    overflow:"hidden",
+    resizeMode: "cover",
+    overflow: "hidden",
   },
   text: {
     color: COLORS.white,
@@ -90,45 +109,23 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     paddingHorizontal: "3%",
   },
-  //   container: {
-  //     flex: 1,
-  //     backgroundColor:COLORS.gold
-  //     // width: "100%",
-  //     // height: "100%",
-  //     // padding: 15,
-  //     // backgroundColor: COLORS.secBackground,
-  //     // flexDirection: "row",
-  //     // marginBottom: "1%",
-  //   },
-  //   header: {
-  //     height: 50,
-  //     flexDirection: "row",
-  //     alignItems: "center",
-  //     justifyContent: "space-between",
-  //     marginTop: 6,
-  //     paddingVertical: 11,
-  //   },
-  //   row: {
-  //     alignItems: "center",
-  //     flexDirection: "row",
-  //   },
-  //   user: {
-  //     fontSize: 12,
-  //     fontWeight: "bold",
-  //     color: COLORS.white,
-  //   },
-  //   title: {
-  //     fontSize: 9,
-  //     color: COLORS.gray2,
-  //   },
-  //   image: {
-  //     width: "100%",
-  //     height: "100%",
-  //     borderRadius: 50,
-  //   },
-  //   imageView: {
-  //     width: 40,
-  //     height: 40,
-  //     borderRadius: 20,
-  //   },
+  iconContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 10,
+    marginBottom: 5,
+    // backgroundColor: COLORS.green,
+    justifyContent: "space-between",
+  },
+  number: {
+    paddingHorizontal: "5%",
+    color: "grey",
+    textAlign: "center",
+  },
+  container: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 5,
+    paddingHorizontal: "3%",
+  },
 });
