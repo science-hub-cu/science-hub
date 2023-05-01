@@ -12,6 +12,7 @@ const Footer = () => {
   const [voteCount, setVoteCount] = useState(0);
   const [isUpvoted, setIsUpvoted] = useState(false);
   const [isDownvoted, setIsDownvoted] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
   const handleUpVote = () => {
     if (!isUpvoted && !isDownvoted) {
       setVoteCount(voteCount + 1);
@@ -25,6 +26,9 @@ const Footer = () => {
       setIsDownvoted(true);
     }
   };
+  const handleSavepost=()=>{
+      setIsSaved(!isSaved);
+  }
   return (
     <View style={styles.footer}>
       <View style={styles.iconContainer}>
@@ -46,10 +50,19 @@ const Footer = () => {
           <Text style={styles.text}> Comment</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableOpacity onPress={handleSavepost}>
         <View style={styles.iconContainer}>
-          <SavePostIcon />
-          <Text style={styles.text}> Save Post</Text>
+          {isSaved ? (
+            <>
+              <SavePostIcon color={COLORS.white} />
+              <Text style={styles.text}> Saved</Text>
+            </>
+          ) : (
+            <>
+              <SavePostIcon color={COLORS.gray1} />
+              <Text style={styles.text}> Save Post</Text>
+            </>
+          )}
         </View>
       </TouchableOpacity>
     </View>
