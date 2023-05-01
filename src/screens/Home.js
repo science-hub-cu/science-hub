@@ -8,7 +8,7 @@ import {
   FlatList,
 } from "react-native";
 import COLORS from "../constants/colors";
-import Post from "../components/Post";
+import Post from "../components/Post/Post";
 import { ScrollView } from "react-native-gesture-handler";
 const HomeScreen = () => {
   const data = [
