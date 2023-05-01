@@ -12,18 +12,26 @@ const Footer=()=>{
 return (
   <View style={styles.footer}>
     <View style={styles.iconContainer}>
-      <UpVoteIcon />
+      <TouchableOpacity onPress={() => {}}>
+        <UpVoteIcon />
+      </TouchableOpacity>
       <Text style={styles.number}>{10}</Text>
-      <DownVoteIcon />
+      <TouchableOpacity onPress={() => {}}>
+        <DownVoteIcon />
+      </TouchableOpacity>
     </View>
-    <View style={styles.iconContainer}>
-      <CommentIcon />
-      <Text style={styles.text}> Comment</Text>
-    </View>
-    <View style={styles.iconContainer}>
-      <SavePostIcon />
-      <Text style={styles.text}> Save Post</Text>
-    </View>
+    <TouchableOpacity onPress={() => {}}>
+      <View style={styles.iconContainer}>
+        <CommentIcon />
+        <Text style={styles.text}> Comment</Text>
+      </View>
+    </TouchableOpacity>
+    <TouchableOpacity onPress={() => {}}>
+      <View style={styles.iconContainer}>
+        <SavePostIcon />
+        <Text style={styles.text}> Save Post</Text>
+      </View>
+    </TouchableOpacity>
   </View>
 );
 };

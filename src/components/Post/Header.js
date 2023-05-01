@@ -8,7 +8,7 @@ const Header = ({ userName = "", userAvatar = "", title = "hamoksa" }) => {
       {
         // make this on press open screen where can buy the avatar
       }
-      <TouchableOpacity>
+      <TouchableOpacity onPress={()=>{}}>
         <View style={styles.imageView}>
           <Image
             style={styles.userImage}
@@ -22,7 +22,7 @@ const Header = ({ userName = "", userAvatar = "", title = "hamoksa" }) => {
         {
           //make this on press open small screen about user
         }
-        <TouchableOpacity onPress={{}}>
+        <TouchableOpacity onPress={() => {}}>
           <View style={styles.row}>
             <Text style={styles.username}>{userName}</Text>
           </View>
@@ -30,7 +30,7 @@ const Header = ({ userName = "", userAvatar = "", title = "hamoksa" }) => {
         {
           //make this on press open screen where can buy the title
         }
-        <TouchableOpacity onPress={{}}>
+        <TouchableOpacity onPress={() => {}}>
           <Text style={styles.title}>{title}</Text>
         </TouchableOpacity>
       </View>
