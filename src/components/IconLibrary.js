@@ -207,19 +207,31 @@ export const Helpcenter = () => {
   );
 };
 
-export const UpVoteIcon = () => {
+export const UpVoteIcon = ({ color, opacity }) => {
   return (
     <Svg width={16} height={15} viewBox="0 0 16 15" fill="none">
-        <Path d="M5 15L5 8L1.48284 8C1.30466 8 1.21543 7.78457 1.34142 7.65858L8 1L14.6586 7.65858C14.7846 7.78457 14.6953 8 14.5172 8L11 8L11 15" stroke="white" strokeOpacity={0.5} />
-      </Svg>
+      <Path
+        d="M5 15L5 8L1.48284 8C1.30466 8 1.21543 7.78457 1.34142 7.65858L8 1L14.6586 7.65858C14.7846 7.78457 14.6953 8 14.5172 8L11 8L11 15"
+        stroke="white"
+        strokeOpacity={0.5}
+        fill={color}
+        fillOpacity={opacity}
+      />
+    </Svg>
   );
 };
 
-export const DownVoteIcon = () => {
+export const DownVoteIcon = ({ color, opacity }) => {
   return (
     <Svg width={16} height={15} viewBox="0 0 16 15" fill="none">
-        <Path d="M5 0L5 7L1.48284 7C1.30466 7 1.21543 7.21543 1.34142 7.34142L8 14L14.6586 7.34142C14.7846 7.21543 14.6953 7 14.5172 7L11 7L11 0" stroke="white" strokeOpacity={0.5} />
-      </Svg>
+      <Path
+        d="M5 0L5 7L1.48284 7C1.30466 7 1.21543 7.21543 1.34142 7.34142L8 14L14.6586 7.34142C14.7846 7.21543 14.6953 7 14.5172 7L11 7L11 0"
+        stroke="white"
+        strokeOpacity={0.5}
+        fill={color}
+        fillOpacity={opacity}
+      />
+    </Svg>
   );
 };
 
