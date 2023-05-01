@@ -12,29 +12,32 @@ const Footer = () => {
   const [voteCount, setVoteCount] = useState(0);
   const [isUpvoted, setIsUpvoted] = useState(false);
   const [isDownvoted, setIsDownvoted] = useState(false);
-
   const handleUpVote = () => {
     if (!isUpvoted && !isDownvoted) {
       setVoteCount(voteCount + 1);
       setIsUpvoted(true);
-     }
+    }
   };
 
   const handleDownVote = () => {
-    if (!isDownvoted && !isUpvoted) { 
+    if (!isDownvoted && !isUpvoted) {
       setVoteCount(voteCount - 1);
       setIsDownvoted(true);
     }
-  }
+  };
   return (
     <View style={styles.footer}>
       <View style={styles.iconContainer}>
         <TouchableOpacity onPress={handleUpVote}>
-          <UpVoteIcon />
+          {isUpvoted ? <UpVoteIcon color={COLORS.white} /> : <UpVoteIcon />}
         </TouchableOpacity>
         <Text style={styles.number}>{voteCount}</Text>
         <TouchableOpacity onPress={handleDownVote}>
-          <DownVoteIcon />
+          {isDownvoted ? (
+            <DownVoteIcon color={COLORS.white} />
+          ) : (
+            <DownVoteIcon />
+          )}
         </TouchableOpacity>
       </View>
       <TouchableOpacity onPress={() => {}}>
