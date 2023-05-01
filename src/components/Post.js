@@ -8,7 +8,13 @@ import {
   SavePostIcon,
 } from "./IconLibrary";
 
-const Post = ({ imageSource = "" }) => {
+const Post = ({
+  userName = "",
+  userImage = "",
+  title = "hamoksa",
+  content = "",
+  imageSource = "",
+}) => {
   const [imageExist, setIsImageExist] = useState(imageSource != "");
   return (
     <View style={styles.postContaner}>
@@ -17,7 +23,7 @@ const Post = ({ imageSource = "" }) => {
           <Image
             style={styles.userImage}
             source={{
-              uri: "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+              uri: userImage,
             }}
           ></Image>
         </View>
@@ -29,15 +35,13 @@ const Post = ({ imageSource = "" }) => {
                 fontSize: 15,
               }}
             >
-              UserName
+              {userName}
             </Text>
           </View>
-          <Text style={{ color: COLORS.gray }}>Title</Text>
+          <Text style={{ color: COLORS.gray }}>{title}</Text>
         </View>
       </View>
-      <Text style={styles.content}>
-        rdthjeryjeryjyerjeyrjyrdthjeryjeryjyerjeyrjyrdthjeryjeryjyerjeyrjyrdthjeryjeryjyerjeyrjy
-      </Text>
+      <Text style={styles.content}>{content}</Text>
       {imageExist && (
         <Image
           style={styles.image}
@@ -114,7 +118,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 10,
     marginBottom: 5,
-    // backgroundColor: COLORS.green,
     justifyContent: "space-between",
   },
   number: {
