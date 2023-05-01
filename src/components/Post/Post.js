@@ -1,12 +1,13 @@
 import React, { useState, useRef } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
-import COLORS from "../constants/colors";
+import COLORS from "../../constants/colors";
+import Footer from "./Footer";
 import {
   UpVoteIcon,
   DownVoteIcon,
   CommentIcon,
   SavePostIcon,
-} from "./IconLibrary";
+} from "../IconLibrary";
 
 const Post = ({
   userName = "",
@@ -50,21 +51,7 @@ const Post = ({
           }}
         ></Image>
       )}
-      <View style={styles.container}>
-        <View style={styles.iconContainer}>
-          <UpVoteIcon />
-          <Text style={styles.number}>{10}</Text>
-          <DownVoteIcon />
-        </View>
-        <View style={styles.iconContainer}>
-          <CommentIcon />
-          <Text style={{ color: COLORS.gray2 }}> Comment</Text>
-        </View>
-        <View style={styles.iconContainer}>
-          <SavePostIcon />
-          <Text style={{ color: COLORS.gray2 }}> Save Post</Text>
-        </View>
-      </View>
+      <Footer/>
     </View>
   );
 };
@@ -113,22 +100,5 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     paddingHorizontal: "3%",
   },
-  iconContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 10,
-    marginBottom: 5,
-    justifyContent: "space-between",
-  },
-  number: {
-    paddingHorizontal: "5%",
-    color: "grey",
-    textAlign: "center",
-  },
-  container: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 5,
-    paddingHorizontal: "3%",
-  },
+
 });
