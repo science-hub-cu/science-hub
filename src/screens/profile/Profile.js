@@ -172,7 +172,7 @@ const Profile = ({ navigation }) => {
             ></ProfileButton>
 
             <ProfileButton
-              title="Change department"
+              title="Change department or level"
               onPress={changedepartment}
               iconname="Cdep"
             ></ProfileButton>
