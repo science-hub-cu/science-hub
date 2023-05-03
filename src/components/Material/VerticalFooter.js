@@ -6,10 +6,40 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 const VirticalFooter = () => {
   const [isStarred, setIsStarred] = useState(false);
+  const [isUped, setIsUped] = useState(false);
+  const [isDowned, setIsDowned] = useState(false);
+  const [voteCount, setVoteCount] = useState(0);
+
 
   const handleStarPress = () => {
     setIsStarred(!isStarred);
   };
+   const handleUpPress = () => {
+        if (!isUped && !isDowned) {
+          setVoteCount(voteCount + 1);
+          setIsUped(true);
+        }else if(isDowned){
+           setVoteCount(voteCount + 2);
+           setIsUped(true);
+           setIsDowned(false);
+        }else{
+           setIsUped(false);
+           setVoteCount(voteCount - 1);
+        }
+   };
+    const handleDownPress = () => {
+              if (!isUped && !isDowned) {
+                setVoteCount(voteCount - 1);
+                setIsDowned(true);
+              } else if (isUped) {
+                setVoteCount(voteCount - 2);
+                setIsUped(false);
+                setIsDowned(true);
+              }else{
+                setIsDowned(false);
+                setVoteCount(voteCount + 1);
+              }
+    };
 
   return (
     <View
@@ -21,14 +51,27 @@ const VirticalFooter = () => {
     >
       <TouchableOpacity onPress={handleStarPress}>
         {isStarred ? (
-          <AntDesign name="star" size={19} color="gold"/>
+          <AntDesign name="star" size={19} color="gold" />
         ) : (
           <AntDesign name="staro" size={19} color="white" />
         )}
       </TouchableOpacity>
-      <MaterialIcons name="keyboard-arrow-up" size={27} color="blue" />
-      <Text style={{ color: COLORS.white, fontSize: 9 }}>69</Text>
-      <MaterialIcons name="keyboard-arrow-down" size={27} color="white" />
+
+      <TouchableOpacity onPress={handleUpPress}>
+        {isUped ? (
+          <MaterialIcons name="keyboard-arrow-up" size={27} color="blue" />
+        ) : (
+          <MaterialIcons name="keyboard-arrow-up" size={27} color="white" />
+        )}
+      </TouchableOpacity>
+      <Text style={{ color: COLORS.white, fontSize: 9 }}>{voteCount}</Text>
+      <TouchableOpacity onPress={handleDownPress}>
+        {isDowned ? (
+          <MaterialIcons name="keyboard-arrow-down" size={27} color="blue" />
+        ) : (
+          <MaterialIcons name="keyboard-arrow-down" size={27} color="white" />
+        )}
+      </TouchableOpacity>
     </View>
   );
 };
