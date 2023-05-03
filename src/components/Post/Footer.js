@@ -33,12 +33,16 @@ const Footer = () => {
     <View style={styles.footer}>
       <View style={styles.iconContainer}>
         <TouchableOpacity onPress={handleUpVote}>
-          {isUpvoted ? <UpVoteIcon color={COLORS.white} /> : <UpVoteIcon />}
+          {isUpvoted ? (
+            <UpVoteIcon color={COLORS.blue1} stroke={COLORS.blue1} />
+          ) : (
+            <UpVoteIcon />
+          )}
         </TouchableOpacity>
         <Text style={styles.number}>{voteCount}</Text>
         <TouchableOpacity onPress={handleDownVote}>
           {isDownvoted ? (
-            <DownVoteIcon color={COLORS.white} />
+            <DownVoteIcon color={COLORS.blue1} stroke={COLORS.blue1} />
           ) : (
             <DownVoteIcon />
           )}
@@ -54,7 +58,7 @@ const Footer = () => {
         <View style={styles.iconContainer}>
           {isSaved ? (
             <>
-              <SavePostIcon color={COLORS.white} />
+              <SavePostIcon color={COLORS.gold} />
               <Text style={styles.text}> Saved</Text>
             </>
           ) : (
