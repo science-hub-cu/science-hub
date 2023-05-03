@@ -4,6 +4,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import COLORS from "../../constants/colors";
 import { MaterialIcons } from "@expo/vector-icons";
 import VirticalFooter from "./VerticalFooter";
+import MaterialHeader from "./MaterialHeader";
 const Matirial = () => {
   return (
     <View
@@ -23,28 +24,7 @@ const Matirial = () => {
           width: "82%",
         }}
       >
-        <Text
-          style={{
-            fontFamily: "TrebuchetMS",
-            paddingLeft: "5%",
-            paddingTop: "2%",
-            color: COLORS.white,
-            fontWeight: 700,
-            fontSize: 12,
-          }}
-        >
-          Subject code
-        </Text>
-        <Text
-          style={{
-            paddingLeft: "5%",
-            color: COLORS.gray1,
-            fontWeight: 400,
-            fontSize: 9,
-          }}
-        >
-          subject name
-        </Text>
+        <MaterialHeader />
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text
             style={{
