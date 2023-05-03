@@ -4,7 +4,17 @@ import COLORS from "../../constants/colors";
 const MaterialHome = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>Material Screen</Text>
+      <View
+        style={{
+          backgroundColor: COLORS.secBackground,
+          width: "96%",
+          height: 100,
+          borderRadius: 15,
+          marginTop: "1.5%",
+          marginHorizontal: "2%",
+        }}
+      ></View>
+      
     </SafeAreaView>
   );
 };
