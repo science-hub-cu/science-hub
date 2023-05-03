@@ -1,9 +1,7 @@
 import React from "react";
-import {SafeAreaView, StyleSheet} from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 import COLORS from "../../constants/colors";
-import Matirial from "../../components/Material";
-
-
+import Matirial from "../../components/Material/Material";
 
 const MaterialHome = () => {
   return (
