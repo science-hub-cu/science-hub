@@ -70,6 +70,22 @@ export default function MainNavigator() {
             name={ROUTES.CHANGE_DEP_ROUTE}
             component={ChangeDepartment}
           />
+          <Drawer.Screen
+            name={ROUTES.SAVED_POTSTS_ROUTE}
+            component={ChangeDepartment}
+          />
+          <Drawer.Screen
+            name={ROUTES.DELETEACC_ROUTE}
+            component={ChangeDepartment}
+          />
+          <Drawer.Screen
+            name={ROUTES.REP_USER_ROUTE}
+            component={ChangeDepartment}
+          />
+          <Drawer.Screen
+            name={ROUTES.HELP_ROUTE}
+            component={ChangeDepartment}
+          />
         </Drawer.Group>
       </DrawerNavigator>
     );

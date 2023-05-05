@@ -10,6 +10,10 @@ const ROUTES = {
   CHANGE_USERNAME_ROUTE: "Change Username",
   CHANGE_PASSWORD_ROUTE: "Change Password",
   CHANGE_DEP_ROUTE: "Change Department",
+  SAVED_POTSTS_ROUTE: "saved posts",
+  DELETEACC_ROUTE: "delete account",
+  REP_USER_ROUTE: "report user",
+  HELP_ROUTE: "help",
 };
 
 export default ROUTES;

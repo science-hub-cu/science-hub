@@ -50,19 +50,10 @@ const Profile = ({ navigation }) => {
   changepassword = () => navigation.navigate(ROUTES.CHANGE_PASSWORD_ROUTE);
   changedepartment = () => navigation.navigate(ROUTES.CHANGE_DEP_ROUTE);
   verifyfriend = () => navigation.navigate(ROUTES.VERIFY_ROUTE);
-
-  savedposts = () => {
-    console.log("savedposts preesed");
-  };
-  deletemyaccount = () => {
-    console.log("deletemyaccount preesed");
-  };
-  reportuser = () => {
-    console.log("reportuser preesed");
-  };
-  helpcenter = () => {
-    console.log("helpcenter preesed");
-  };
+  savedposts = () => navigation.navigate(ROUTES.SAVED_POTSTS_ROUTE);
+  deletemyaccount = () => navigation.navigate(ROUTES.DELETEACC_ROUTE);
+  reportuser = () => navigation.navigate(ROUTES.REP_USER_ROUTE);
+  helpcenter = () => navigation.navigate(ROUTES.HELP_ROUTE);
   handelbutton = () => navigation.toggleDrawer();
   return loading ? (
     <Loading />
