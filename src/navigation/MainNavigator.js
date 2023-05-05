@@ -17,6 +17,10 @@ import AuthScreen from "../screens/auth/authScreen";
 import ChangeUserNameScreen from "../screens/profile/ChangeUserNameScreen";
 import ChangePassword from "../screens/profile/ChangePassword";
 import ChangeDepartment from "../screens/profile/ChangeDepartment";
+import Help from "../screens/profile/ChangePassword";
+import Savedpost from "../screens/profile/ChangeDepartment";
+import DeleteAcc from "../screens/profile/DeleteAcc";
+import Reportuser from "../screens/profile/Reportuser";
 const Stack = createStackNavigator();
 
 export default function MainNavigator() {
@@ -72,20 +76,11 @@ export default function MainNavigator() {
           />
           <Drawer.Screen
             name={ROUTES.SAVED_POTSTS_ROUTE}
-            component={ChangeDepartment}
+            component={Savedpost}
           />
-          <Drawer.Screen
-            name={ROUTES.DELETEACC_ROUTE}
-            component={ChangeDepartment}
-          />
-          <Drawer.Screen
-            name={ROUTES.REP_USER_ROUTE}
-            component={ChangeDepartment}
-          />
-          <Drawer.Screen
-            name={ROUTES.HELP_ROUTE}
-            component={ChangeDepartment}
-          />
+          <Drawer.Screen name={ROUTES.DELETEACC_ROUTE} component={DeleteAcc} />
+          <Drawer.Screen name={ROUTES.REP_USER_ROUTE} component={Reportuser} />
+          <Drawer.Screen name={ROUTES.HELP_ROUTE} component={Help} />
         </Drawer.Group>
       </DrawerNavigator>
     );
