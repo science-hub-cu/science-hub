@@ -26,9 +26,9 @@ const Footer = () => {
       setIsDownvoted(true);
     }
   };
-  const handleSavepost=()=>{
-      setIsSaved(!isSaved);
-  }
+  const handleSavepost = () => {
+    setIsSaved(!isSaved);
+  };
   return (
     <View style={styles.footer}>
       <View style={styles.iconContainer}>
@@ -49,13 +49,13 @@ const Footer = () => {
         </TouchableOpacity>
       </View>
       <TouchableOpacity onPress={() => {}}>
-        <View style={styles.iconContainer}>
+        <View style={[styles.iconContainer, { flex: 1 }]}>
           <CommentIcon />
           <Text style={styles.text}> Comment</Text>
         </View>
       </TouchableOpacity>
       <TouchableOpacity onPress={handleSavepost}>
-        <View style={styles.iconContainer}>
+        <View style={[styles.iconContainer, { width: 80 }]}>
           {isSaved ? (
             <>
               <SavePostIcon color={COLORS.gold} />
@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 10,
     marginBottom: 5,
-    justifyContent: "space-between",
   },
   number: {
     paddingHorizontal: "5%",
