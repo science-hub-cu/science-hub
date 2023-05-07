@@ -133,7 +133,9 @@ const Profile = ({ navigation }) => {
             style={{
               backgroundColor: COLORS.navBarBackground,
               alignItems: "center",
+              justifyContent: "center",
               paddingVertical: 1,
+              height: 35,
             }}
           >
             <Text
@@ -207,6 +209,7 @@ const Profile = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
+    height: "55%",
   },
   topSection: {
     top: 0,

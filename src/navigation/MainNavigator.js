@@ -18,7 +18,7 @@ import ChangeUserNameScreen from "../screens/profile/ChangeUserNameScreen";
 import ChangePassword from "../screens/profile/ChangePassword";
 import ChangeDepartment from "../screens/profile/ChangeDepartment";
 import Help from "../screens/profile/Help";
-import Savedpost from "../screens/profile/ChangeDepartment";
+import Savedpost from "../screens/profile/Savedpost";
 import DeleteAcc from "../screens/profile/DeleteAcc";
 import Reportuser from "../screens/profile/Reportuser";
 const Stack = createStackNavigator();
