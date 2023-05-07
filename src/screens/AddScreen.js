@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import COLORS from "../constants/colors";
 import Button from "../../src/components/Button";
 import { AntDesign } from "@expo/vector-icons";
+import * as ImagePicker from "expo-image-picker";
 
 import {
   StyleSheet,
@@ -17,6 +18,19 @@ import { ScrollView } from "react-native-gesture-handler";
 
 const AddScreen = () => {
   const [postText, setPostText] = useState("");
+  const [imageUri, setImageUri] = useState(null);
+const handleChooseImage = async () => {
+  let result = await ImagePicker.launchImageLibraryAsync({
+    mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    allowsEditing: true,
+    aspect: [4, 3],
+    quality: 1,
+  });
+
+  if (!result.canceled) {
+    setImageUri(result.assets[0].uri);
+  }
+};
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -49,17 +63,24 @@ const AddScreen = () => {
           </View>
 
           <View style={styles.imageView}>
-            <Image
-              style={styles.image}
-              source={require("../assets/images/uplodeImage.png")}
-            ></Image>
+            {imageUri ? (
+              <Image
+                style={styles.selectedImage}
+                source={{ uri: imageUri }}
+              ></Image>
+            ) : (
+              <Image
+                style={styles.image}
+                source={require("../assets/images/uplodeImage.png")}
+              ></Image>
+            )}
             <Button
               title={"Upload Image"}
               fontSize={13}
               width="40%"
               height="15%"
               backgroundColor={COLORS.graish}
-              // onPress={}
+              onPress={handleChooseImage}
               opacity={0.2}
             />
           </View>
@@ -68,6 +89,7 @@ const AddScreen = () => {
     </TouchableWithoutFeedback>
   );
 };
+export default AddScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -113,6 +135,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginHorizontal: "50%",
   },
+  selectedImage: {
+    width: "50%",
+    height: undefined,
+    aspectRatio: 1,
+  },
 });
-
-export default AddScreen;
