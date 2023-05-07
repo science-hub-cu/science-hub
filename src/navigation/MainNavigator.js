@@ -17,7 +17,7 @@ import AuthScreen from "../screens/auth/authScreen";
 import ChangeUserNameScreen from "../screens/profile/ChangeUserNameScreen";
 import ChangePassword from "../screens/profile/ChangePassword";
 import ChangeDepartment from "../screens/profile/ChangeDepartment";
-import Help from "../screens/profile/ChangePassword";
+import Help from "../screens/profile/Help";
 import Savedpost from "../screens/profile/ChangeDepartment";
 import DeleteAcc from "../screens/profile/DeleteAcc";
 import Reportuser from "../screens/profile/Reportuser";
