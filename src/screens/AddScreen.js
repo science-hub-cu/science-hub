@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import COLORS from "../constants/colors";
 import Button from "../../src/components/Button";
 import { AntDesign } from "@expo/vector-icons";
@@ -16,6 +16,8 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 
 const AddScreen = () => {
+  const [postText, setPostText] = useState("");
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={styles.container}>
@@ -41,14 +43,16 @@ const AddScreen = () => {
               placeholderTextColor={COLORS.gray1}
               style={styles.textInput}
               multiline={true}
+              value={postText}
+              onChangeText={(text) => setPostText(text)}
             ></TextInput>
           </View>
-          
+
           <View style={styles.imageView}>
             <Image
               style={styles.image}
               source={require("../assets/images/uplodeImage.png")}
-            ></Image>          
+            ></Image>
             <Button
               title={"Upload Image"}
               fontSize={13}
@@ -59,7 +63,6 @@ const AddScreen = () => {
               opacity={0.2}
             />
           </View>
-          
         </ScrollView>
       </SafeAreaView>
     </TouchableWithoutFeedback>
@@ -111,4 +114,5 @@ const styles = StyleSheet.create({
     marginHorizontal: "50%",
   },
 });
+
 export default AddScreen;
