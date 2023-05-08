@@ -15,42 +15,60 @@ import {
   Keyboard,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import PostService from "../services/PostService";
+import { useAuth } from "../context/AuthContext";
+import { StatusBar } from "expo-status-bar";
 
-const AddScreen = () => {
+const AddScreen = ({ navigation }) => {
   const [postText, setPostText] = useState("");
   const [imageUri, setImageUri] = useState(null);
-const handleChooseImage = async () => {
-  let result = await ImagePicker.launchImageLibraryAsync({
-    mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    allowsEditing: true,
-    aspect: [4, 3],
-    quality: 1,
-  });
+  const { user } = useAuth();
 
-  if (!result.canceled) {
-    setImageUri(result.assets[0].uri);
-  }
-};
+  const handleChooseImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setImageUri(result.assets[0].uri);
+    }
+  };
+
+  const addPost = () => {
+    PostService.createPost("content", null, user.uid)
+      .then((e) => console.log(e))
+      .catch((e) => console.log(e));
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={styles.container}>
-        <ScrollView
-          style={styles.scrollView}
-          contentContainerStyle={{ minHeight: "100%" }}
-        >
+        <View>
           <View style={styles.header}>
-            <TouchableOpacity onPress={() => {}} style={styles.headericon}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.goBack();
+              }}
+              style={styles.headericon}
+            >
               <AntDesign name="close" size={24} color="white" />
             </TouchableOpacity>
             <Button
               title={"Post"}
               width="20%"
               height="75%"
-              onPress={() => {}}
+              onPress={() => addPost()}
               opacity={0.2}
             />
           </View>
+        </View>
+        <ScrollView
+          style={styles.scrollView}
+          contentContainerStyle={{ minHeight: "100%" }}
+        >
           <View style={styles.textInputView}>
             <TextInput
               placeholder="enter your post"
@@ -95,6 +113,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.mainBackground,
+    height: "100%",
+    paddingTop: "10%",
   },
   imageView: {
     justifyContent: "center",
