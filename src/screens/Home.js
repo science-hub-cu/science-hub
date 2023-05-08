@@ -1,67 +1,78 @@
 import React, { useState } from "react";
-import {
-  View,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  Image,
-  FlatList,
-} from "react-native";
-import {
-  collection,
-  query,
-  orderBy,
-  startAfter,
-  limit,
-  getDocs,
-  docs,
-} from "firebase/firestore";
+import { SafeAreaView, StyleSheet, Text, FlatList } from "react-native";
 import COLORS from "../constants/colors";
 import Post from "../components/Post/Post";
-import { ScrollView } from "react-native-gesture-handler";
-import { getFirestore } from "firebase/firestore";
-import { useEffect } from "react";
-import { set } from "react-native-reanimated";
+import PostService from "../services/PostService";
 const HomeScreen = () => {
-  let postnum = 6;
-  let ldoc = null;
-  const [dataloading, setdataloading] = useState(false);
+  const [lastDoc, setLastDoc] = useState(null);
+  const [firstDoc, setfirstDoc] = useState(null);
+  const [dataLoading, setDataLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [dataEnding, setDataEnding] = useState(false);
   const [data, setData] = useState([]);
-  useEffect(() => {
-    loaddata();
-  }, []);
-  const loaddata = async () => {
-    // loading true
-    const db = getFirestore();
-    const postref = collection(db, "posts");
-    const DBq = query(
-      postref,
-      orderBy("createdAt"),
-      startAfter(ldoc || 0),
-      limit(2)
-    );
-    const DBdata = await getDocs(DBq);
-    DBdata.forEach((doc) => {
-      console.log(doc.id);
-      setData((old) => [
-        ...old,
-        {
-          id: postnum++,
-          userName: doc.data().user.username,
-          imageSource:
-            "https://www.unigreet.com/wp-content/uploads/2022/11/100-very-special-good-morning-images-quotes-photos-751x1024.jpg",
-          title: doc.data().user.title,
-          content: doc.data().content,
-          userAvatar:
-            "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
-        },
-      ]);
-    });
-    latestDoc = DBdata.docs[DBdata.docs.length - 1];
-    if (DBdata.empty) {
-      // no more data
+
+  const onRefresh = async () => {
+    if (refreshing || dataLoading || !firstDoc) return;
+    try {
+      setRefreshing(true);
+      let DBdata = await PostService.loadPostAsec(firstDoc);
+      DBdata.forEach((doc) => {
+        const media = doc.data().media;
+        setData((old) => [
+          {
+            id: doc.id,
+            userName: doc.data().user.username,
+            imageSource: media ? media.data : "",
+            title: doc.data().user.title,
+            content: doc.data().content,
+            userAvatar:
+              "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+          },
+          ...old,
+        ]);
+        if (!DBdata.empty) setfirstDoc(DBdata.docs[0]);
+      });
+    } catch (e) {
+    } finally {
+      setRefreshing(false);
     }
-    // loading false
+  };
+
+  const loaddata = async () => {
+    console.log("start loaddata");
+
+    // loading true
+    if (dataLoading || dataEnding || refreshing) return;
+    try {
+      if (lastDoc) console.log("after doc: ", lastDoc.id);
+      console.log("start Accutly loaddata");
+
+      setDataLoading(true);
+
+      const DBdata = await PostService.loadPostDesc(lastDoc);
+      DBdata.forEach((doc) => {
+        const media = doc.data().media;
+        setData((old) => [
+          ...old,
+          {
+            id: doc.id,
+            userName: doc.data().user.username,
+            imageSource: media ? media.data : "",
+            title: doc.data().user.title,
+            content: doc.data().content,
+            userAvatar:
+              "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+          },
+        ]);
+      });
+      setLastDoc(DBdata.docs[DBdata.docs.length - 1]);
+      if (DBdata.empty) setDataEnding(true);
+      if (!firstDoc && !DBdata.empty) setfirstDoc(DBdata.docs[0]);
+    } catch (er) {
+      console.log(er);
+    } finally {
+      setDataLoading(false);
+    }
   };
   const renderItem = ({ item }) => (
     <Post
@@ -79,6 +90,16 @@ const HomeScreen = () => {
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         onEndReached={loaddata}
+        refreshing={refreshing}
+        onRefresh={() => onRefresh()}
+        ListEmptyComponent={<Text style={styles.text}>No Posts</Text>}
+        ListFooterComponent={
+          dataEnding ? (
+            <Text>Data ended refresh</Text>
+          ) : (
+            <Text style={styles.text}>Loading...</Text>
+          )
+        }
       />
     </SafeAreaView>
   );
