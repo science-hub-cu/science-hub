@@ -3,6 +3,7 @@ import COLORS from "../constants/colors";
 import Button from "../../src/components/Button";
 import { AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+import { manipulateAsync, FlipType, SaveFormat } from "expo-image-manipulator";
 
 import {
   StyleSheet,
@@ -17,7 +18,8 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import PostService from "../services/PostService";
 import { useAuth } from "../context/AuthContext";
-import { StatusBar } from "expo-status-bar";
+import FireBaseStorage from "../services/FireBaseStorage";
+import { ToastAndroid } from "react-native";
 
 const AddScreen = ({ navigation }) => {
   const [postText, setPostText] = useState("");
@@ -37,10 +39,36 @@ const AddScreen = ({ navigation }) => {
     }
   };
 
-  const addPost = () => {
-    PostService.createPost("content", null, user.uid)
-      .then((e) => console.log(e))
-      .catch((e) => console.log(e));
+  const addPost = async () => {
+    if (!postText || postText === "") return;
+    navigation.goBack();
+    const createPost = (content, media) =>
+      PostService.createPost(content, media, user.uid)
+        .then((e) => ToastAndroid.show("Post published!", ToastAndroid.SHORT))
+        .catch((e) =>
+          ToastAndroid.show("error in publish post", ToastAndroid.SHORT)
+        );
+
+    if (imageUri) {
+      const manipResult = await manipulateAsync(
+        imageUri,
+        [{ resize: { width: 800, height: 600 } }],
+        { compress: 0, format: SaveFormat.PNG }
+      );
+
+      FireBaseStorage.uploadImageWithProgress(
+        manipResult.uri,
+        FireBaseStorage.folders.postImage,
+        (prog) => console.log("image uploaded: ", prog),
+        (e) => console.log("error : ", e),
+        (url) => {
+          createPost(postText, {
+            type: "image",
+            data: url,
+          });
+        }
+      );
+    } else createPost(postText, null);
   };
 
   return (
