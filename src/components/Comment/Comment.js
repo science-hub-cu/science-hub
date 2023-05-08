@@ -1,8 +1,7 @@
-import React, { useState, useRef } from "react";
-import { View, TouchableOpacity, StyleSheet, Text } from "react-native";
+import React from "react";
+import { View, StyleSheet } from "react-native";
 import COLORS from "../../constants/colors";
 import CommentHeader from "./CommentHeader";
-import { Octicons } from "@expo/vector-icons";
 import CommentContent from "./CommentContent";
 
 const Comment = ({
