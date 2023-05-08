@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   SafeAreaView,
@@ -7,62 +7,62 @@ import {
   Image,
   FlatList,
 } from "react-native";
+import {
+  collection,
+  query,
+  orderBy,
+  startAfter,
+  limit,
+  getDocs,
+  docs,
+} from "firebase/firestore";
 import COLORS from "../constants/colors";
 import Post from "../components/Post/Post";
 import { ScrollView } from "react-native-gesture-handler";
+import { getFirestore } from "firebase/firestore";
+import { useEffect } from "react";
+import { set } from "react-native-reanimated";
 const HomeScreen = () => {
-  const data = [
-    {
-      id: "1",
-      userName: "omar",
-      imageSource:
-        "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
-      title: "hamoksa",
-      content: "rwagearhah",
-      userAvatar:
-        "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
-    },
-    {
-      id: "2",
-      userName: "k3bar",
-      imageSource: "",
-      title: "hamoksa",
-      content: "erayaeh",
-      userAvatar:
-        "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
-    },
-    {
-      id: "3",
-      userName: "faris",
-      imageSource:
-        "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
-      title: "hamoksa ",
-      content: "sthsteysedryser",
-      userAvatar:
-        "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
-    },
-    {
-      id: "4",
-      userName: "bakar",
-      imageSource:
-        "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
-      title: "hamoksa ",
-      content: "sthsteysedryser",
-      userAvatar:
-        "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
-    },
-    {
-      id: "5",
-      userName: "aboElyazed",
-      imageSource:
-        "https://www.unigreet.com/wp-content/uploads/2022/11/100-very-special-good-morning-images-quotes-photos-751x1024.jpg",
-      title: "hamoksa",
-      content: "جود مورنينج عليكم يا اخواتي",
-      userAvatar:
-        "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
-    },
-  ];
-
+  let postnum = 6;
+  let ldoc = null;
+  const [dataloading, setdataloading] = useState(false);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    loaddata();
+  }, []);
+  const loaddata = async () => {
+    // loading true
+    const db = getFirestore();
+    const postref = collection(db, "posts");
+    const DBq = query(
+      postref,
+      orderBy("createdAt"),
+      startAfter(ldoc || 0),
+      limit(2)
+    );
+    const DBdata = await getDocs(DBq);
+    DBdata.forEach((doc) => {
+      console.log(doc.id);
+      setData((old) => [
+        ...old,
+        {
+          id: postnum++,
+          userName: doc.data().user.username,
+          imageSource:
+            "https://www.unigreet.com/wp-content/uploads/2022/11/100-very-special-good-morning-images-quotes-photos-751x1024.jpg",
+          title: doc.data().user.title,
+          content: doc.data().content,
+          userAvatar:
+            "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+        },
+      ]);
+    });
+    latestDoc = DBdata.docs[DBdata.docs.length - 1];
+    if (DBdata.empty) {
+      // no more data
+    }
+    // loading false
+  };
   const renderItem = ({ item }) => (
     <Post
       userAvatar={item.userAvatar}
@@ -78,6 +78,7 @@ const HomeScreen = () => {
         data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
+        onEndReached={loaddata}
       />
     </SafeAreaView>
   );
