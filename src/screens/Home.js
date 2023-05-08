@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { SafeAreaView, StyleSheet, Text, FlatList } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 import COLORS from "../constants/colors";
 import Post from "../components/Post/Post";
 import PostService from "../services/PostService";
@@ -97,7 +103,7 @@ const HomeScreen = () => {
           dataEnding ? (
             <Text>Data ended refresh</Text>
           ) : (
-            <Text style={styles.text}>Loading...</Text>
+            <ActivityIndicator size={"large"} />
           )
         }
       />
