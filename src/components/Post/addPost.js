@@ -39,9 +39,11 @@ const AddPost = () => {
           contentContainerStyle={{ minHeight: "100%" }}
         >
           <View style={styles.header}>
+            {/* add X icon action here (pop to prev screen)  */}
             <TouchableOpacity onPress={() => {}} style={styles.headericon}>
               <AntDesign name="close" size={24} color="white" />
             </TouchableOpacity>
+            {/* submmit post here and navigate to posts screen*/}
             <Button
               title={"Post"}
               width="20%"
@@ -76,7 +78,7 @@ const AddPost = () => {
           </View>
           <View style={styles.bottomView}>
             <Button
-              title={imageUri ? "Upload Image" : "change Image"}
+              title={imageUri ? "change Image" : "upload Image"}
               fontSize={13}
               width="40%"
               height="15%"
@@ -97,6 +99,26 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.mainBackground,
   },
+
+  imageView1: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  imageView2: {
+    paddingTop: "30%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  scrollView: { flex: 1 },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingRight: 10,
+  },
+  headericon: {
+    marginTop: "3%",
+    paddingLeft: "3%",
+  },
   text: {
     color: COLORS.white,
     fontWeight: 700,
@@ -109,6 +131,25 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: COLORS.white,
     paddingLeft: "3%",
+    maxHeight: 200,
+    fontSize: 20,
+  },
+  textInputView: {
+    height: "30%",
+    paddingRight: "3%",
     paddingTop: "3%",
+  },
+  selectedImage: {
+    width: "90%",
+    height: undefined,
+    aspectRatio: 1,
+  },
+  bottomView: {
+    height: "35%",
+    alignItems: "center",
+  },
+  image: {
+    justifyContent: "center",
+    marginHorizontal: "50%",
   },
 });
