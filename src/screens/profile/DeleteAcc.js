@@ -29,6 +29,7 @@ const DeleteAcc = ({ navigation }) => {
             title={"delete account"}
             onPress={() => DEL()}
             disabled={true}
+            backgroundColor={COLORS.red}
           ></LoadingButton>
         </View>
       </ScrollView>

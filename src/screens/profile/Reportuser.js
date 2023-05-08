@@ -10,7 +10,7 @@ import {
 import DropdownList from "../../components/DropdownList";
 import Input from "../../components/Input";
 import LoadingButton from "../../components/LoadingButton";
-import Reasons from "../../constants/reasons";
+import Reasons from "../../constants/Reasons";
 import COLORS from "../../constants/colors";
 const Reportuser = ({ navigation }) => {
   const btn = useRef(null);
