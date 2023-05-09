@@ -3,7 +3,6 @@ import COLORS from "../constants/colors";
 import Button from "../../src/components/Button";
 import { AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import { manipulateAsync, FlipType, SaveFormat } from "expo-image-manipulator";
 
 import {
   StyleSheet,
@@ -16,16 +15,10 @@ import {
   Keyboard,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import PostService from "../services/PostService";
-import { useAuth } from "../context/AuthContext";
-import FireBaseStorage from "../services/FireBaseStorage";
-import { ToastAndroid } from "react-native";
 
-const AddScreen = ({ navigation }) => {
+const AddPost = () => {
   const [postText, setPostText] = useState("");
   const [imageUri, setImageUri] = useState(null);
-  const { user } = useAuth();
-
   const handleChooseImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -38,65 +31,27 @@ const AddScreen = ({ navigation }) => {
       setImageUri(result.assets[0].uri);
     }
   };
-
-  const addPost = async () => {
-    if (!postText || postText === "") return;
-    navigation.goBack();
-    const createPost = (content, media) =>
-      PostService.createPost(content, media, user.uid)
-        .then((e) => ToastAndroid.show("Post published!", ToastAndroid.SHORT))
-        .catch((e) =>
-          ToastAndroid.show("error in publish post", ToastAndroid.SHORT)
-        );
-
-    if (imageUri) {
-      const manipResult = await manipulateAsync(
-        imageUri,
-        [{ resize: { width: 800, height: 600 } }],
-        { compress: 0, format: SaveFormat.PNG }
-      );
-
-      FireBaseStorage.uploadImageWithProgress(
-        manipResult.uri,
-        FireBaseStorage.folders.postImage,
-        (prog) => console.log("image uploaded: ", prog),
-        (e) => console.log("error : ", e),
-        (url) => {
-          createPost(postText, {
-            type: "image",
-            data: url,
-          });
-        }
-      );
-    } else createPost(postText, null);
-  };
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={styles.container}>
-        <View>
-          <View style={styles.header}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.goBack();
-              }}
-              style={styles.headericon}
-            >
-              <AntDesign name="close" size={24} color="white" />
-            </TouchableOpacity>
-            <Button
-              title={"Post"}
-              width="20%"
-              height="75%"
-              onPress={() => addPost()}
-              opacity={0.2}
-            />
-          </View>
-        </View>
         <ScrollView
           style={styles.scrollView}
           contentContainerStyle={{ minHeight: "100%" }}
         >
+          <View style={styles.header}>
+            {/* add X icon action here (pop to prev screen)  */}
+            <TouchableOpacity onPress={() => {}} style={styles.headericon}>
+              <AntDesign name="close" size={24} color="white" />
+            </TouchableOpacity>
+            {/* submmit post here and navigate to posts screen*/}
+            <Button
+              title={"Post"}
+              width="20%"
+              height="75%"
+              onPress={() => {}}
+              opacity={0.2}
+            />
+          </View>
           <View style={styles.textInputView}>
             <TextInput
               placeholder="enter your post"
@@ -108,7 +63,7 @@ const AddScreen = ({ navigation }) => {
             ></TextInput>
           </View>
 
-          <View style={styles.imageView}>
+          <View style={styles.imageView1}>
             {imageUri ? (
               <Image
                 style={styles.selectedImage}
@@ -120,8 +75,10 @@ const AddScreen = ({ navigation }) => {
                 source={require("../assets/images/uplodeImage.png")}
               ></Image>
             )}
+          </View>
+          <View style={styles.bottomView}>
             <Button
-              title={"Upload Image"}
+              title={imageUri ? "change Image" : "upload Image"}
               fontSize={13}
               width="40%"
               height="15%"
@@ -135,19 +92,22 @@ const AddScreen = ({ navigation }) => {
     </TouchableWithoutFeedback>
   );
 };
-export default AddScreen;
+export default AddPost;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.mainBackground,
-    height: "100%",
-    paddingTop: "10%",
   },
-  imageView: {
+
+  imageView1: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: "10%",
+  },
+  imageView2: {
+    paddingTop: "30%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   scrollView: { flex: 1 },
   header: {
@@ -171,21 +131,25 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: COLORS.white,
     paddingLeft: "3%",
-    maxHeight: 300,
+    maxHeight: 200,
     fontSize: 20,
   },
   textInputView: {
-    height: "40%",
+    height: "30%",
     paddingRight: "3%",
     paddingTop: "3%",
+  },
+  selectedImage: {
+    width: "90%",
+    height: undefined,
+    aspectRatio: 1,
+  },
+  bottomView: {
+    height: "35%",
+    alignItems: "center",
   },
   image: {
     justifyContent: "center",
     marginHorizontal: "50%",
-  },
-  selectedImage: {
-    width: "50%",
-    height: undefined,
-    aspectRatio: 1,
   },
 });

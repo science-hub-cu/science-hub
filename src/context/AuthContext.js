@@ -10,18 +10,22 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [authLoading, setAuthLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(getAuth(), (user) => {
       console.log("-------Auth changed-----");
       console.log(user);
       setUser(user);
+      setAuthLoading(false);
     });
     return unsubscribe;
   }, []);
   //   const signIn = (user) => setUser(user);
   //   const signOut = () => setUser(null);
   return (
-    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, authLoading }}>
+      {children}
+    </AuthContext.Provider>
   );
 }

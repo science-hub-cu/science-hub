@@ -8,6 +8,7 @@ const ROUTES = {
   VERIFY_ROUTE: "Verify Screen",
   PROFILE_ROUTE: "Profile Screen",
   CHANGE_USERNAME_ROUTE: "Change Username",
+  TERMS_ROUTE: "TERMS",
 };
 
 export default ROUTES;
