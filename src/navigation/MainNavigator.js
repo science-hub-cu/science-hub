@@ -17,12 +17,13 @@ import VerifyScreen from "../screens/profile/VerifyScreen";
 import AuthScreen from "../screens/auth/authScreen";
 import ChangeUserNameScreen from "../screens/profile/ChangeUserNameScreen";
 import AddScreen from "../screens/AddScreen";
-import Loading from "../screens/Loading";
+import SplashScreen from "../screens/SplashScreen";
+import TermsScreen from "../screens/TermsScreen";
 
 const Stack = createStackNavigator();
 
 export default function MainNavigator() {
-  const { user } = useAuth();
+  const { user, authLoading } = useAuth();
 
   const HomePage = () => {
     return (
@@ -51,6 +52,11 @@ export default function MainNavigator() {
     return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name={ROUTES.AUTH_ROUTE} component={AuthScreen} />
+        <Stack.Screen
+          name={ROUTES.TERMS_ROUTE}
+          options={{ presentation: "modal" }}
+          component={TermsScreen}
+        />
       </Stack.Navigator>
     );
   };
@@ -91,7 +97,7 @@ export default function MainNavigator() {
       </Stack.Navigator>
     );
   };
-  if (user == undefined) return <Loading />; /**@todo Splash screen */
+  if (authLoading) return <SplashScreen />;
 
   return (
     <NavigationContainer>

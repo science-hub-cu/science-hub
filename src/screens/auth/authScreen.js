@@ -15,28 +15,29 @@ import { ScrollView, Directions } from "react-native-gesture-handler";
 import COLORS from "../../constants/colors";
 import RegistrationScreen from "./RegisterScreen";
 import LoginScreen from "./LoginScreen";
- 
+import ROUTES from "../../constants/routes";
+
 const screenWidth = Dimensions.get("window").width;
- 
+
 const AuthScreen = ({ navigation }) => {
   const [isRegister, setIsRegister] = useState(false);
- 
+
   const { width, height } = Dimensions.get("window");
- 
+
   const [sliderLocation, setSliderLocation] = useState(width * (25 / 100));
- 
+
   const scrollRef = useRef(null);
- 
+
   const setSliderPage = (event) => {
     const { x } = event.nativeEvent.contentOffset;
-    const max = (2*width) * (25 / 100);
+    const max = 2 * width * (25 / 100);
     let v = (x + width) * (25 / 100);
- 
+
     setIsRegister(x >= width / 2 ? 1 : 0);
- 
+
     setSliderLocation(Math.min(max, Math.round(v)));
   };
- 
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -59,13 +60,17 @@ const AuthScreen = ({ navigation }) => {
               {"  "}By signing in you are agreeing
             </Text>
             <View>
-              <TouchableOpacity onPress={()=>{} }>
-                <Text style={[styles.text,{color:COLORS.blue}]}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate(ROUTES.TERMS_ROUTE);
+                }}
+              >
+                <Text style={[styles.text, { color: COLORS.blue }]}>
                   {" "}
-                 Our Term and privacy policy
+                  Our Term and privacy policy
                 </Text>
               </TouchableOpacity>
-              </View>
+            </View>
           </View>
           <View style={styles.rowView}>
             <Text
@@ -125,7 +130,7 @@ const AuthScreen = ({ navigation }) => {
     </SafeAreaView>
   );
 };
- 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -135,7 +140,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     textAlign: "center",
     color: COLORS.white,
-    marginTop:"5%"
+    marginTop: "5%",
   },
   text: {
     fontSize: 25,

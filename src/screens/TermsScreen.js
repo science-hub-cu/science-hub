@@ -1,13 +1,7 @@
 import React from "react";
-import {
-  Text,
-  View,
-  ScrollView,
-  Dimensions,
-} from "react-native";
+import { Text, View, ScrollView, Dimensions } from "react-native";
 import { PanGestureHandler } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ScrollView } from "react-native-gesture-handler";
 
 const TermsScreen = () => {
   return (

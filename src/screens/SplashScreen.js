@@ -3,11 +3,10 @@ import { View } from "react-native";
 import LottieView from "lottie-react-native";
 
 const SplachScreen = ({ setIsLoading }) => {
-
   const [isAnimationFinished, setIsAnimationFinished] = useState(false);
 
   const onAnimationFinish = () => {
-    setIsLoading(false);
+    // setIsLoading(false);
     setIsAnimationFinished(true);
   };
 
@@ -16,7 +15,7 @@ const SplachScreen = ({ setIsLoading }) => {
       <LottieView
         source={require("../assets/animations/splashAnimation.json")}
         autoPlay
-        loop={false}
+        loop={true}
         resizeMode="cover"
         onAnimationFinish={onAnimationFinish}
       />
