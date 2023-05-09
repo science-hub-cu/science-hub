@@ -47,26 +47,13 @@ const Profile = ({ navigation }) => {
     console.log("Addpost preesed");
   };
   changeusername = () => navigation.navigate(ROUTES.CHANGE_USERNAME_ROUTE);
-  changepassword = () => {
-    console.log("changepassword preesed");
-  };
-  changedepartment = () => {
-    console.log("changedepartment preesed");
-  };
+  changepassword = () => navigation.navigate(ROUTES.CHANGE_PASSWORD_ROUTE);
+  changedepartment = () => navigation.navigate(ROUTES.CHANGE_DEP_ROUTE);
   verifyfriend = () => navigation.navigate(ROUTES.VERIFY_ROUTE);
-
-  savedposts = () => {
-    console.log("savedposts preesed");
-  };
-  deletemyaccount = () => {
-    console.log("deletemyaccount preesed");
-  };
-  reportuser = () => {
-    console.log("reportuser preesed");
-  };
-  helpcenter = () => {
-    console.log("helpcenter preesed");
-  };
+  savedposts = () => navigation.navigate(ROUTES.SAVED_POTSTS_ROUTE);
+  deletemyaccount = () => navigation.navigate(ROUTES.DELETEACC_ROUTE);
+  reportuser = () => navigation.navigate(ROUTES.REP_USER_ROUTE);
+  helpcenter = () => navigation.navigate(ROUTES.HELP_ROUTE);
   handelbutton = () => navigation.toggleDrawer();
   return loading ? (
     <Loading />
@@ -146,7 +133,9 @@ const Profile = ({ navigation }) => {
             style={{
               backgroundColor: COLORS.navBarBackground,
               alignItems: "center",
+              justifyContent: "center",
               paddingVertical: 1,
+              height: 35,
             }}
           >
             <Text
@@ -172,7 +161,7 @@ const Profile = ({ navigation }) => {
             ></ProfileButton>
 
             <ProfileButton
-              title="Change department"
+              title="Change department or level"
               onPress={changedepartment}
               iconname="Cdep"
             ></ProfileButton>
@@ -220,6 +209,7 @@ const Profile = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
+    height: "55%",
   },
   topSection: {
     top: 0,

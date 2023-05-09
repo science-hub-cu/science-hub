@@ -16,6 +16,12 @@ import BottomNavBar from "./BottomNavBar";
 import VerifyScreen from "../screens/profile/VerifyScreen";
 import AuthScreen from "../screens/auth/authScreen";
 import ChangeUserNameScreen from "../screens/profile/ChangeUserNameScreen";
+import ChangePassword from "../screens/profile/ChangePassword";
+import ChangeDepartment from "../screens/profile/ChangeDepartment";
+import Help from "../screens/profile/Help";
+import Savedpost from "../screens/profile/Savedpost";
+import DeleteAcc from "../screens/profile/DeleteAcc";
+import Reportuser from "../screens/profile/Reportuser";
 import AddScreen from "../screens/AddScreen";
 import SplashScreen from "../screens/SplashScreen";
 import TermsScreen from "../screens/TermsScreen";
@@ -87,6 +93,21 @@ export default function MainNavigator() {
             name={ROUTES.CHANGE_USERNAME_ROUTE}
             component={ChangeUserNameScreen}
           />
+          <Stack.Screen
+            name={ROUTES.CHANGE_PASSWORD_ROUTE}
+            component={ChangePassword}
+          />
+          <Stack.Screen
+            name={ROUTES.CHANGE_DEP_ROUTE}
+            component={ChangeDepartment}
+          />
+          <Stack.Screen
+            name={ROUTES.SAVED_POTSTS_ROUTE}
+            component={Savedpost}
+          />
+          <Stack.Screen name={ROUTES.DELETEACC_ROUTE} component={DeleteAcc} />
+          <Stack.Screen name={ROUTES.REP_USER_ROUTE} component={Reportuser} />
+          <Stack.Screen name={ROUTES.HELP_ROUTE} component={Help} />
         </Stack.Group>
         {/** Modals */}
         <Stack.Group
