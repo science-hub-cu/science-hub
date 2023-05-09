@@ -12,6 +12,23 @@ const DeleteAcc = ({ navigation }) => {
     });
     return unsubscribe;
   }, [navigation]);
+  const DEL = async () => {
+    try {
+      if (isValidUserName(username)) {
+        // await UserService.del(username); // change logic
+        // console.log(await getAuth().currentUser.getIdToken());
+        console.log("succ");
+      } else {
+        addError({ username: "your name should contains only letters" });
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401)
+        setInvalid("Invalid Username , username must be only chars");
+      console.log(error);
+    } finally {
+      btn.current?.setLoading(false);
+    }
+  };
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.container}>
