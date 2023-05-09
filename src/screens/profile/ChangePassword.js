@@ -43,7 +43,9 @@ const ChangePassword = ({ navigation }) => {
   const updatePassword = async () => {
     try {
       if (isValidPassword(oldpassword) && isValidPassword(newpassword)) {
-        // services
+        await UserService.changePassword({ oldpassword, newpassword });
+        console.log(await getAuth().currentUser.getIdToken());
+        console.log("succ");
       } else if (isValidPassword(newpassword)) {
         addError({
           password: "password must be at least 6 digits",

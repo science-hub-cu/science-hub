@@ -42,8 +42,8 @@ const ChangeUserNameScreen = ({ navigation }) => {
   const updateUserName = async () => {
     try {
       if (isValidUserName(username)) {
-        // await UserService.signInUser(username); // change logic
-        // console.log(await getAuth().currentUser.getIdToken());
+        await UserService.changeUserName(username); // change logic
+        console.log(await getAuth().currentUser.getIdToken());
         console.log("succ");
       } else {
         addError({ username: "your name should contains only letters" });
