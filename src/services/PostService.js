@@ -5,6 +5,7 @@ import {
   getDocs,
   getFirestore,
   limit,
+  onSnapshot,
   orderBy,
   query,
   serverTimestamp,
@@ -42,7 +43,7 @@ export default class PostService {
 
   static async loadPostDesc(before = null) {
     const db = getFirestore();
-    const postref = collection(db, "posts");
+    const postref = collection(db, Post.collectionName);
     const DBq = before
       ? query(
           postref,
@@ -56,7 +57,7 @@ export default class PostService {
 
   static async loadPostAsec(after = null) {
     const db = getFirestore();
-    const postref = collection(db, "posts");
+    const postref = collection(db, Post.collectionName);
     const DBq = query(
       postref,
       orderBy("createdAt"),
@@ -64,5 +65,26 @@ export default class PostService {
       limit(10)
     );
     return await getDocs(DBq);
+  }
+
+  static postLisiner(onAdd, onModified, onDelete) {
+    const q = query(
+      collection(getFirestore(), Post.collectionName),
+      orderBy("createdAt", "desc")
+    );
+
+    return onSnapshot(q, (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+          onAdd(change.doc);
+        }
+        if (change.type === "modified") {
+          onModified(change.doc);
+        }
+        if (change.type === "removed") {
+          onDelete(change.doc);
+        }
+      });
+    });
   }
 }

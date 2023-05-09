@@ -11,12 +11,13 @@ const Post = ({
   title = "hamoksa",
   content = "",
   imageSource = "",
+  votes = 0,
 }) => {
   return (
     <View style={styles.postContaner}>
       <Header userName={userName} userAvatar={userAvatar} title={title} />
       <Content content={content} imageSource={imageSource} />
-      <Footer />
+      <Footer votes={votes} />
     </View>
   );
 };

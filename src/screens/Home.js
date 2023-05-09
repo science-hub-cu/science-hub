@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -9,6 +9,7 @@ import {
 import COLORS from "../constants/colors";
 import Post from "../components/Post/Post";
 import PostService from "../services/PostService";
+import { collection, getFirestore, onSnapshot } from "firebase/firestore";
 const HomeScreen = () => {
   const [lastDoc, setLastDoc] = useState(null);
   const [firstDoc, setfirstDoc] = useState(null);
@@ -16,6 +17,39 @@ const HomeScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [dataEnding, setDataEnding] = useState(false);
   const [data, setData] = useState([]);
+  const [rerender, setRerender] = useState(true);
+
+  const docToObj = (doc) => {
+    const media = doc.data().media;
+    return {
+      id: doc.id,
+      userName: doc.data().user.username,
+      imageSource: media ? media.data : "",
+      title: doc.data().user.title,
+      content: doc.data().content,
+      votes: doc.data().vote,
+      userAvatar:
+        "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
+    };
+  };
+
+  useEffect(() => {
+    // const
+    const unsubscribe = PostService.postLisiner(
+      // on add no work yet
+      (doc) => {},
+      // on update
+      (doc) => {
+        setData((old) => old.map((o) => (o.id === doc.id ? docToObj(doc) : o)));
+        setRerender((r) => !r);
+      },
+      (doc) => {
+        setData((old) => old.filter((o) => o.id !== doc.id));
+      }
+    );
+
+    return unsubscribe;
+  }, []);
 
   const onRefresh = async () => {
     if (refreshing || dataLoading || !firstDoc) return;
@@ -23,19 +57,10 @@ const HomeScreen = () => {
       setRefreshing(true);
       let DBdata = await PostService.loadPostAsec(firstDoc);
       DBdata.forEach((doc) => {
-        const media = doc.data().media;
-        setData((old) => [
-          {
-            id: doc.id,
-            userName: doc.data().user.username,
-            imageSource: media ? media.data : "",
-            title: doc.data().user.title,
-            content: doc.data().content,
-            userAvatar:
-              "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
-          },
-          ...old,
-        ]);
+        setData((old) => {
+          old.unshift(docToObj(doc));
+          return old;
+        });
         if (!DBdata.empty) setfirstDoc(DBdata.docs[0]);
       });
     } catch (e) {
@@ -57,19 +82,10 @@ const HomeScreen = () => {
 
       const DBdata = await PostService.loadPostDesc(lastDoc);
       DBdata.forEach((doc) => {
-        const media = doc.data().media;
-        setData((old) => [
-          ...old,
-          {
-            id: doc.id,
-            userName: doc.data().user.username,
-            imageSource: media ? media.data : "",
-            title: doc.data().user.title,
-            content: doc.data().content,
-            userAvatar:
-              "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
-          },
-        ]);
+        setData((old) => {
+          old.push(docToObj(doc));
+          return old;
+        });
       });
       setLastDoc(DBdata.docs[DBdata.docs.length - 1]);
       if (DBdata.empty) setDataEnding(true);
@@ -87,12 +103,14 @@ const HomeScreen = () => {
       imageSource={item.imageSource}
       title={item.title}
       content={item.content}
+      votes={item.votes}
     />
   );
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
         data={data}
+        extraData={rerender}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         onEndReached={loaddata}

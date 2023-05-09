@@ -8,21 +8,21 @@ import {
   SavePostIcon,
 } from "../IconLibrary";
 
-const Footer = () => {
-  const [voteCount, setVoteCount] = useState(0);
+const Footer = ({ votes }) => {
+  // const [voteCount, setVoteCount] = useState(votes);
   const [isUpvoted, setIsUpvoted] = useState(false);
   const [isDownvoted, setIsDownvoted] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const handleUpVote = () => {
     if (!isUpvoted && !isDownvoted) {
-      setVoteCount(voteCount + 1);
+      // setVoteCount(voteCount + 1);
       setIsUpvoted(true);
     }
   };
 
   const handleDownVote = () => {
     if (!isDownvoted && !isUpvoted) {
-      setVoteCount(voteCount - 1);
+      // setVoteCount(voteCount - 1);
       setIsDownvoted(true);
     }
   };
@@ -39,7 +39,7 @@ const Footer = () => {
             <UpVoteIcon />
           )}
         </TouchableOpacity>
-        <Text style={styles.number}>{voteCount}</Text>
+        <Text style={styles.number}>{votes}</Text>
         <TouchableOpacity onPress={handleDownVote}>
           {isDownvoted ? (
             <DownVoteIcon color={COLORS.blue1} stroke={COLORS.blue1} />
