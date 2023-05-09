@@ -48,8 +48,8 @@ const ChangeDepartment = ({ navigation }) => {
   const updateDep = async () => {
     try {
       if (isValidDepartment(department) && isValidLevel(level)) {
-        // services
-        console.log("succ");
+        await UserService.changeDepartment(department);
+        await UserService.changeLevel(level);
       } else if (isValidDepartment(department)) {
         addError({
           level: "",
