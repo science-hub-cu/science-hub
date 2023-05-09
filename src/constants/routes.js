@@ -14,6 +14,7 @@ const ROUTES = {
   DELETEACC_ROUTE: "delete account",
   REP_USER_ROUTE: "report user",
   HELP_ROUTE: "help",
+  TERMS_ROUTE: "TERMS",
 };
 
 export default ROUTES;

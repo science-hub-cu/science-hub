@@ -5,6 +5,7 @@ import {
 } from "@react-navigation/native";
 
 import ROUTES from "../constants/routes";
+import COLORS from "../constants/colors";
 import { useAuth } from "../context/AuthContext";
 import CustomizedHeaderBackButton from "../components/CustomizedHeaderBackButton";
 
@@ -21,24 +22,20 @@ import Help from "../screens/profile/Help";
 import Savedpost from "../screens/profile/Savedpost";
 import DeleteAcc from "../screens/profile/DeleteAcc";
 import Reportuser from "../screens/profile/Reportuser";
+import AddScreen from "../screens/AddScreen";
+import SplashScreen from "../screens/SplashScreen";
+import TermsScreen from "../screens/TermsScreen";
+
 const Stack = createStackNavigator();
 
 export default function MainNavigator() {
-  const { user } = useAuth();
+  const { user, authLoading } = useAuth();
 
-  const NotAuthedStack = () => {
-    return (
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name={ROUTES.AUTH_ROUTE} component={AuthScreen} />
-      </Stack.Navigator>
-    );
-  };
-
-  const AuthedStack = () => {
+  const HomePage = () => {
     return (
       <DrawerNavigator>
         <Drawer.Screen
-          name={ROUTES.HOME_ROUTE}
+          name={`${ROUTES.HOME_ROUTE}_drawer`}
           component={BottomNavBar}
           options={({ route }) => {
             const selectedRoute =
@@ -52,39 +49,76 @@ export default function MainNavigator() {
               headerShown: showHeader,
             };
           }}
-        ></Drawer.Screen>
+        />
+      </DrawerNavigator>
+    );
+  };
+
+  const NotAuthedStack = () => {
+    return (
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name={ROUTES.AUTH_ROUTE} component={AuthScreen} />
+        <Stack.Screen
+          name={ROUTES.TERMS_ROUTE}
+          options={{ presentation: "modal" }}
+          component={TermsScreen}
+        />
+      </Stack.Navigator>
+    );
+  };
+
+  const AuthedStack = () => {
+    return (
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: { backgroundColor: COLORS.secBackground },
+          headerTintColor: COLORS.white,
+          headerShown: false,
+          headerShadowVisible: false,
+        }}
+      >
+        <Stack.Screen name={ROUTES.HOME_ROUTE} component={HomePage} />
         {/** Profile pages group */}
-        <Drawer.Group
+        <Stack.Group
           screenOptions={({ navigation }) => ({
             headerLeft: () => (
               <CustomizedHeaderBackButton navigation={navigation} />
             ),
+            headerShown: true,
+            presentation: "modal",
           })}
         >
-          <Drawer.Screen name={ROUTES.VERIFY_ROUTE} component={VerifyScreen} />
-          <Drawer.Screen
+          <Stack.Screen name={ROUTES.VERIFY_ROUTE} component={VerifyScreen} />
+          <Stack.Screen
             name={ROUTES.CHANGE_USERNAME_ROUTE}
             component={ChangeUserNameScreen}
           />
-          <Drawer.Screen
+          <Stack.Screen
             name={ROUTES.CHANGE_PASSWORD_ROUTE}
             component={ChangePassword}
           />
-          <Drawer.Screen
+          <Stack.Screen
             name={ROUTES.CHANGE_DEP_ROUTE}
             component={ChangeDepartment}
           />
-          <Drawer.Screen
+          <Stack.Screen
             name={ROUTES.SAVED_POTSTS_ROUTE}
             component={Savedpost}
           />
-          <Drawer.Screen name={ROUTES.DELETEACC_ROUTE} component={DeleteAcc} />
-          <Drawer.Screen name={ROUTES.REP_USER_ROUTE} component={Reportuser} />
-          <Drawer.Screen name={ROUTES.HELP_ROUTE} component={Help} />
-        </Drawer.Group>
-      </DrawerNavigator>
+          <Stack.Screen name={ROUTES.DELETEACC_ROUTE} component={DeleteAcc} />
+          <Stack.Screen name={ROUTES.REP_USER_ROUTE} component={Reportuser} />
+          <Stack.Screen name={ROUTES.HELP_ROUTE} component={Help} />
+        </Stack.Group>
+        {/** Modals */}
+        <Stack.Group
+          screenOptions={{ headerShown: false, presentation: "modal" }}
+        >
+          <Stack.Screen name={ROUTES.ADD_ROUTE} component={AddScreen} />
+        </Stack.Group>
+      </Stack.Navigator>
     );
   };
+  if (authLoading) return <SplashScreen />;
 
   return (
     <NavigationContainer>

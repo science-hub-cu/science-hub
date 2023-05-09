@@ -1,10 +1,14 @@
 import React from "react";
-import { View, SafeAreaView, StyleSheet, Text } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 import COLORS from "../../constants/colors";
+import Matirial from "../../components/Material/Material";
+
 const MaterialHome = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>Material Screen</Text>
+      <Matirial />
+      <Matirial />
+      <Matirial />
     </SafeAreaView>
   );
 };

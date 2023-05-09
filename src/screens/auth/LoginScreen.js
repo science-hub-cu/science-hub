@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import LoadingButton from "../../components/LoadingButton";
 import COLORS from "../../constants/colors";
 import Input from "../../components/Input";
@@ -86,6 +86,11 @@ const LoginScreen = ({ navigation, state }) => {
             title={"Login"}
             onPress={() => loginPress()}
           ></LoadingButton>
+          <TouchableOpacity>
+            <Text style={styles.forgetPassword}>
+              Forget my password
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -132,5 +137,9 @@ const styles = StyleSheet.create({
     marginLeft: "6%",
     textAlign: "left",
     alignSelf: "flex-start",
+  },
+  forgetPassword: {
+    paddingTop: "2%",
+    color: COLORS.blue,
   },
 });
