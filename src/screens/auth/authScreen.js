@@ -7,6 +7,7 @@ import {
   Animated,
   Dimensions,
   PanResponder,
+  TouchableOpacity,
 } from "react-native";
 import { PanGestureHandler } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -57,13 +58,14 @@ const AuthScreen = ({ navigation }) => {
             >
               {"  "}By signing in you are agreeing
             </Text>
-            <Text style={styles.text}>
-              {"  "}our
-              <Text style={{ color: COLORS.blue }}>
-                {" "}
-                Term and privacy policy
-              </Text>
-            </Text>
+            <View>
+              <TouchableOpacity onPress={()=>{} }>
+                <Text style={[styles.text,{color:COLORS.blue}]}>
+                  {" "}
+                 Our Term and privacy policy
+                </Text>
+              </TouchableOpacity>
+              </View>
           </View>
           <View style={styles.rowView}>
             <Text
@@ -100,7 +102,7 @@ const AuthScreen = ({ navigation }) => {
               style={[styles.paginationDots, { marginLeft: sliderLocation }]}
             />
           </View>
- 
+
           <ScrollView
             ref={scrollRef}
             style={{ flex: 1 }}
@@ -112,10 +114,10 @@ const AuthScreen = ({ navigation }) => {
             onScroll={setSliderPage}
           >
             <View style={{ width: screenWidth }}>
-              <LoginScreen state={isRegister?"hide":"show"} />
+              <LoginScreen state={isRegister ? "hide" : "show"} />
             </View>
             <View style={{ width: screenWidth }}>
-              <RegistrationScreen state={isRegister?"show":"hide"} />
+              <RegistrationScreen state={isRegister ? "show" : "hide"} />
             </View>
           </ScrollView>
         </View>
