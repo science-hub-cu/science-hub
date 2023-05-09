@@ -25,6 +25,8 @@ import Reportuser from "../screens/profile/Reportuser";
 import AddScreen from "../screens/AddScreen";
 import SplashScreen from "../screens/SplashScreen";
 import TermsScreen from "../screens/TermsScreen";
+import YourNotVerified from "../screens/YourNotVerified";
+import PostScreen from "../screens/PostScreen";
 
 const Stack = createStackNavigator();
 
@@ -114,15 +116,36 @@ export default function MainNavigator() {
           screenOptions={{ headerShown: false, presentation: "modal" }}
         >
           <Stack.Screen name={ROUTES.ADD_ROUTE} component={AddScreen} />
+          <Stack.Screen name={ROUTES.POST_ROUTE} component={PostScreen} />
         </Stack.Group>
       </Stack.Navigator>
     );
   };
+
+  const NotVerifiedStack = () => {
+    return (
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen
+          name={ROUTES.YOU_ARE_NOT_VERIFIED_ROUTE}
+          component={YourNotVerified}
+        />
+      </Stack.Navigator>
+    );
+  };
+
   if (authLoading) return <SplashScreen />;
 
   return (
     <NavigationContainer>
-      {user ? <AuthedStack /> : <NotAuthedStack />}
+      {user ? (
+        user.emailVerified ? (
+          <AuthedStack />
+        ) : (
+          <NotVerifiedStack />
+        )
+      ) : (
+        <NotAuthedStack />
+      )}
     </NavigationContainer>
   );
 }

@@ -18,8 +18,7 @@ const YourBanned = () => {
       </Svg>
       <TouchableOpacity onPress={() => console.log("Terms clicked")}>
         <Text style={styles.link}>
-          View our{" "}
-          <Text style={styles.blueText}>Terms> and Privacy Policy</Text>
+          View our <Text style={styles.blueText}>Terms and Privacy Policy</Text>
         </Text>
       </TouchableOpacity>
     </View>

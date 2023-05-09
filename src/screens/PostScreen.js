@@ -1,21 +1,23 @@
 import React from "react";
 import { SafeAreaView, StyleSheet, View, FlatList } from "react-native";
-import COLORS from "../../constants/colors";
-import Post from "../../components/Post/Post";
-import NoCommentScreen from "../NoCommentScreen";
-import CommentInput from "../../components/Comment/CommentInput";
-import Comment from "../../components/Comment/Comment";
+import COLORS from "../constants/colors";
+import Post from "../components/Post/Post";
+import NoCommentScreen from "./NoCommentScreen";
+import CommentInput from "../components/Comment/CommentInput";
+import Comment from "../components/Comment/Comment";
 
-const PostScreen=()=>{
-    const comments = [
-    
-  ];
+const PostScreen = ({ route }) => {
+  const comments = [];
 
   return (
     <SafeAreaView style={styles.container}>
       <Post
-        content="omar"
-        userAvatar="https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FImage&psig=AOvVaw3dkuKIs9nPKdgatRQnKz-d&ust=1683662683629000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCKjlhbPC5v4CFQAAAAAdAAAAABAE"
+        content={route.params.content}
+        userAvatar={route.params.userAvatar}
+        title={route.params.title}
+        userName={route.params.userName}
+        votes={route.params.votes}
+        votestate={route.params.votestate}
       />
       {comments.length === 0 ? (
         <NoCommentScreen />
@@ -67,4 +69,3 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
-

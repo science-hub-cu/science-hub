@@ -9,7 +9,8 @@ import {
 import COLORS from "../constants/colors";
 import Post from "../components/Post/Post";
 import PostService from "../services/PostService";
-const HomeScreen = () => {
+import ROUTES from "../constants/routes";
+const HomeScreen = ({ navigation }) => {
   const [lastDoc, setLastDoc] = useState(null);
   const [firstDoc, setfirstDoc] = useState(null);
   const [dataLoading, setDataLoading] = useState(false);
@@ -118,6 +119,16 @@ const HomeScreen = () => {
         console.log("down");
         PostService.votePost(item.id, (state = "down"));
       }}
+      toPost={() =>
+        navigation.navigate(ROUTES.POST_ROUTE, {
+          content: item.content,
+          userAvatar: item.userAvatar,
+          userName: item.userName,
+          title: item.title,
+          votes: item.votes,
+          votestate: item.votestate,
+        })
+      }
     />
   );
   return (

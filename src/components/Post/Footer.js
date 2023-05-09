@@ -7,8 +7,9 @@ import {
   CommentIcon,
   SavePostIcon,
 } from "../IconLibrary";
+import ROUTES from "../../constants/routes";
 
-const Footer = ({ votes, votestate, upvoteAction, downvoteAction }) => {
+const Footer = ({ votes, votestate, upvoteAction, downvoteAction, toPost }) => {
   // const [voteCount, setVoteCount] = useState(votes);
   const [isUpvoted, setIsUpvoted] = useState(votestate === "up");
   const [isDownvoted, setIsDownvoted] = useState(votestate === "down");
@@ -50,7 +51,11 @@ const Footer = ({ votes, votestate, upvoteAction, downvoteAction }) => {
           )}
         </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={() => {}}>
+      <TouchableOpacity
+        onPress={() => {
+          toPost();
+        }}
+      >
         <View style={[styles.iconContainer, { flex: 1 }]}>
           <CommentIcon />
           <Text style={styles.text}> Comment</Text>

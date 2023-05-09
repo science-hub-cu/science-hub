@@ -15,6 +15,7 @@ const Post = ({
   votestate,
   upvoteAction,
   downvoteAction,
+  toPost,
 }) => {
   return (
     <View style={styles.postContaner}>
@@ -25,6 +26,7 @@ const Post = ({
         votestate={votestate}
         upvoteAction={upvoteAction}
         downvoteAction={downvoteAction}
+        toPost={toPost}
       />
     </View>
   );

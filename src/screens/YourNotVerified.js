@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text } from "react-native";
 import Svg, { Circle, Path } from "react-native-svg";
+import { getAuth } from "@firebase/auth";
 
 const YourNotVerified = () => {
+  useEffect(() => {
+    let interval = setInterval(async () => {
+      // await getAuth().currentUser.reload();
+      await getAuth().updateCurrentUser();
+      console.log("relodded");
+    }, 20000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <View
       style={{

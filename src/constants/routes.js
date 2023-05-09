@@ -15,6 +15,8 @@ const ROUTES = {
   REP_USER_ROUTE: "report user",
   HELP_ROUTE: "help",
   TERMS_ROUTE: "TERMS",
+  YOU_ARE_NOT_VERIFIED_ROUTE: "route",
+  POST_ROUTE: "post route",
 };
 
 export default ROUTES;
