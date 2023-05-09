@@ -2,16 +2,21 @@ import {
   addDoc,
   collection,
   doc,
+  getDoc,
   getDocs,
   getFirestore,
   limit,
   onSnapshot,
   orderBy,
   query,
+  runTransaction,
   serverTimestamp,
+  setDoc,
   startAfter,
+  updateDoc,
 } from "firebase/firestore";
-import { checkArgumentFromObject } from "../utils/commonCheckers";
+import { getAuth } from "@firebase/auth";
+
 import { checkArgument } from "../utils/commonCheckers";
 import Post from "./models/Post";
 import UserService from "./UserService";
@@ -86,5 +91,42 @@ export default class PostService {
         }
       });
     });
+  }
+
+  static async votePost(postid, state = "up") {
+    try {
+      const { uid } = getAuth().currentUser;
+      const db = getFirestore();
+
+      await runTransaction(db, async (transaction) => {
+        const document = doc(
+          db,
+          `${Post.collectionName}/${postid}/voteusers`,
+          uid
+        );
+        const postDoc = doc(db, Post.collectionName, postid);
+        const { vote } = (await transaction.get(postDoc)).data();
+        let newvote = vote + (state === "up" ? 1 : state === "down" ? -1 : 0);
+        transaction.update(postDoc, {
+          vote: newvote,
+        });
+        // const col = collection(postdoc, "votesusers");
+        transaction.set(document, { state });
+      });
+    } catch (er) {
+      throw er;
+    }
+  }
+  static async getVotePost(postid) {
+    const { uid } = getAuth().currentUser;
+    // console.log(user);
+    const document = doc(
+      getFirestore(),
+      `${Post.collectionName}/${postid}/voteusers`,
+      uid
+    );
+    const snap = await getDoc(document);
+    if (snap.exists()) return snap.data().state;
+    else return "";
   }
 }

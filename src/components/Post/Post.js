@@ -12,12 +12,20 @@ const Post = ({
   content = "",
   imageSource = "",
   votes = 0,
+  votestate,
+  upvoteAction,
+  downvoteAction,
 }) => {
   return (
     <View style={styles.postContaner}>
       <Header userName={userName} userAvatar={userAvatar} title={title} />
       <Content content={content} imageSource={imageSource} />
-      <Footer votes={votes} />
+      <Footer
+        votes={votes}
+        votestate={votestate}
+        upvoteAction={upvoteAction}
+        downvoteAction={downvoteAction}
+      />
     </View>
   );
 };

@@ -9,7 +9,6 @@ import {
 import COLORS from "../constants/colors";
 import Post from "../components/Post/Post";
 import PostService from "../services/PostService";
-import { collection, getFirestore, onSnapshot } from "firebase/firestore";
 const HomeScreen = () => {
   const [lastDoc, setLastDoc] = useState(null);
   const [firstDoc, setfirstDoc] = useState(null);
@@ -19,7 +18,9 @@ const HomeScreen = () => {
   const [data, setData] = useState([]);
   const [rerender, setRerender] = useState(true);
 
-  const docToObj = (doc) => {
+  const render = () => setRerender((r) => !r);
+
+  const docToObj = (doc, state = "") => {
     const media = doc.data().media;
     return {
       id: doc.id,
@@ -28,6 +29,7 @@ const HomeScreen = () => {
       title: doc.data().user.title,
       content: doc.data().content,
       votes: doc.data().vote,
+      votestate: state,
       userAvatar:
         "https://images.unsplash.com/photo-1664142315014-412c769e9a6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80",
     };
@@ -56,11 +58,13 @@ const HomeScreen = () => {
     try {
       setRefreshing(true);
       let DBdata = await PostService.loadPostAsec(firstDoc);
-      DBdata.forEach((doc) => {
+      DBdata.forEach(async (doc) => {
+        const state = await PostService.getVotePost(doc.id);
         setData((old) => {
-          old.unshift(docToObj(doc));
+          old.unshift(docToObj(doc, state));
           return old;
         });
+        render();
         if (!DBdata.empty) setfirstDoc(DBdata.docs[0]);
       });
     } catch (e) {
@@ -81,11 +85,13 @@ const HomeScreen = () => {
       setDataLoading(true);
 
       const DBdata = await PostService.loadPostDesc(lastDoc);
-      DBdata.forEach((doc) => {
+      DBdata.forEach(async (doc) => {
+        const state = await PostService.getVotePost(doc.id);
         setData((old) => {
-          old.push(docToObj(doc));
+          old.push(docToObj(doc, state));
           return old;
         });
+        render();
       });
       setLastDoc(DBdata.docs[DBdata.docs.length - 1]);
       if (DBdata.empty) setDataEnding(true);
@@ -104,6 +110,14 @@ const HomeScreen = () => {
       title={item.title}
       content={item.content}
       votes={item.votes}
+      votestate={item.votestate}
+      upvoteAction={() => {
+        PostService.votePost(item.id, (state = "up"));
+      }}
+      downvoteAction={() => {
+        console.log("down");
+        PostService.votePost(item.id, (state = "down"));
+      }}
     />
   );
   return (

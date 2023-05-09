@@ -8,15 +8,16 @@ import {
   SavePostIcon,
 } from "../IconLibrary";
 
-const Footer = ({ votes }) => {
+const Footer = ({ votes, votestate, upvoteAction, downvoteAction }) => {
   // const [voteCount, setVoteCount] = useState(votes);
-  const [isUpvoted, setIsUpvoted] = useState(false);
-  const [isDownvoted, setIsDownvoted] = useState(false);
+  const [isUpvoted, setIsUpvoted] = useState(votestate === "up");
+  const [isDownvoted, setIsDownvoted] = useState(votestate === "down");
   const [isSaved, setIsSaved] = useState(false);
   const handleUpVote = () => {
     if (!isUpvoted && !isDownvoted) {
       // setVoteCount(voteCount + 1);
       setIsUpvoted(true);
+      upvoteAction();
     }
   };
 
@@ -24,6 +25,7 @@ const Footer = ({ votes }) => {
     if (!isDownvoted && !isUpvoted) {
       // setVoteCount(voteCount - 1);
       setIsDownvoted(true);
+      downvoteAction();
     }
   };
   const handleSavepost = () => {
