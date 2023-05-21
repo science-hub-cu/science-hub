@@ -4,14 +4,11 @@ import {
   Text,
   StyleSheet,
   View,
-  Animated,
   Dimensions,
-  PanResponder,
   TouchableOpacity,
 } from "react-native";
-import { PanGestureHandler } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ScrollView, Directions } from "react-native-gesture-handler";
+import { ScrollView } from "react-native-gesture-handler";
 import COLORS from "../../constants/colors";
 import RegistrationScreen from "./RegisterScreen";
 import LoginScreen from "./LoginScreen";
@@ -22,7 +19,7 @@ const screenWidth = Dimensions.get("window").width;
 const AuthScreen = ({ navigation }) => {
   const [isRegister, setIsRegister] = useState(false);
 
-  const { width, height } = Dimensions.get("window");
+  const { width } = Dimensions.get("window");
 
   const [sliderLocation, setSliderLocation] = useState(width * (25 / 100));
 
@@ -36,6 +33,15 @@ const AuthScreen = ({ navigation }) => {
     setIsRegister(x >= width / 2 ? 1 : 0);
 
     setSliderLocation(Math.min(max, Math.round(v)));
+  };
+
+  // Conditional styles for terms text
+  const termsTextStyle = {
+    flex: 1,
+    textAlign: "center",
+    color: isRegister ? COLORS.white : COLORS.blue,
+    fontFamily: "majalla",
+    fontSize: 25,
   };
 
   return (
@@ -52,35 +58,30 @@ const AuthScreen = ({ navigation }) => {
                 fontSize: 25,
                 textAlign: "center",
                 color: COLORS.white,
-                fontWeight: 400,
+                fontWeight: "400",
                 fontFamily: "majalla",
                 paddingTop: 15,
               }}
             >
               {"  "}By signing in you are agreeing
             </Text>
-            <View>
+            <View style={{ flexDirection: "row", justifyContent: "center" }}>
+              <Text style={styles.text}>our </Text>
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate(ROUTES.TERMS_ROUTE);
                 }}
               >
                 <Text style={[styles.text, { color: COLORS.blue }]}>
-                  {" "}
-                  Our Term and privacy policy
+                  Term and privacy policy
                 </Text>
               </TouchableOpacity>
             </View>
+            <View style={[{ flexDirection: "row" }, styles.text]}></View>
           </View>
           <View style={styles.rowView}>
             <Text
-              style={{
-                flex: 1,
-                textAlign: "center",
-                color: isRegister ? COLORS.white : COLORS.blue,
-                fontFamily: "majalla",
-                fontSize: 25,
-              }}
+              style={termsTextStyle}
               onPress={() => {
                 scrollRef.current.scrollTo({ x: 0 });
               }}
@@ -165,4 +166,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
 });
+
 export default AuthScreen;
