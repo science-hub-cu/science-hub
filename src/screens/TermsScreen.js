@@ -2,10 +2,11 @@ import React from "react";
 import { Text, View, ScrollView, Dimensions } from "react-native";
 import { PanGestureHandler } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
+import COLORS from "../constants/colors";
 
 const TermsScreen = () => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Terms and Policy</Text>
       <ScrollView style={styles.tcContainer}>
         <Text style={styles.tcP}>
@@ -78,7 +79,7 @@ const TermsScreen = () => {
           The use of this website is subject to the following terms of use
         </Text>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -87,10 +88,8 @@ const { width, height } = Dimensions.get("window");
 const styles = {
   container: {
     marginTop: 20,
-    marginLeft: 10,
-    marginRight: 10,
     flex: 1,
-    backgroundColor: "#2B2D31",
+    backgroundColor: COLORS.mainBackground,
   },
   title: {
     fontSize: 22,
@@ -100,10 +99,6 @@ const styles = {
   tcP: {
     marginTop: 10,
     marginBottom: 10,
-    fontSize: 12,
-  },
-  tcP: {
-    marginTop: 10,
     fontSize: 12,
     color: "#fff",
   },
@@ -120,4 +115,5 @@ const styles = {
     height: height * 0.7,
   },
 };
+
 export default TermsScreen;
