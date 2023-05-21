@@ -79,7 +79,7 @@ const AddScreen = ({ navigation }) => {
         >
           <View style={styles.header}>
             {/* add X icon action here (pop to prev screen)  */}
-            <TouchableOpacity onPress={() => {}} style={styles.headericon}>
+            <TouchableOpacity onPress={() => {navigation.goBack();}} style={styles.headericon}>
               <AntDesign name="close" size={24} color="white" />
             </TouchableOpacity>
             {/* submmit post here and navigate to posts screen*/}
@@ -87,7 +87,7 @@ const AddScreen = ({ navigation }) => {
               title={"Post"}
               width="20%"
               height="75%"
-              onPress={() => {}}
+              onPress={() => {addPost();}}
               opacity={0.2}
             />
           </View>
