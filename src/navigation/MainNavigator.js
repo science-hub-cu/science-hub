@@ -25,7 +25,7 @@ import Reportuser from "../screens/profile/Reportuser";
 import AddScreen from "../screens/AddScreen";
 import SplashScreen from "../screens/SplashScreen";
 import TermsScreen from "../screens/TermsScreen";
-import YourNotVerified from "../screens/YourNotVerified";
+import NotVerifiedScreen from "../screens/NotVerifiedScreen";
 import PostScreen from "../screens/PostScreen";
 
 const Stack = createStackNavigator();
@@ -127,7 +127,7 @@ export default function MainNavigator() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen
           name={ROUTES.YOU_ARE_NOT_VERIFIED_ROUTE}
-          component={YourNotVerified}
+          component={NotVerifiedScreen}
         />
       </Stack.Navigator>
     );

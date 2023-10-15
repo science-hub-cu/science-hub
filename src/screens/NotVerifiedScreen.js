@@ -59,6 +59,7 @@ const NotVerifiedScreen = () => {
 };
 
 export default NotVerifiedScreen;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
