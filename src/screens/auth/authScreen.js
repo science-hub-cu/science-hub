@@ -17,7 +17,8 @@ import ROUTES from "../../constants/routes";
 const screenWidth = Dimensions.get("window").width;
 
 const AuthScreen = ({ navigation }) => {
-  const [isRegister, setIsRegister] = useState(false);
+const [isRegister, setIsRegister] = useState(false);
+const [showOverlay, setShowOverlay] = useState("auto");
 
   const { width } = Dimensions.get("window");
 
@@ -34,6 +35,9 @@ const AuthScreen = ({ navigation }) => {
 
     setSliderLocation(Math.min(max, Math.round(v)));
   };
+  const updateShowOverlay = (value) => {
+    setShowOverlay(value);
+  };
 
   // Conditional styles for terms text
   const termsTextStyle = {
@@ -45,7 +49,7 @@ const AuthScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} pointerEvents={showOverlay}>
       <ScrollView>
         <StatusBar barStyle="dark-content" />
         <View>
@@ -120,10 +124,16 @@ const AuthScreen = ({ navigation }) => {
             onScroll={setSliderPage}
           >
             <View style={{ width: screenWidth }}>
-              <LoginScreen state={isRegister ? "hide" : "show"} />
+              <LoginScreen
+                state={isRegister ? "hide" : "show"}
+                updateShowOverlay={updateShowOverlay}
+              />
             </View>
             <View style={{ width: screenWidth }}>
-              <RegistrationScreen state={isRegister ? "show" : "hide"} />
+              <RegistrationScreen
+                state={isRegister ? "show" : "hide"}
+                updateShowOverlay={updateShowOverlay}
+              />
             </View>
           </ScrollView>
         </View>

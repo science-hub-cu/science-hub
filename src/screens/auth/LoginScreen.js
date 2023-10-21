@@ -9,7 +9,7 @@ import UserService from "../../services/UserService";
 import { getAuth } from "@firebase/auth";
 import { Text } from "react-native";
 
-const LoginScreen = ({ navigation, state }) => {
+const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
   /********************** states  ***************************/
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -36,6 +36,7 @@ const LoginScreen = ({ navigation, state }) => {
 
   const loginPress = async () => {
     try {
+      updateShowOverlay("none");
       let user = {
         username,
         password,
@@ -50,6 +51,7 @@ const LoginScreen = ({ navigation, state }) => {
       console.log(error);
     } finally {
       btnRef.current?.setLoading(false);
+      updateShowOverlay("auto");
     }
   };
   return (
@@ -87,9 +89,7 @@ const LoginScreen = ({ navigation, state }) => {
             onPress={() => loginPress()}
           ></LoadingButton>
           <TouchableOpacity>
-            <Text style={styles.forgetPassword}>
-              Forget my password
-            </Text>
+            <Text style={styles.forgetPassword}>Forget my password</Text>
           </TouchableOpacity>
         </View>
       </View>

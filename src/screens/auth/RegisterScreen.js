@@ -12,7 +12,7 @@ import UserService from "../../services/UserService";
 import { useRef } from "react";
 import LoadingButton from "../../components/LoadingButton";
 
-const RegistrationScreen = ({ navigation, state }) => {
+const RegistrationScreen = ({ navigation, state, updateShowOverlay }) => {
   /********************** states  ***************************/
   const [username, setUsername] = useState("");
   const [code, setCode] = useState("");
@@ -42,6 +42,7 @@ const RegistrationScreen = ({ navigation, state }) => {
 
   const registerPress = async () => {
     try {
+      updateShowOverlay("none");
       let user = {
         username,
         code,
@@ -63,6 +64,7 @@ const RegistrationScreen = ({ navigation, state }) => {
         });
       }
     } finally {
+      updateShowOverlay("auto");
       btnRef.current?.setLoading(false);
     }
   };
