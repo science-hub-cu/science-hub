@@ -1,17 +1,28 @@
-import { isValidUserName, isValidPassword } from "./CommonValidation";
+import {
+  isValidUserName,
+  isValidPassword,
+  isValidFacultyCode,
+} from "./CommonValidation";
 
 export const signInValidation = ({ username, password }, addError) => {
-  let valid = true;
-  if (!isValidUserName(username)) {
-    addError({ username: "your name should contains only letters" });
-    valid = false;
-  }
-  if (!isValidPassword(password)) {
-    addError({
-      password: "password must be at least 6 digits",
-    });
+  let isValid = true;
 
-    valid = false;
+  const firstLetter = username.charAt(0);
+
+  if (firstLetter >= "0" && firstLetter <= "9") {
+    if (!isValidFacultyCode(username)) {
+      addError({ username: "Please enter a valid faculty code." });
+      isValid = false;
+    }
+  } else if (!isValidUserName(username)) {
+    addError({ username: "Your name should only contain letters." });
+    isValid = false;
   }
-  return valid;
+
+  if (!isValidPassword(password)) {
+    addError({ password: "Password must be at least  characters long." });
+    isValid = false;
+  }
+
+  return isValid;
 };
