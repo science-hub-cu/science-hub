@@ -42,7 +42,7 @@ const RegistrationScreen = ({ navigation, state, updateShowOverlay }) => {
 
   const registerPress = async () => {
     try {
-      updateShowOverlay("none");
+      updateShowOverlay(true);
       let user = {
         username,
         code,
@@ -64,8 +64,8 @@ const RegistrationScreen = ({ navigation, state, updateShowOverlay }) => {
         });
       }
     } finally {
-      updateShowOverlay("auto");
       btnRef.current?.setLoading(false);
+      updateShowOverlay(false);
     }
   };
   return (
