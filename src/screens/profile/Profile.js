@@ -16,6 +16,7 @@ import UserService from "../../services/UserService";
 import { useLayoutEffect } from "react";
 import ROUTES from "../../constants/routes";
 import { Svg, Rect } from "react-native-svg";
+import ChangeDepartmentOrLevelScreen from "./ChangeDepartmentOrLevelScreen";
 const Profile = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [username, setUserName] = useState("k3br");
@@ -48,7 +49,7 @@ const Profile = ({ navigation }) => {
   };
   changeusername = () => navigation.navigate(ROUTES.CHANGE_USERNAME_ROUTE);
   changepassword = () => navigation.navigate(ROUTES.CHANGE_PASSWORD_ROUTE);
-  changedepartment = () => navigation.navigate(ROUTES.CHANGE_DEP_ROUTE);
+  changedepartmentOrLevel = () =>navigation.navigate(ROUTES.CHANGE_DEP_LEV_ROUTE);
   verifyfriend = () => navigation.navigate(ROUTES.VERIFY_ROUTE);
   savedposts = () => navigation.navigate(ROUTES.SAVED_POTSTS_ROUTE);
   deletemyaccount = () => navigation.navigate(ROUTES.DELETEACC_ROUTE);
@@ -162,7 +163,7 @@ const Profile = ({ navigation }) => {
 
             <ProfileButton
               title="Change department or level"
-              onPress={changedepartment}
+              onPress={changedepartmentOrLevel}
               iconname="Cdep"
             ></ProfileButton>
 
