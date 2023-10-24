@@ -93,7 +93,6 @@ const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
           </TouchableOpacity>
         </View>
       </View>
-     
     </View>
   );
 };
@@ -143,5 +142,4 @@ const styles = StyleSheet.create({
     paddingTop: "2%",
     color: COLORS.blue,
   },
-  
 });
