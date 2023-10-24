@@ -59,8 +59,8 @@ const AuthScreen = ({ navigation }) => {
             )}
           />
         </Tab.Navigator>
-        {showOverlay && <View style={styles.overlay}></View>}
       </View>
+      {showOverlay && <View style={styles.overlay}></View>}
     </View>
   );
 };
