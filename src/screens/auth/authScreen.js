@@ -1,144 +1,67 @@
-import React, { useState, useRef } from "react";
-import { StatusBar } from "expo-status-bar";
-import {
-  Text,
-  StyleSheet,
-  View,
-  Dimensions,
-  TouchableOpacity,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { ScrollView } from "react-native-gesture-handler";
+import React, { useState } from "react";
+import { Text, StyleSheet, View } from "react-native";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import COLORS from "../../constants/colors";
 import RegistrationScreen from "./RegisterScreen";
 import LoginScreen from "./LoginScreen";
 import ROUTES from "../../constants/routes";
 
-const screenWidth = Dimensions.get("window").width;
+const Tab = createMaterialTopTabNavigator();
 
 const AuthScreen = ({ navigation }) => {
-const [isRegister, setIsRegister] = useState(false);
-const [showOverlay, setShowOverlay] = useState("auto");
+  const [showOverlay, setShowOverlay] = useState(false);
 
-  const { width } = Dimensions.get("window");
-
-  const [sliderLocation, setSliderLocation] = useState(width * (25 / 100));
-
-  const scrollRef = useRef(null);
-
-  const setSliderPage = (event) => {
-    const { x } = event.nativeEvent.contentOffset;
-    const max = 2 * width * (25 / 100);
-    let v = (x + width) * (25 / 100);
-
-    setIsRegister(x >= width / 2 ? 1 : 0);
-
-    setSliderLocation(Math.min(max, Math.round(v)));
-  };
   const updateShowOverlay = (value) => {
     setShowOverlay(value);
   };
 
-  // Conditional styles for terms text
-  const termsTextStyle = {
-    flex: 1,
-    textAlign: "center",
-    color: isRegister ? COLORS.white : COLORS.blue,
-    fontFamily: "majalla",
-    fontSize: 25,
-  };
-
   return (
-    <SafeAreaView style={styles.container} pointerEvents={showOverlay}>
-      <ScrollView>
-        <StatusBar barStyle="dark-content" />
-        <View>
-          <View>
-            <Text style={styles.headerText}>
-              {isRegister ? "Register" : "Login"}
-            </Text>
-            <Text
-              style={{
-                fontSize: 25,
-                textAlign: "center",
-                color: COLORS.white,
-                fontWeight: "400",
-                fontFamily: "majalla",
-                paddingTop: 15,
-              }}
-            >
-              {"  "}By signing in you are agreeing
-            </Text>
-            <View style={{ flexDirection: "row", justifyContent: "center" }}>
-              <Text style={styles.text}>our </Text>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate(ROUTES.TERMS_ROUTE);
-                }}
-              >
-                <Text style={[styles.text, { color: COLORS.blue }]}>
-                  Term and privacy policy
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View style={[{ flexDirection: "row" }, styles.text]}></View>
-          </View>
-          <View style={styles.rowView}>
-            <Text
-              style={termsTextStyle}
-              onPress={() => {
-                scrollRef.current.scrollTo({ x: 0 });
-              }}
-            >
-              Login
-            </Text>
-            <Text
-              style={{
-                flex: 1,
-                textAlign: "center",
-                color: isRegister ? COLORS.blue : COLORS.white,
-                fontFamily: "majalla",
-                fontSize: 25,
-              }}
-              onPress={() => {
-                scrollRef.current.scrollTo({ x: width });
-              }}
-            >
-              Register
-            </Text>
-          </View>
-          <View>
-            <View
-              style={[styles.paginationDots, { marginLeft: sliderLocation }]}
-            />
-          </View>
-
-          <ScrollView
-            ref={scrollRef}
-            style={{ flex: 1 }}
-            horizontal={true}
-            scrollEventThrottle={16}
-            pagingEnabled={true}
-            showsHorizontalScrollIndicator={false}
-            bounces={false}
-            onScroll={setSliderPage}
+    <View style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerText}>SCI-Hub</Text>
+        <Text style={styles.policyText}>
+          By signing in, you are agreeing to our{" "}
+          <Text
+            style={styles.policyLink}
+            onPress={() => {
+              navigation.navigate(ROUTES.TERMS_ROUTE);
+            }}
           >
-            <View style={{ width: screenWidth }}>
-              <LoginScreen
-                state={isRegister ? "hide" : "show"}
-                updateShowOverlay={updateShowOverlay}
-              />
-            </View>
-            <View style={{ width: screenWidth }}>
-              <RegistrationScreen
-                state={isRegister ? "show" : "hide"}
-                updateShowOverlay={updateShowOverlay}
-              />
-            </View>
-          </ScrollView>
+            Terms and Privacy Policy
+          </Text>
+        </Text>
+      </View>
+      <View style={styles.tabContainer}>
+        <Tab.Navigator
+          screenOptions={() => ({
+            tabBarStyle: { backgroundColor: COLORS.mainBackground },
+            tabBarLabelStyle: styles.text,
+          })}
+          sceneContainerStyle={{ backgroundColor: COLORS.mainBackground }}
+        >
+          <Tab.Screen
+            name="Login"
+            children={() => (
+              <LoginScreen updateShowOverlay={updateShowOverlay}
+              showOverlay={showOverlay} />
+            )}
+          />
+
+          <Tab.Screen
+            name="Register"
+            children={() => (
+              <RegistrationScreen updateShowOverlay={updateShowOverlay} />
+            )}
+          />
+      
+        </Tab.Navigator>
+        {showOverlay && (
+        <View style={styles.overlay}>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      )}
+      </View>
+      
+    </View>
   );
 };
 
@@ -147,11 +70,27 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.mainBackground,
   },
+  headerContainer: {
+    alignItems: "center",
+    paddingTop: "15%",
+  },
   headerText: {
     fontSize: 32,
-    textAlign: "center",
     color: COLORS.white,
-    marginTop: "5%",
+  },
+  policyText: {
+    fontSize: 25,
+    color: COLORS.white,
+    fontFamily: "majalla",
+    paddingTop: 15,
+    textAlign: "center",
+  },
+  policyLink: {
+    color: COLORS.blue,
+  },
+  tabContainer: {
+    flex: 1,
+    justifyContent: "center",
   },
   text: {
     fontSize: 25,
@@ -159,21 +98,13 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontFamily: "majalla",
   },
-  buttonView: {
-    paddingTop: 5,
-    alignItems: "center",
-  },
-  rowView: {
-    paddingTop: 15,
-    marginLeft: "25%",
-    flexDirection: "row",
-    width: "50%",
-    justifyContent: "space-around",
-  },
-  paginationDots: {
-    height: 2,
-    width: "25%",
-    backgroundColor: "#fff",
+  overlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "transparent",
   },
 });
 

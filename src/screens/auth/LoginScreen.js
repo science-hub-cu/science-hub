@@ -36,7 +36,7 @@ const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
 
   const loginPress = async () => {
     try {
-      updateShowOverlay("none");
+      updateShowOverlay(true);
       let user = {
         username,
         password,
@@ -51,7 +51,7 @@ const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
       console.log(error);
     } finally {
       btnRef.current?.setLoading(false);
-      updateShowOverlay("auto");
+      updateShowOverlay(false);
     }
   };
   return (
@@ -93,6 +93,7 @@ const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
           </TouchableOpacity>
         </View>
       </View>
+     
     </View>
   );
 };
@@ -141,5 +142,13 @@ const styles = StyleSheet.create({
   forgetPassword: {
     paddingTop: "2%",
     color: COLORS.blue,
+  },
+  overlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "transparent",
   },
 });
