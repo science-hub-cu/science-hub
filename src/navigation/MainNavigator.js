@@ -17,7 +17,7 @@ import VerifyScreen from "../screens/profile/VerifyScreen";
 import AuthScreen from "../screens/auth/authScreen";
 import ChangeUserNameScreen from "../screens/profile/ChangeUserNameScreen";
 import ChangePassword from "../screens/profile/ChangePassword";
-import ChangeDepartment from "../screens/profile/ChangeDepartment";
+import ChangeDepartmentOrLevelScreen from "../screens/profile/ChangeDepartmentOrLevelScreen";
 import Help from "../screens/profile/Help";
 import Savedpost from "../screens/profile/Savedpost";
 import DeleteAcc from "../screens/profile/DeleteAcc";
@@ -100,8 +100,8 @@ export default function MainNavigator() {
             component={ChangePassword}
           />
           <Stack.Screen
-            name={ROUTES.CHANGE_DEP_ROUTE}
-            component={ChangeDepartment}
+            name={ROUTES.CHANGE_DEP_LEV_ROUTE}
+            component={ChangeDepartmentOrLevelScreen}
           />
           <Stack.Screen
             name={ROUTES.SAVED_POTSTS_ROUTE}

@@ -9,7 +9,7 @@ const ROUTES = {
   PROFILE_ROUTE: "Profile Screen",
   CHANGE_USERNAME_ROUTE: "Change Username",
   CHANGE_PASSWORD_ROUTE: "Change Password",
-  CHANGE_DEP_ROUTE: "Change Department",
+  CHANGE_DEP_LEV_ROUTE: "Change department Or Level",
   SAVED_POTSTS_ROUTE: "saved posts",
   DELETEACC_ROUTE: "delete account",
   REP_USER_ROUTE: "report user",
