@@ -50,7 +50,8 @@ const AuthScreen = ({ navigation }) => {
           <Tab.Screen
             name="Register"
             children={() => (
-              <RegistrationScreen updateShowOverlay={updateShowOverlay} />
+              <RegistrationScreen updateShowOverlay={updateShowOverlay}
+              showOverlay={showOverlay} />
             )}
           />
       
