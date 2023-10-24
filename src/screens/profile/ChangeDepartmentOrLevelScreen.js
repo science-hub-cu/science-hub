@@ -6,6 +6,9 @@ import UserService from "../../services/UserService";
 import DropdownList from "../../components/DropdownList";
 import levels from "../../constants/Levels";
 import Departments from "../../constants/Departments";
+import updateDepLev from "../../utils/updateMethods";
+// import updateDepLev from "./updateDepLev"; // Import the function
+
 import { disappearError } from "../../utils/uiHelper";
 import {
   isValidDepartment,
@@ -26,44 +29,8 @@ const ChangeDepartmentOrLevelScreen = ({ navigation }) => {
       ...error,
     }));
   };
-
-  const updateDepLev = async () => {
-    try {
-      // console.log(1);
-      setShowOverlay(true); // Show the overlay
-      if (isValidDepartment(department.label) && isValidLevel(level.label)) {
-        // console.log(2);
-        await UserService.changeDepartment(department.label);
-        await UserService.changeLevel(level.label);
-      } else if (isValidDepartment(department.label)) {
-        // console.log(3);
-        addError({
-          level: "enter your level",
-        });
-      } else if (isValidLevel(level.label)) {
-        // console.log(4);
-        addError({
-          department: "enter your department",
-        });
-      } else {
-        // console.log(5);
-        addError({
-          department: "Enter your department",
-          level: "Enter your level",
-        });
-      }
-    } catch (error) {
-      // console.log(6);
-      if (error.response && error.response.status === 401){
-        // console.log(7);
-        // setInvalid("please choose your department and level ");
-      }
-      console.log(error);
-    } finally {
-      btn.current?.setLoading(false);
-      setShowOverlay(false); // Hide the overlay
-
-    }
+  const handleUpdateDepLev = () => {
+    updateDepLev(department, level, addError, setShowOverlay, btn);
   };
 
   return (
@@ -99,7 +66,7 @@ const ChangeDepartmentOrLevelScreen = ({ navigation }) => {
             height={50}
             fontSize={20}
             title={"update"}
-            onPress={() => updateDepLev()}
+            onPress={() => handleUpdateDepLev()}
             disabled={false}
           ></LoadingButton>
         </View>
