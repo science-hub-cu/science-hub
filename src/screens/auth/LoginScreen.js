@@ -8,6 +8,9 @@ import { disappearError } from "../../utils/uiHelper";
 import UserService from "../../services/UserService";
 import { getAuth } from "@firebase/auth";
 import { Text } from "react-native";
+import ROUTES from "../../constants/routes"
+import TermsScreen from "../TermsScreen";
+
 
 const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
   /********************** states  ***************************/
@@ -91,6 +94,16 @@ const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
           <TouchableOpacity>
             <Text style={styles.forgetPassword}>Forget my password</Text>
           </TouchableOpacity>
+          <Text
+            style={styles.policyText}
+            onPress={() => {
+              navigation.navigate(ROUTES.TERMS_ROUTE);
+            }}
+          >
+            Terms and Privacy Policy
+          
+        </Text>
+          
         </View>
       </View>
     </View>
@@ -139,7 +152,21 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
   },
   forgetPassword: {
-    paddingTop: "2%",
+    paddingTop: "3%",
     color: COLORS.blue,
+    textDecorationLine: 'underline',
+    
   },
+  policyText: {
+    paddingTop: "3%",
+
+    color: COLORS.white,
+    fontFamily: "majalla",
+    paddingTop: 15,
+      color: COLORS.blue,
+      textDecorationLine: 'underline',
+
+    
+  },
+  
 });

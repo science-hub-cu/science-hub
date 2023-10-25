@@ -19,17 +19,6 @@ const AuthScreen = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={styles.headerText}>SCI-Hub</Text>
-        <Text style={styles.policyText}>
-          By signing in, you are agreeing to our{" "}
-          <Text
-            style={styles.policyLink}
-            onPress={() => {
-              navigation.navigate(ROUTES.TERMS_ROUTE);
-            }}
-          >
-            Terms and Privacy Policy
-          </Text>
-        </Text>
       </View>
       <View style={styles.tabContainer}>
         <Tab.Navigator
@@ -59,6 +48,8 @@ const AuthScreen = ({ navigation }) => {
             )}
           />
         </Tab.Navigator>
+        
+        
       </View>
       {showOverlay && <View style={styles.overlay}></View>}
     </View>
@@ -78,16 +69,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     color: COLORS.white,
   },
-  policyText: {
-    fontSize: 25,
-    color: COLORS.white,
-    fontFamily: "majalla",
-    paddingTop: 15,
-    textAlign: "center",
-  },
-  policyLink: {
-    color: COLORS.blue,
-  },
+
   tabContainer: {
     flex: 1,
     justifyContent: "center",
