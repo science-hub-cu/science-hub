@@ -32,6 +32,7 @@ const AuthScreen = ({ navigation }) => {
             name="Login"
             children={() => (
               <LoginScreen
+                navigation={navigation}
                 updateShowOverlay={updateShowOverlay}
                 showOverlay={showOverlay}
               />
@@ -42,14 +43,13 @@ const AuthScreen = ({ navigation }) => {
             name="Register"
             children={() => (
               <RegistrationScreen
+                navigation={navigation}
                 updateShowOverlay={updateShowOverlay}
                 showOverlay={showOverlay}
               />
             )}
           />
         </Tab.Navigator>
-        
-        
       </View>
       {showOverlay && <View style={styles.overlay}></View>}
     </View>

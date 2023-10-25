@@ -8,9 +8,8 @@ import { disappearError } from "../../utils/uiHelper";
 import UserService from "../../services/UserService";
 import { getAuth } from "@firebase/auth";
 import { Text } from "react-native";
-import ROUTES from "../../constants/routes"
+import ROUTES from "../../constants/routes";
 import TermsScreen from "../TermsScreen";
-
 
 const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
   /********************** states  ***************************/
@@ -20,6 +19,7 @@ const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
   const [invalid, setInvalid] = useState("");
   const btnRef = useRef(null);
 
+  // console.log("navig:", navigation);
   /****************  reset data when hide ***************/
   if (state === "hide") {
     if (username !== "") setUsername("");
@@ -101,9 +101,7 @@ const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
             }}
           >
             Terms and Privacy Policy
-          
-        </Text>
-          
+          </Text>
         </View>
       </View>
     </View>
@@ -154,8 +152,7 @@ const styles = StyleSheet.create({
   forgetPassword: {
     paddingTop: "3%",
     color: COLORS.blue,
-    textDecorationLine: 'underline',
-    
+    textDecorationLine: "underline",
   },
   policyText: {
     paddingTop: "3%",
@@ -163,10 +160,7 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontFamily: "majalla",
     paddingTop: 15,
-      color: COLORS.blue,
-      textDecorationLine: 'underline',
-
-    
+    color: COLORS.blue,
+    textDecorationLine: "underline",
   },
-  
 });
