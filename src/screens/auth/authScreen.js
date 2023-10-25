@@ -4,6 +4,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import COLORS from "../../constants/colors";
 import RegistrationScreen from "./RegisterScreen";
 import LoginScreen from "./LoginScreen";
+import ROUTES from "../../constants/routes";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -15,9 +16,7 @@ const AuthScreen = ({ navigation }) => {
   };
 
   const CustomTabLabel = ({ label, focused }) => (
-    <Text
-      style={[styles.text, { color: focused ? COLORS.blue : COLORS.white }]}
-    >
+    <Text style={[styles.text, { color: focused ? COLORS.blue : COLORS.white }]}>
       {label}
     </Text>
   );
@@ -28,23 +27,17 @@ const AuthScreen = ({ navigation }) => {
         <Text style={styles.headerText}>SCI-Hub</Text>
       </View>
       <View style={styles.tabContainer}>
-        <Tab.Navigator
+      <Tab.Navigator
           screenOptions={() => ({
             tabBarStyle: { backgroundColor: COLORS.mainBackground },
-            tabBarLabelStyle: styles.text,
-            tabBarIndicatorStyle: {
-              backgroundColor: COLORS.blue,
-              height: 2,
-              width: "23%",
-              marginLeft: 28,
-              left: 25,
-            },
-
-            tabBarActiveTintColor: COLORS.blue,
+            tabBarLabelStyle: styles.text, 
+            tabBarIndicatorStyle: { backgroundColor: COLORS.white, height: 2, width: "23%", marginLeft:28,left:25 },
+          
+            tabBarActiveTintColor: COLORS.blue, 
           })}
           sceneContainerStyle={{ backgroundColor: COLORS.mainBackground }}
         >
-          <Tab.Screen
+           <Tab.Screen
             name="Login"
             options={{
               tabBarLabel: (props) => (
