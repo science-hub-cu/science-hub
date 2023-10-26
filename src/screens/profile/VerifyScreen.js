@@ -1,11 +1,10 @@
 /**
  * Verify screen
- * @author abdelrahman aboelyaziz , Mahmoud atef
+ * @author abdelrahman aboelyaziz , Mahmoud atef, Hazem Muhammed
  * @desc page dependence to library (https://www.npmjs.com/package/react-native-otp-textinput?activeTab=readme)
  */
 
-import React, { useState, useRef, createRef, useEffect } from "react";
-import { StatusBar } from "expo-status-bar";
+import React, { useState, useRef, useEffect } from "react";
 import OTPTextInput from "react-native-otp-textinput";
 import {
   Text,
@@ -13,11 +12,10 @@ import {
   StyleSheet,
   SafeAreaView,
   TouchableWithoutFeedback,
-  TextInput,
   Keyboard,
+  KeyboardAvoidingView
 } from "react-native";
 import COLORS from "../../constants/colors";
-import { ScrollView } from "react-native-gesture-handler";
 import LoadingButton from "../../components/LoadingButton";
 import UserService from "../../services/UserService";
 
@@ -50,13 +48,15 @@ const VerifyScreen = ({ navigation }) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={styles.container}>
-        <ScrollView
+      <KeyboardAvoidingView
           style={{ flex: 1 }}
-          contentContainerStyle={{ minHeight: "100%" }}
+          behavior="padding" // Adjust the behavior as needed
+          contentContainerStyle={{ flex: 1, minHeight: "100%" }}
         >
+      
           <View style={styles.content}>
             <Text style={styles.caption}>
-              Enter your colleague's code to verify him:{" "}
+              Enter your colleagues's code to verify him:{" "}
             </Text>
             <OTPTextInput
               inputCount={COUNT_OF_DIGITS}
@@ -78,7 +78,7 @@ const VerifyScreen = ({ navigation }) => {
               disabled={true}
             ></LoadingButton>
           </View>
-        </ScrollView>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );
@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 20,
     marginHorizontal: 20,
+    textAlign: "center",
   },
   otpContainer: {
     justifyContent: "space-evenly",
