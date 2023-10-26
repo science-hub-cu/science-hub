@@ -23,29 +23,29 @@ import UserService from "../../services/UserService";
 
 const COUNT_OF_DIGITS = 7;
 const VerifyScreen = ({ navigation }) => {
-  const btn = useRef(null);
+  const button = useRef(null);
   const otpInput = useRef(null);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
-      btn.current.setLoading(false);
-      btn.current.setDisable(true);
+      button.current.setLoading(false);
+      button.current.setDisable(true);
       otpInput.current.clear();
     });
     return unsubscribe;
   }, [navigation]);
 
   const verifyCode = () => {
-    // btn.current.setLoading(false);
+    // button.current.setLoading(false);
     const code = otpInput.current.state.otpText.join("");
     console.log(code);
     // UserService.verifyUser()
   };
   const handleTextChange = (text) => {
     if (text.length === COUNT_OF_DIGITS) {
-      btn.current.setLoading(false);
+      button.current.setLoading(false);
       Keyboard.dismiss();
-    } else btn.current.setDisable(true);
+    } else button.current.setDisable(true);
   };
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -56,7 +56,7 @@ const VerifyScreen = ({ navigation }) => {
         >
           <View style={styles.content}>
             <Text style={styles.caption}>
-              Enter your friend code to verify him:{" "}
+              Enter your colleague's code to verify him:{" "}
             </Text>
             <OTPTextInput
               inputCount={COUNT_OF_DIGITS}
@@ -68,7 +68,7 @@ const VerifyScreen = ({ navigation }) => {
               ref={otpInput}
             />
             <LoadingButton
-              ref={btn}
+              ref={button}
               marginTop={5}
               width="90%"
               height={50}
