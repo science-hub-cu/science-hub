@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity,TouchableWithoutFeedback,Keyboard } from "react-native";
 import LoadingButton from "../../components/LoadingButton";
 import COLORS from "../../constants/colors";
 import Input from "../../components/Input";
@@ -9,7 +9,7 @@ import UserService from "../../services/UserService";
 import { getAuth } from "@firebase/auth";
 import { Text } from "react-native";
 import ROUTES from "../../constants/routes";
-import TermsScreen from "../TermsScreen";
+import * as Haptics from 'expo-haptics';
 
 const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
   /********************** states  ***************************/
@@ -47,10 +47,16 @@ const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
       if (signInValidation(user, addError)) {
         await UserService.signInUser(username, password);
         console.log(await getAuth().currentUser.getIdToken());
+        Haptics.notificationAsync(
+          Haptics.NotificationFeedbackType.Success
+        )
       }
     } catch (error) {
       if (error.response && error.response.status === 401)
         setInvalid("Invalid Username or Password");
+        Haptics.notificationAsync(
+          Haptics.NotificationFeedbackType.Error
+        )
       console.log(error);
     } finally {
       btnRef.current?.setLoading(false);
@@ -58,6 +64,7 @@ const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
     }
   };
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={{ marginBottom: 20 }}>
       <View style={styles.centerAligment}>
         <Input
@@ -105,6 +112,8 @@ const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
         </View>
       </View>
     </View>
+    </TouchableWithoutFeedback>
+
   );
 };
 
@@ -153,14 +162,13 @@ const styles = StyleSheet.create({
     paddingTop: "3%",
     color: COLORS.blue,
     textDecorationLine: "underline",
+    paddingTop:30
   },
   policyText: {
     paddingTop: "3%",
-
     color: COLORS.white,
-    fontFamily: "majalla",
-    paddingTop: 15,
     color: COLORS.blue,
     textDecorationLine: "underline",
+    paddingBottom:15
   },
 });
