@@ -13,7 +13,7 @@ import {
   SafeAreaView,
   TouchableWithoutFeedback,
   Keyboard,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from "react-native";
 import COLORS from "../../constants/colors";
 import LoadingButton from "../../components/LoadingButton";
@@ -48,11 +48,10 @@ const VerifyScreen = ({ navigation }) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView
-          style={{ flex: 1,paddingBottom:"10%" }}
+        <KeyboardAvoidingView
+          style={{ flex: 1, paddingBottom: "10%" }}
           behavior="postion"
         >
-      
           <View style={styles.content}>
             <Text style={styles.caption}>
               Enter your colleagues's code to verify him:{" "}
