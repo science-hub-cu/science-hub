@@ -1,3 +1,8 @@
+/**
+ * Login Screen
+ * @author Mahmoud atef, Hazem Muhammed
+ */
+
 import React, { useRef, useState } from "react";
 import { View, StyleSheet, TouchableOpacity,TouchableWithoutFeedback,Keyboard } from "react-native";
 import LoadingButton from "../../components/LoadingButton";
@@ -162,13 +167,15 @@ const styles = StyleSheet.create({
     paddingTop: "3%",
     color: COLORS.blue,
     textDecorationLine: "underline",
-    paddingTop:30
+    paddingTop:30,
+    alignContent:"center"
   },
   policyText: {
     paddingTop: "3%",
     color: COLORS.white,
     color: COLORS.blue,
     textDecorationLine: "underline",
-    paddingBottom:15
+    paddingBottom:15,
+    alignContent:"center"
   },
 });

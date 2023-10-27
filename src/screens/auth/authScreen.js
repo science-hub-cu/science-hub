@@ -32,10 +32,10 @@ const AuthScreen = ({ navigation }) => {
             tabBarStyle: { backgroundColor: COLORS.mainBackground },
             tabBarLabelStyle: styles.text, 
             tabBarIndicatorStyle: { backgroundColor: COLORS.white, height: 2, width: "23%", marginLeft:28,left:25 },
-          
-            tabBarActiveTintColor: COLORS.blue, 
           })}
           sceneContainerStyle={{ backgroundColor: COLORS.mainBackground }}
+          tabBarAndroidRipple={{ color: 'transparent', borderless: false }}
+
         >
            <Tab.Screen
             name="Login"
