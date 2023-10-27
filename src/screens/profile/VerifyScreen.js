@@ -49,9 +49,8 @@ const VerifyScreen = ({ navigation }) => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
-          style={{ flex: 1 }}
-          behavior="padding" // Adjust the behavior as needed
-          contentContainerStyle={{ flex: 1, minHeight: "100%" }}
+          style={{ flex: 1,paddingBottom:"10%" }}
+          behavior="postion"
         >
       
           <View style={styles.content}>
