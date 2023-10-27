@@ -50,7 +50,7 @@ const VerifyScreen = ({ navigation }) => {
       <SafeAreaView style={styles.container}>
         <KeyboardAvoidingView
           style={{ flex: 1, paddingBottom: "10%" }}
-          behavior="postion"
+          behavior={Platform.OS === 'ios' ? 'height' : 'postion'}
         >
           <View style={styles.content}>
             <Text style={styles.caption}>
