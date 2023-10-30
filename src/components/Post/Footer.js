@@ -38,7 +38,7 @@ const Footer = ({ votes, votestate, upvoteAction, downvoteAction, toPost }) => {
   useEffect(() => {
     if (upVoteAnimation.current) {
       if (isUpvoted) {
-        upVoteAnimation.current.play(0, 11);
+        upVoteAnimation.current.play(0, 13);
       } else {
         upVoteAnimation.current.play(0, 0);
       }
