@@ -8,14 +8,10 @@ import {
   Image,
 } from "react-native";
 import Lightbox from "react-native-lightbox-v2";
-import {
-  PinchGestureHandler,
-  State,
-  PanGestureHandler,
-} from "react-native-gesture-handler";
-import Pinchable from "react-native-pinchable";
+import { PinchGestureHandler, State } from "react-native-gesture-handler";
 import COLORS from "../../constants/colors";
 import { event } from "react-native-reanimated";
+import ImageViewer from "react-native-image-zoom-viewer";
 
 const Content = ({ content = "", imageSource = "" }) => {
   const [imageExist, setIsImageExist] = useState(imageSource !== "");
