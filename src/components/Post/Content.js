@@ -1,53 +1,59 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
-  TouchableOpacity,
-  Animated,
   StyleSheet,
+  Modal,
   Image,
+  TouchableOpacity,
 } from "react-native";
-import Lightbox from "react-native-lightbox-v2";
-import { PinchGestureHandler, State } from "react-native-gesture-handler";
 import COLORS from "../../constants/colors";
-import { event } from "react-native-reanimated";
 import ImageViewer from "react-native-image-zoom-viewer";
 
 const Content = ({ content = "", imageSource = "" }) => {
   const [imageExist, setIsImageExist] = useState(imageSource !== "");
-  const scale = React.useRef(new Animated.Value(1)).current;
+  const [showImageViewer, setShowImageViewer] = useState(false);
 
-  const onZoomEvent = Animated.event([{ nativeEvent: { scale } }], {
-    useNativeDriver: true,
-  });
-  const onZoomStatChange = (event) => {
-    if (event.nativeEvent.oldState == State.ACTIVE) {
-      Animated.spring(scale, {
-        toValue: 1,
-        useNativeDriver: true,
-      }).start();
-    }
+  const images = [{ url: imageSource }];
+
+  const CustomModal = ({ images, onClose }) => {
+    return (
+      <Modal visible={true} transparent={true} onRequestClose={onClose}>
+        <ImageViewer
+          imageUrls={images}
+          enableSwipeDown={true}
+          onCancel={onClose}
+          onSwipeDown={onClose}
+        />
+      </Modal>
+    );
   };
 
   return (
-    <View style={styles.postContaner}>
-      <Text style={styles.content}>{content}</Text>
-      {imageExist && (
-        <Lightbox underlayColor="black">
-          <PinchGestureHandler
-            onGestureEvent={onZoomEvent}
-            onHandlerStateChange={onZoomStatChange}
-          >
-            <Animated.Image
-              style={[styles.image, { transform: [{ scale }] }]}
-              source={{
-                uri: imageSource,
-              }}
-            />
-          </PinchGestureHandler>
-        </Lightbox>
+    <>
+      <View style={styles.postContainer}>
+        <Text style={styles.content}>{content}</Text>
+        {imageExist && (
+          <View>
+            <TouchableOpacity onPress={() => setShowImageViewer(true)}>
+              <Image
+                style={styles.image}
+                source={{
+                  uri: imageSource,
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
+
+      {showImageViewer && (
+        <CustomModal
+          images={images}
+          onClose={() => setShowImageViewer(false)}
+        />
       )}
-    </View>
+    </>
   );
 };
 
