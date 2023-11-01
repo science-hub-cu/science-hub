@@ -38,6 +38,5 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.secBackground,
     marginBottom: 9,
     marginTop: 1,
-    minHeight: 0,
   },
 });

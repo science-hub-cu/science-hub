@@ -12,7 +12,7 @@ const CommentInput = () => {
   return (
     <View style={styles.textInputView}>
       <TextInput
-        placeholder="enter your Comment"
+        placeholder="Write your Comment"
         placeholderTextColor={COLORS.gray1}
         style={styles.textInput}
         multiline={true}
@@ -31,8 +31,9 @@ export default CommentInput;
 
 const styles = StyleSheet.create({
   textInputView: {
+    width: "98%",
     height: 45,
-    paddingLeft: "3%",
+    paddingLeft: "5%",
     backgroundColor: COLORS.secBackground,
     borderRadius: 20,
     flexDirection: "row",
