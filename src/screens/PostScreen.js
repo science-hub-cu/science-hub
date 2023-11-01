@@ -22,7 +22,7 @@ const PostScreen = ({ route }) => {
         <View style={{ marginTop: StatusBar.currentHeight }}>
           <Post
             content={route.params.content}
-            imageSource="https://images.crunchbase.com/image/upload/c_lpad,f_auto,q_auto:eco,dpr_1/s1cihnpc1cnekihotv0e"
+            imageSource={route.params.imageSource}
             userAvatar={route.params.userAvatar}
             title={route.params.title}
             userName={route.params.userName}

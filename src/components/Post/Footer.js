@@ -92,7 +92,14 @@ const Footer = ({ votes, votestate, upvoteAction, downvoteAction, toPost }) => {
         </View>
       </TouchableOpacity>
       <TouchableOpacity onPress={handleSavepost}>
-        <View style={[styles.iconContainer, { width: 80 }]}>
+        <View
+          style={[
+            styles.iconContainer,
+            {
+              flex: 1,
+            },
+          ]}
+        >
           {isSaved ? (
             <>
               <SavePostIcon color={COLORS.gold} />
@@ -115,8 +122,8 @@ const styles = StyleSheet.create({
   iconContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 10,
-    marginBottom: 5,
+    marginTop: 3,
+    marginBottom: 7,
   },
   number: {
     paddingHorizontal: "5%",
