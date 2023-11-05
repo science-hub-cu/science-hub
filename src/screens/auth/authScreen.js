@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, StyleSheet, View } from "react-native";
+import { Text, StyleSheet, View ,Image} from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import COLORS from "../../constants/colors";
 import RegistrationScreen from "./RegisterScreen";
@@ -24,17 +24,22 @@ const AuthScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <Text style={styles.headerText}>SCI-Hub</Text>
+      <Image
+        source={
+          require("../../assets/icons/SH-LogoWhite.png")
+        }
+        style={styles.logo}
+      />
       </View>
       <View style={styles.tabContainer}>
       <Tab.Navigator
           screenOptions={() => ({
-            tabBarStyle: { backgroundColor: COLORS.mainBackground },
+            tabBarStyle: { backgroundColor: COLORS.mainBackground,shadowOpacity: 0 },
             tabBarLabelStyle: styles.text, 
-            tabBarIndicatorStyle: { backgroundColor: COLORS.white, height: 2, width: "23%", marginLeft:28,left:25 },
+            tabBarIndicatorStyle: { backgroundColor: COLORS.white, height: 2, width: "23%", marginLeft:28,left:25,},
           })}
           sceneContainerStyle={{ backgroundColor: COLORS.mainBackground }}
-          tabBarAndroidRipple={{ color: 'transparent', borderless: false }}
+          tabBarAndroidRipple={{ color: 'transparent', borderless: true }}
 
         >
            <Tab.Screen
@@ -108,6 +113,11 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     backgroundColor: "transparent",
+  },
+  logo: { 
+    width: 150, 
+    height: 150,
+  
   },
 });
 
