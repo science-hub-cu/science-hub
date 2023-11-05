@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Text, StyleSheet, View ,Image} from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View,
+  Image,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import COLORS from "../../constants/colors";
 import RegistrationScreen from "./RegisterScreen";
@@ -16,69 +23,79 @@ const AuthScreen = ({ navigation }) => {
   };
 
   const CustomTabLabel = ({ label, focused }) => (
-    <Text style={[styles.text, { color: focused ? COLORS.blue : COLORS.white }]}>
+    <Text
+      style={[styles.text, { color: focused ? COLORS.blue : COLORS.white }]}
+    >
       {label}
     </Text>
   );
 
   return (
-    <View style={styles.container}>
-      <View style={styles.headerContainer}>
-      <Image
-        source={
-          require("../../assets/icons/SH-LogoWhite.png")
-        }
-        style={styles.logo}
-      />
-      </View>
-      <View style={styles.tabContainer}>
-      <Tab.Navigator
-          screenOptions={() => ({
-            tabBarStyle: { backgroundColor: COLORS.mainBackground,shadowOpacity: 0 },
-            tabBarLabelStyle: styles.text, 
-            tabBarIndicatorStyle: { backgroundColor: COLORS.white, height: 2, width: "23%", marginLeft:28,left:25,},
-          })}
-          sceneContainerStyle={{ backgroundColor: COLORS.mainBackground }}
-          tabBarAndroidRipple={{ color: 'transparent', borderless: true }}
-
-        >
-           <Tab.Screen
-            name="Login"
-            options={{
-              tabBarLabel: (props) => (
-                <CustomTabLabel label="Login" focused={props.focused} />
-              ),
-            }}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <Image
+            source={require("../../assets/icons/SH-LogoWhite.png")}
+            style={styles.logo}
+          />
+        </View>
+        <View style={styles.tabContainer}>
+          <Tab.Navigator
+            screenOptions={() => ({
+              tabBarStyle: {
+                backgroundColor: COLORS.mainBackground,
+                shadowOpacity: 0,
+              },
+              tabBarLabelStyle: styles.text,
+              tabBarIndicatorStyle: {
+                backgroundColor: COLORS.white,
+                height: 2,
+                width: "23%",
+                marginLeft: 28,
+                left: 25,
+              },
+            })}
+            sceneContainerStyle={{ backgroundColor: COLORS.mainBackground }}
+            tabBarAndroidRipple={{ color: "transparent", borderless: true }}
           >
-            {() => (
-              <LoginScreen
-                navigation={navigation}
-                updateShowOverlay={updateShowOverlay}
-                showOverlay={showOverlay}
-              />
-            )}
-          </Tab.Screen>
+            <Tab.Screen
+              name="Login"
+              options={{
+                tabBarLabel: (props) => (
+                  <CustomTabLabel label="Login" focused={props.focused} />
+                ),
+              }}
+            >
+              {() => (
+                <LoginScreen
+                  navigation={navigation}
+                  updateShowOverlay={updateShowOverlay}
+                  showOverlay={showOverlay}
+                />
+              )}
+            </Tab.Screen>
 
-          <Tab.Screen
-            name="Register"
-            options={{
-              tabBarLabel: (props) => (
-                <CustomTabLabel label="Register" focused={props.focused} />
-              ),
-            }}
-          >
-            {() => (
-              <RegistrationScreen
-                navigation={navigation}
-                updateShowOverlay={updateShowOverlay}
-                showOverlay={showOverlay}
-              />
-            )}
-          </Tab.Screen>
-        </Tab.Navigator>
+            <Tab.Screen
+              name="Register"
+              options={{
+                tabBarLabel: (props) => (
+                  <CustomTabLabel label="Register" focused={props.focused} />
+                ),
+              }}
+            >
+              {() => (
+                <RegistrationScreen
+                  navigation={navigation}
+                  updateShowOverlay={updateShowOverlay}
+                  showOverlay={showOverlay}
+                />
+              )}
+            </Tab.Screen>
+          </Tab.Navigator>
+        </View>
+        {showOverlay && <View style={styles.overlay}></View>}
       </View>
-      {showOverlay && <View style={styles.overlay}></View>}
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -114,10 +131,9 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: "transparent",
   },
-  logo: { 
-    width: 150, 
+  logo: {
+    width: 150,
     height: 150,
-  
   },
 });
 
