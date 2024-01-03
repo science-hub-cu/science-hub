@@ -28,6 +28,9 @@ const PostScreen = ({ route }) => {
             userName={route.params.userName}
             votes={route.params.votes}
             votestate={route.params.votestate}
+            downvoteAction={route.params.downvoteAction}
+            upvoteAction={route.params.upvoteAction}
+            
           />
         </View>
         {comments.length === 0 ? (

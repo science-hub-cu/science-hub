@@ -12,20 +12,30 @@ const Footer = ({ votes, votestate, upvoteAction, downvoteAction, toPost }) => {
   
 
   const handleUpVote = () => {
+    if(isDownvoted){
+      setIsDownvoted(false);
+      upvoteAction();
+    }
     if (!isUpvoted) {
       setIsUpvoted(true);
       upvoteAction();
     } else {
       setIsUpvoted(false);
+      downvoteAction();
     }
   };
 
   const handleDownVote = () => {
+    if (isUpvoted) {
+      setIsUpvoted(false);
+      downvoteAction();
+    }
     if (!isDownvoted) {
       setIsDownvoted(true);
       downvoteAction();
     } else {
       setIsDownvoted(false);
+       upvoteAction();
     }
   };
 
