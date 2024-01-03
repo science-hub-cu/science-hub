@@ -2,21 +2,17 @@ import React, { useState, useEffect, useRef } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import COLORS from "../../constants/colors";
 import AnimatedLottieView from "lottie-react-native";
-import {
-  UpVoteIcon,
-  DownVoteIcon,
-  CommentIcon,
-  SavePostIcon,
-} from "../IconLibrary";
+import { CommentIcon, SavePostIcon } from "../IconLibrary";
 
 const Footer = ({ votes, votestate, upvoteAction, downvoteAction, toPost }) => {
-  // const [voteCount, setVoteCount] = useState(votes);
   const [isUpvoted, setIsUpvoted] = useState(votestate === "up");
   const [isDownvoted, setIsDownvoted] = useState(votestate === "down");
   const [isSaved, setIsSaved] = useState(false);
+
+  
+
   const handleUpVote = () => {
     if (!isUpvoted) {
-      // setVoteCount(voteCount + 1);
       setIsUpvoted(true);
       upvoteAction();
     } else {
@@ -25,15 +21,18 @@ const Footer = ({ votes, votestate, upvoteAction, downvoteAction, toPost }) => {
   };
 
   const handleDownVote = () => {
-    if (!isDownvoted && !isUpvoted) {
-      // setVoteCount(voteCount - 1);
+    if (!isDownvoted) {
       setIsDownvoted(true);
       downvoteAction();
+    } else {
+      setIsDownvoted(false);
     }
   };
+
   const handleSavepost = () => {
     setIsSaved(!isSaved);
   };
+
   const upVoteAnimation = useRef(null);
   useEffect(() => {
     if (upVoteAnimation.current) {
@@ -48,7 +47,9 @@ const Footer = ({ votes, votestate, upvoteAction, downvoteAction, toPost }) => {
   const downVoteAnimation = useRef(null);
   useEffect(() => {
     if (downVoteAnimation.current) {
-      if (isDownvoted === "down") {
+      if (isDownvoted) {
+        downVoteAnimation.current.play(0, 13);
+      } else {
         downVoteAnimation.current.play(0, 0);
       }
     }
@@ -65,20 +66,15 @@ const Footer = ({ votes, votestate, upvoteAction, downvoteAction, toPost }) => {
             loop={false}
           />
         </TouchableOpacity>
-        {/* <TouchableOpacity>
-          {isUpvoted ? (
-            <UpVoteIcon color={COLORS.blue1} stroke={COLORS.blue1} />
-          ) : (
-            <UpVoteIcon />
-          )}
-        </TouchableOpacity> */}
         <Text style={styles.number}>{votes}</Text>
         <TouchableOpacity onPress={handleDownVote}>
-          {isDownvoted ? (
-            <DownVoteIcon color={COLORS.blue1} stroke={COLORS.blue1} />
-          ) : (
-            <DownVoteIcon />
-          )}
+          <AnimatedLottieView
+            ref={downVoteAnimation}
+            style={{ width: 30, height: 30, transform: [{ rotate: "90deg" }] }}
+            source={require("../../assets/icons/lottie/vote.json")}
+            autoPlay={false}
+            loop={false}
+          />
         </TouchableOpacity>
       </View>
       <TouchableOpacity
