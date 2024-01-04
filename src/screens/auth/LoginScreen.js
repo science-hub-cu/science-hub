@@ -15,6 +15,7 @@ import { getAuth } from "@firebase/auth";
 import { Text } from "react-native";
 import ROUTES from "../../constants/routes";
 import * as Haptics from 'expo-haptics';
+import { useSignInMutation } from "../../services/auth/authApi";
 
 const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
   /********************** states  ***************************/
@@ -41,7 +42,7 @@ const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
   };
 
   /**************** *******************************/
-
+  const [signIn, { isLoading }] = useSignInMutation();
   const loginPress = async () => {
     try {
       updateShowOverlay(true);
@@ -49,25 +50,33 @@ const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
         username,
         password,
       };
+  
       if (signInValidation(user, addError)) {
-        await UserService.signInUser(username, password);
-        console.log(await getAuth().currentUser.getIdToken());
-        Haptics.notificationAsync(
-          Haptics.NotificationFeedbackType.Success
-        )
+        const signInResult = await signIn(user);
+  
+        if (signInResult.data) {
+          const currentUser = getAuth().currentUser;
+  
+          if (currentUser) {
+            console.log(await currentUser.getIdToken());
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+          } else {
+            console.error("No authenticated user found");
+          }
+        } else {
+          console.error("Authentication failed");
+        }
       }
     } catch (error) {
-      if (error.response && error.response.status === 401)
-        setInvalid("Invalid Username or Password");
-        Haptics.notificationAsync(
-          Haptics.NotificationFeedbackType.Error
-        )
-      console.log(error);
+      
+      console.error("Error during login:", error);
     } finally {
+     
       btnRef.current?.setLoading(false);
       updateShowOverlay(false);
     }
   };
+  
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={{ marginBottom: 20 }}>
