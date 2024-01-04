@@ -10,6 +10,7 @@ import COLORS from "../constants/colors";
 import Post from "../components/Post/Post";
 import PostService from "../services/PostService";
 import ROUTES from "../constants/routes";
+
 const HomeScreen = ({ navigation }) => {
   const [lastDoc, setLastDoc] = useState(null);
   const [firstDoc, setfirstDoc] = useState(null);
@@ -122,6 +123,7 @@ const HomeScreen = ({ navigation }) => {
       toPost={() =>
         navigation.navigate(ROUTES.POST_ROUTE, {
           content: item.content,
+          imageSource: item.imageSource,
           userAvatar: item.userAvatar,
           userName: item.userName,
           title: item.title,

@@ -12,6 +12,7 @@ const YourBanned = () => {
         viewBox="0 0 190 190"
         color="white"
         fill="none"
+        
       >
         <Circle cx={95} cy={95} r={71.25} stroke="white" strokeWidth={3} />
         <Path d="M145.5 145.5L44.5 44.5" stroke="white" strokeWidth={3} />

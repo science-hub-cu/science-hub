@@ -21,6 +21,7 @@ const Post = ({
     <View style={styles.postContaner}>
       <Header userName={userName} userAvatar={userAvatar} title={title} />
       <Content content={content} imageSource={imageSource} />
+      <View style={{alignContent: "center"}}>
       <Footer
         votes={votes}
         votestate={votestate}
@@ -28,6 +29,7 @@ const Post = ({
         downvoteAction={downvoteAction}
         toPost={toPost}
       />
+      </View>
     </View>
   );
 };
@@ -38,6 +40,5 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.secBackground,
     marginBottom: 9,
     marginTop: 1,
-    minHeight: 0,
   },
 });

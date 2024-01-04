@@ -5,6 +5,8 @@ import { I18nManager } from "react-native";
 import { AuthProvider } from "./src/context/AuthContext";
 import MainNavigator from "./src/navigation/MainNavigator";
 import { NotificationProvider } from "./src/context/NotificationContext";
+import store from "./src/redux/store";
+import { Provider } from "react-redux";
 
 //RTL
 I18nManager.allowRTL(false);
@@ -37,11 +39,13 @@ const App = () => {
   // }
 
   return (
+    <Provider store={store}>
     <AuthProvider>
       <NotificationProvider>
         <MainNavigator></MainNavigator>
       </NotificationProvider>
     </AuthProvider>
+    </Provider>
   );
 };
 

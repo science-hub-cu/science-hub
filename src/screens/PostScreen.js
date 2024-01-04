@@ -1,5 +1,12 @@
 import React from "react";
-import { SafeAreaView, StyleSheet, View, FlatList } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+  FlatList,
+  StatusBar,
+  ScrollView,
+} from "react-native";
 import COLORS from "../constants/colors";
 import Post from "../components/Post/Post";
 import NoCommentScreen from "./NoCommentScreen";
@@ -11,26 +18,36 @@ const PostScreen = ({ route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Post
-        content={route.params.content}
-        userAvatar={route.params.userAvatar}
-        title={route.params.title}
-        userName={route.params.userName}
-        votes={route.params.votes}
-        votestate={route.params.votestate}
-      />
-      {comments.length === 0 ? (
-        <NoCommentScreen />
-      ) : (
-        <FlatList
-          data={comments}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <Comment userName={item.userName} userAvatar={item.userAvatar} />
-          )}
-        />
-      )}
-      <CommentInput />
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <View style={{ marginTop: StatusBar.currentHeight }}>
+          <Post
+            content={route.params.content}
+            imageSource={route.params.imageSource}
+            userAvatar={route.params.userAvatar}
+            title={route.params.title}
+            userName={route.params.userName}
+            votes={route.params.votes}
+            votestate={route.params.votestate}
+            downvoteAction={route.params.downvoteAction}
+            upvoteAction={route.params.upvoteAction}
+            
+          />
+        </View>
+        {comments.length === 0 ? (
+          <NoCommentScreen />
+        ) : (
+          <FlatList
+            data={comments}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <Comment userName={item.userName} userAvatar={item.userAvatar} />
+            )}
+          />
+        )}
+      </ScrollView>
+      <View style={styles.commentInputContainer}>
+        <CommentInput />
+      </View>
     </SafeAreaView>
   );
 };
@@ -41,31 +58,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.mainBackground,
   },
-  image: {
-    marginTop: 9,
+  scrollViewContent: {
+    paddingBottom: "20%", // Adjust as needed to leave space for the CommentInput
   },
-  text: {
-    color: COLORS.white,
-    fontWeight: 700,
-    fontSize: 32,
-    textAlign: "center",
-    flex: 1,
-    textAlignVertical: "center",
-  },
-  textInputView: {
-    height: 45,
-    paddingLeft: "3%",
-    backgroundColor: COLORS.secBackground,
-    borderRadius: 20,
-    flexDirection: "row",
-    paddingRight: "5%",
-    justifyContent: "space-between",
-  },
-  textInput: {
-    width: "90%",
-    fontSize: 20,
-    color: COLORS.white,
-    maxHeight: 300,
-    fontSize: 20,
+  commentInputContainer: {
+    position: "absolute",
+    bottom: 0,
+    marginBottom: "1%",
+    left: 0,
+    right: 0,
+    alignItems: "center",
+    zIndex: 1,
   },
 });

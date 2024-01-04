@@ -1,54 +1,90 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import COLORS from "../../constants/colors";
-import {
-  UpVoteIcon,
-  DownVoteIcon,
-  CommentIcon,
-  SavePostIcon,
-} from "../IconLibrary";
-import ROUTES from "../../constants/routes";
+import AnimatedLottieView from "lottie-react-native";
+import { CommentIcon, SavePostIcon } from "../IconLibrary";
 
 const Footer = ({ votes, votestate, upvoteAction, downvoteAction, toPost }) => {
-  // const [voteCount, setVoteCount] = useState(votes);
   const [isUpvoted, setIsUpvoted] = useState(votestate === "up");
   const [isDownvoted, setIsDownvoted] = useState(votestate === "down");
   const [isSaved, setIsSaved] = useState(false);
+
+  
+
   const handleUpVote = () => {
-    if (!isUpvoted && !isDownvoted) {
-      // setVoteCount(voteCount + 1);
+    if(isDownvoted){
+      setIsDownvoted(false);
+      upvoteAction();
+    }
+    if (!isUpvoted) {
       setIsUpvoted(true);
       upvoteAction();
+    } else {
+      setIsUpvoted(false);
+      downvoteAction();
     }
   };
 
   const handleDownVote = () => {
-    if (!isDownvoted && !isUpvoted) {
-      // setVoteCount(voteCount - 1);
-      setIsDownvoted(true);
+    if (isUpvoted) {
+      setIsUpvoted(false);
       downvoteAction();
     }
+    if (!isDownvoted) {
+      setIsDownvoted(true);
+      downvoteAction();
+    } else {
+      setIsDownvoted(false);
+       upvoteAction();
+    }
   };
+
   const handleSavepost = () => {
     setIsSaved(!isSaved);
   };
+
+  const upVoteAnimation = useRef(null);
+  useEffect(() => {
+    if (upVoteAnimation.current) {
+      if (isUpvoted) {
+        upVoteAnimation.current.play(0, 13);
+      } else {
+        upVoteAnimation.current.play(0, 0);
+      }
+    }
+  }, [isUpvoted]);
+
+  const downVoteAnimation = useRef(null);
+  useEffect(() => {
+    if (downVoteAnimation.current) {
+      if (isDownvoted) {
+        downVoteAnimation.current.play(0, 13);
+      } else {
+        downVoteAnimation.current.play(0, 0);
+      }
+    }
+  }, [isDownvoted]);
   return (
     <View style={styles.footer}>
       <View style={styles.iconContainer}>
         <TouchableOpacity onPress={handleUpVote}>
-          {isUpvoted ? (
-            <UpVoteIcon color={COLORS.blue1} stroke={COLORS.blue1} />
-          ) : (
-            <UpVoteIcon />
-          )}
+          <AnimatedLottieView
+            ref={upVoteAnimation}
+            style={{ width: 30, height: 30 }}
+            source={require("../../assets/icons/lottie/vote.json")}
+            autoPlay={false}
+            loop={false}
+          />
         </TouchableOpacity>
         <Text style={styles.number}>{votes}</Text>
         <TouchableOpacity onPress={handleDownVote}>
-          {isDownvoted ? (
-            <DownVoteIcon color={COLORS.blue1} stroke={COLORS.blue1} />
-          ) : (
-            <DownVoteIcon />
-          )}
+          <AnimatedLottieView
+            ref={downVoteAnimation}
+            style={{ width: 30, height: 30, transform: [{ rotate: "90deg" }] }}
+            source={require("../../assets/icons/lottie/vote.json")}
+            autoPlay={false}
+            loop={false}
+          />
         </TouchableOpacity>
       </View>
       <TouchableOpacity
@@ -62,7 +98,14 @@ const Footer = ({ votes, votestate, upvoteAction, downvoteAction, toPost }) => {
         </View>
       </TouchableOpacity>
       <TouchableOpacity onPress={handleSavepost}>
-        <View style={[styles.iconContainer, { width: 80 }]}>
+        <View
+          style={[
+            styles.iconContainer,
+            {
+              flex: 1,
+            },
+          ]}
+        >
           {isSaved ? (
             <>
               <SavePostIcon color={COLORS.gold} />
@@ -85,8 +128,8 @@ const styles = StyleSheet.create({
   iconContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 10,
-    marginBottom: 5,
+    marginTop: 3,
+    marginBottom: 7,
   },
   number: {
     paddingHorizontal: "5%",
