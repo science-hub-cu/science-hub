@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import COLORS from "../constants/colors";
-import Button from "../../src/components/Button";
-import { AntDesign } from "@expo/vector-icons";
-import * as ImagePicker from "expo-image-picker";
-import { manipulateAsync, FlipType, SaveFormat } from "expo-image-manipulator";
+import UserService from "../services/UserService";
 
 import {
   StyleSheet,
@@ -18,9 +15,7 @@ const NotVerifiedScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => {
-          //add log out method here
-        }}>
+        <TouchableOpacity onPress={() => UserService.signOut()}>
           <View style={{ flexDirection: "row" }}>
             <Image
               style={{ marginRight: "3%" }}

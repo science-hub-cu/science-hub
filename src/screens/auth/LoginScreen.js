@@ -1,5 +1,10 @@
+/**
+ * Login Screen
+ * @author Mahmoud atef, Hazem Muhammed
+ */
+
 import React, { useRef, useState } from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity,TouchableWithoutFeedback,Keyboard } from "react-native";
 import LoadingButton from "../../components/LoadingButton";
 import COLORS from "../../constants/colors";
 import Input from "../../components/Input";
@@ -8,8 +13,11 @@ import { disappearError } from "../../utils/uiHelper";
 import UserService from "../../services/UserService";
 import { getAuth } from "@firebase/auth";
 import { Text } from "react-native";
+import ROUTES from "../../constants/routes";
+import * as Haptics from 'expo-haptics';
+import { useSignInMutation } from "../../services/auth/authApi";
 
-const LoginScreen = ({ navigation, state }) => {
+const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
   /********************** states  ***************************/
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -17,6 +25,7 @@ const LoginScreen = ({ navigation, state }) => {
   const [invalid, setInvalid] = useState("");
   const btnRef = useRef(null);
 
+  // console.log("navig:", navigation);
   /****************  reset data when hide ***************/
   if (state === "hide") {
     if (username !== "") setUsername("");
@@ -33,26 +42,43 @@ const LoginScreen = ({ navigation, state }) => {
   };
 
   /**************** *******************************/
-
+  const [signIn, { isLoading }] = useSignInMutation();
   const loginPress = async () => {
     try {
+      updateShowOverlay(true);
       let user = {
         username,
         password,
       };
+  
       if (signInValidation(user, addError)) {
-        await UserService.signInUser(username, password);
-        console.log(await getAuth().currentUser.getIdToken());
+        const signInResult = await signIn(user);
+  
+        if (signInResult.data) {
+          const currentUser = getAuth().currentUser;
+  
+          if (currentUser) {
+            console.log(await currentUser.getIdToken());
+            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+          } else {
+            console.error("No authenticated user found");
+          }
+        } else {
+          console.error("Authentication failed");
+        }
       }
     } catch (error) {
-      if (error.response && error.response.status === 401)
-        setInvalid("Invalid Username or Password");
-      console.log(error);
+      
+      console.error("Error during login:", error);
     } finally {
+     
       btnRef.current?.setLoading(false);
+      updateShowOverlay(false);
     }
   };
+  
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={{ marginBottom: 20 }}>
       <View style={styles.centerAligment}>
         <Input
@@ -87,13 +113,21 @@ const LoginScreen = ({ navigation, state }) => {
             onPress={() => loginPress()}
           ></LoadingButton>
           <TouchableOpacity>
-            <Text style={styles.forgetPassword}>
-              Forget my password
-            </Text>
+            <Text style={styles.forgetPassword}>Forget my password</Text>
           </TouchableOpacity>
+          <Text
+            style={styles.policyText}
+            onPress={() => {
+              navigation.navigate(ROUTES.TERMS_ROUTE);
+            }}
+          >
+            Terms and Privacy Policy
+          </Text>
         </View>
       </View>
     </View>
+    </TouchableWithoutFeedback>
+
   );
 };
 
@@ -139,7 +173,18 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
   },
   forgetPassword: {
-    paddingTop: "2%",
+    paddingTop: "3%",
     color: COLORS.blue,
+    textDecorationLine: "underline",
+    paddingTop:30,
+    alignContent:"center"
+  },
+  policyText: {
+    paddingTop: "3%",
+    color: COLORS.white,
+    color: COLORS.blue,
+    textDecorationLine: "underline",
+    paddingBottom:15,
+    alignContent:"center"
   },
 });
