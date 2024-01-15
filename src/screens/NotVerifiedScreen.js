@@ -11,11 +11,21 @@ import {
   View,
 } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
+import { removeUserData } from "../Storage/SaveData";
+import { useDispatch } from "react-redux";
+import { logOut } from "../redux/AuthSlice";
+import { useAuth } from "../context/AuthContext";
 const NotVerifiedScreen = () => {
+  const { user, authLoading, updateUser } = useAuth();
+
+  const dispatch = useDispatch();
+  const handelLogout = async () => {
+    dispatch(logOut());
+  };
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => UserService.signOut()}>
+        <TouchableOpacity onPress={handelLogout}>
           <View style={{ flexDirection: "row" }}>
             <Image
               style={{ marginRight: "3%" }}
