@@ -11,9 +11,12 @@ import {
   checkArgument,
   checkArgumentFromObject,
 } from "../utils/commonCheckers";
+import { storeUserData } from "../Storage/SaveData";
+import { Decode } from "./Functions/Decode";
+import { setCredentials } from "../redux/AuthSlice";
 
 export default class UserService {
-  static async registerNewUser(user) {
+  static async registerNewUser(user, signUp, dispatch) {
     try {
       //----------- checkers----------------
       checkArgument(user);
@@ -22,44 +25,38 @@ export default class UserService {
       checkArgumentFromObject(user, "level", isValidLevel);
       checkArgumentFromObject(user, "department", isValidDepartment);
       checkArgumentFromObject(user, "password", isValidPassword);
-
-      const { token } = await Client.sendPostRequest(
-        Client.endPoints.USER_ROUTE,
-        user
-      );
-      //   console.log(data);
-      const auth = getAuth();
-      await signInWithCustomToken(auth, token);
+      const signUpResult = await signUp(user);
+      if (signUpResult.data) {
+        const token = signUpResult.data.access_token;
+        const User = Decode(token);
+        dispatch(setCredentials(User));
+      }
     } catch (error) {
       throw error;
     }
   }
-  static async signInUser(userorcode, password) {
+  static async signInUser(user, signIn, dispatch) {
     try {
       // get token
-      const { token } = await Client.sendPostRequest(
-        Client.endPoints.AUTH_USER,
-        {
-          userorcode,
-          password,
-        }
-      );
+      const signInResult = await signIn(user);
+
+      if (signInResult.data) {
+        const token = signInResult.data.access_token;
+        const User = Decode(token);
+        dispatch(setCredentials(User));
+      }
       // sign in by token
-      await signInWithCustomToken(getAuth(), token);
     } catch (error) {
       throw error;
     }
   }
 
-  static async getCurrentUserData() {
+  static async getCurrentUserData(token, CheckAuth) {
     try {
       // get token
-      const { user } = await Client.sendGetReuest(
-        Client.endPoints.AUTH_USER,
-        {},
-        getAuth().currentUser
-      );
-      return user;
+      const CheckAuthResult = await CheckAuth(token);
+
+      return CheckAuthResult.data;
     } catch (error) {
       throw error;
     }
