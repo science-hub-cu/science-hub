@@ -27,11 +27,25 @@ import SplashScreen from "../screens/SplashScreen";
 import TermsScreen from "../screens/TermsScreen";
 import NotVerifiedScreen from "../screens/NotVerifiedScreen";
 import PostScreen from "../screens/PostScreen";
+import { useDispatch, useSelector } from "react-redux";
+import { useRef } from "react";
+import { selectUser } from "../redux/AuthSlice";
+import { useEffect } from "react";
+import { getUserData } from "../Storage/SaveData";
 
 const Stack = createStackNavigator();
 
 export default function MainNavigator() {
-  const { user, authLoading } = useAuth();
+  const userData = useSelector(selectUser);
+  console.log("userData from main", userData);
+  const prevUserDataRef = useRef(userData);
+  useEffect(() => {
+    if (userData !== prevUserDataRef.current) {
+      console.log("User data has changed!");
+    }
+    prevUserDataRef.current = userData;
+  }, [userData]);
+  console.log("prevUserDataRef", prevUserDataRef);
 
   const HomePage = () => {
     return (
@@ -133,12 +147,12 @@ export default function MainNavigator() {
     );
   };
 
-  if (authLoading) return <SplashScreen />;
+  // if (authLoading) return <SplashScreen />;
 
   return (
     <NavigationContainer>
-      {user ? (
-        user.emailVerified ? (
+      {userData ? (
+        userData.isVerified ? (
           <AuthedStack />
         ) : (
           <NotVerifiedStack />
