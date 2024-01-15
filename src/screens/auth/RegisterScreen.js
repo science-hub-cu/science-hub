@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import Button from "../../components/Button";
 import COLORS from "../../constants/colors";
 import Input from "../../components/Input";
@@ -11,6 +11,14 @@ import { disappearError } from "../../utils/uiHelper";
 import UserService from "../../services/UserService";
 import { useRef } from "react";
 import LoadingButton from "../../components/LoadingButton";
+import {
+  useCheckAuthMutation,
+  useSignUpMutation,
+} from "../../services/auth/authApi";
+import { useDispatch, useSelector } from "react-redux";
+import { selectAuth, setCredentials, setUser } from "../../redux/AuthSlice";
+import ROUTES from "../../constants/routes";
+import { getUserData, storeUserData } from "../../Storage/SaveData";
 
 const RegistrationScreen = ({ navigation, state, updateShowOverlay }) => {
   /********************** states  ***************************/
@@ -21,6 +29,8 @@ const RegistrationScreen = ({ navigation, state, updateShowOverlay }) => {
   const [department, setDepartment] = useState({ key: null, label: "" });
   const [errors, setErrors] = useState({});
   const btnRef = useRef(null);
+  const [signUp, { isLoading }] = useSignUpMutation();
+  const dispatch = useDispatch();
   /****************  reset data when hide ***************/
   if (state === "hide") {
     if (username !== "") setUsername("");
@@ -30,7 +40,6 @@ const RegistrationScreen = ({ navigation, state, updateShowOverlay }) => {
     if (password !== "") setPassword("");
     if (Object.keys(errors).length !== 0) setErrors({});
   }
-
   const addError = (error) => {
     setErrors((prevState) => ({
       ...prevState,
@@ -48,11 +57,12 @@ const RegistrationScreen = ({ navigation, state, updateShowOverlay }) => {
         code,
         password,
         level: level.label,
+        department_code: "GEN",
         department: department.label,
       };
-      // console.log(user);
-      if (signUpValidation(user, addError))
-        await UserService.registerNewUser(user);
+      if (signUpValidation(user, addError)) {
+        await UserService.registerNewUser(user, signUp, dispatch);
+      }
     } catch (error) {
       console.log(error);
       if (error.response && error.response.status === 400) {
@@ -69,7 +79,7 @@ const RegistrationScreen = ({ navigation, state, updateShowOverlay }) => {
     }
   };
   return (
-    <View>
+    <ScrollView>
       <View style={styles.centerAligment}>
         <Input
           width="88%"
@@ -135,7 +145,7 @@ const RegistrationScreen = ({ navigation, state, updateShowOverlay }) => {
           ></LoadingButton>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

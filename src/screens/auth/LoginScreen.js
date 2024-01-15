@@ -4,7 +4,13 @@
  */
 
 import React, { useRef, useState } from "react";
-import { View, StyleSheet, TouchableOpacity,TouchableWithoutFeedback,Keyboard } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
 import LoadingButton from "../../components/LoadingButton";
 import COLORS from "../../constants/colors";
 import Input from "../../components/Input";
@@ -14,9 +20,11 @@ import UserService from "../../services/UserService";
 import { getAuth } from "@firebase/auth";
 import { Text } from "react-native";
 import ROUTES from "../../constants/routes";
-import * as Haptics from 'expo-haptics';
+import * as Haptics from "expo-haptics";
 import { useSignInMutation } from "../../services/auth/authApi";
-
+import { selectUser, setCredentials } from "../../redux/AuthSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useAuth } from "../../context/AuthContext";
 const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
   /********************** states  ***************************/
   const [username, setUsername] = useState("");
@@ -24,6 +32,9 @@ const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
   const [errors, setErrors] = useState({});
   const [invalid, setInvalid] = useState("");
   const btnRef = useRef(null);
+  const [signIn, { isLoading }] = useSignInMutation();
+  const dispatch = useDispatch();
+  const { user, authLoading, updateUser } = useAuth();
 
   // console.log("navig:", navigation);
   /****************  reset data when hide ***************/
@@ -42,7 +53,6 @@ const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
   };
 
   /**************** *******************************/
-  const [signIn, { isLoading }] = useSignInMutation();
   const loginPress = async () => {
     try {
       updateShowOverlay(true);
@@ -50,84 +60,68 @@ const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
         username,
         password,
       };
-  
+
       if (signInValidation(user, addError)) {
-        const signInResult = await signIn(user);
-  
-        if (signInResult.data) {
-          const currentUser = getAuth().currentUser;
-  
-          if (currentUser) {
-            console.log(await currentUser.getIdToken());
-            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-          } else {
-            console.error("No authenticated user found");
-          }
-        } else {
-          console.error("Authentication failed");
-        }
+        await UserService.signInUser(user, signIn, dispatch);
       }
     } catch (error) {
-      
       console.error("Error during login:", error);
     } finally {
-     
       btnRef.current?.setLoading(false);
       updateShowOverlay(false);
     }
   };
-  
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-    <View style={{ marginBottom: 20 }}>
-      <View style={styles.centerAligment}>
-        <Input
-          width="88%"
-          onChangeText={(text) => setUsername(text)}
-          value={username}
-          onFocus={() => disappearError("username", errors, setErrors)}
-          error={errors.username}
-          placeholder="Username"
-          placeholderTextColor={COLORS.gray2}
-          iconName="account-circle-outline"
-          iconLibrary="MaterialCommunityIcons"
-        />
-      </View>
-      <View style={styles.centerAligment}>
-        <Input
-          width="88%"
-          placeholder="Password"
-          placeholderTextColor={COLORS.gray2}
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          onFocus={() => disappearError("password", errors, setErrors)}
-          error={errors.password}
-          password
-        />
-        <Text style={styles.error}>{invalid}</Text>
-        <View style={styles.buttonView}>
-          <LoadingButton
-            ref={btnRef}
-            width="100%"
-            title={"Login"}
-            onPress={() => loginPress()}
-          ></LoadingButton>
-          <TouchableOpacity>
-            <Text style={styles.forgetPassword}>Forget my password</Text>
-          </TouchableOpacity>
-          <Text
-            style={styles.policyText}
-            onPress={() => {
-              navigation.navigate(ROUTES.TERMS_ROUTE);
-            }}
-          >
-            Terms and Privacy Policy
-          </Text>
+      <View style={{ marginBottom: 20 }}>
+        <View style={styles.centerAligment}>
+          <Input
+            width="88%"
+            onChangeText={(text) => setUsername(text)}
+            value={username}
+            onFocus={() => disappearError("username", errors, setErrors)}
+            error={errors.username}
+            placeholder="Username"
+            placeholderTextColor={COLORS.gray2}
+            iconName="account-circle-outline"
+            iconLibrary="MaterialCommunityIcons"
+          />
+        </View>
+        <View style={styles.centerAligment}>
+          <Input
+            width="88%"
+            placeholder="Password"
+            placeholderTextColor={COLORS.gray2}
+            onChangeText={(text) => setPassword(text)}
+            value={password}
+            onFocus={() => disappearError("password", errors, setErrors)}
+            error={errors.password}
+            password
+          />
+          <Text style={styles.error}>{invalid}</Text>
+          <View style={styles.buttonView}>
+            <LoadingButton
+              ref={btnRef}
+              width="100%"
+              title={"Login"}
+              onPress={() => loginPress()}
+            ></LoadingButton>
+            <TouchableOpacity>
+              <Text style={styles.forgetPassword}>Forget my password</Text>
+            </TouchableOpacity>
+            <Text
+              style={styles.policyText}
+              onPress={() => {
+                navigation.navigate(ROUTES.TERMS_ROUTE);
+              }}
+            >
+              Terms and Privacy Policy
+            </Text>
+          </View>
         </View>
       </View>
-    </View>
     </TouchableWithoutFeedback>
-
   );
 };
 
@@ -176,15 +170,15 @@ const styles = StyleSheet.create({
     paddingTop: "3%",
     color: COLORS.blue,
     textDecorationLine: "underline",
-    paddingTop:30,
-    alignContent:"center"
+    paddingTop: 30,
+    alignContent: "center",
   },
   policyText: {
     paddingTop: "3%",
     color: COLORS.white,
     color: COLORS.blue,
     textDecorationLine: "underline",
-    paddingBottom:15,
-    alignContent:"center"
+    paddingBottom: 15,
+    alignContent: "center",
   },
 });

@@ -42,6 +42,7 @@ const AuthScreen = ({ navigation }) => {
         <View style={styles.tabContainer}>
           <Tab.Navigator
             screenOptions={() => ({
+              tabBarPressColor: "transparent",
               tabBarStyle: {
                 backgroundColor: COLORS.mainBackground,
                 shadowOpacity: 0,
@@ -50,9 +51,8 @@ const AuthScreen = ({ navigation }) => {
               tabBarIndicatorStyle: {
                 backgroundColor: COLORS.white,
                 height: 2,
-                width: "23%",
-                marginLeft: 28,
-                left: 25,
+                width: "14%",
+                marginLeft: "14%",
               },
             })}
             sceneContainerStyle={{ backgroundColor: COLORS.mainBackground }}
