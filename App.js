@@ -1,12 +1,13 @@
 import React from "react";
 import "./src/config/firebaseConfig";
 import { useFonts } from "expo-font";
-import { I18nManager } from "react-native";
+import { I18nManager, StatusBar } from "react-native";
 import { AuthProvider } from "./src/context/AuthContext";
 import MainNavigator from "./src/navigation/MainNavigator";
 import { NotificationProvider } from "./src/context/NotificationContext";
-import store from "./src/redux/store";
+import { persistor, store } from "./src/redux/store";
 import { Provider } from "react-redux";
+import { PersistGate } from "reduxjs-toolkit-persist/integration/react";
 
 //RTL
 I18nManager.allowRTL(false);
@@ -40,11 +41,12 @@ const App = () => {
 
   return (
     <Provider store={store}>
-    <AuthProvider>
-      <NotificationProvider>
-        <MainNavigator></MainNavigator>
-      </NotificationProvider>
-    </AuthProvider>
+      <PersistGate loading={null} persistor={persistor}>
+      <StatusBar barStyle="auto"/>
+        <NotificationProvider>
+          <MainNavigator></MainNavigator>
+        </NotificationProvider>
+      </PersistGate>
     </Provider>
   );
 };

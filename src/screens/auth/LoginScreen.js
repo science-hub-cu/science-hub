@@ -34,7 +34,6 @@ const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
   const btnRef = useRef(null);
   const [signIn, { isLoading }] = useSignInMutation();
   const dispatch = useDispatch();
-  const { user, authLoading, updateUser } = useAuth();
 
   // console.log("navig:", navigation);
   /****************  reset data when hide ***************/
