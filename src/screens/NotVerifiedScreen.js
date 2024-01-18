@@ -16,7 +16,6 @@ import { useDispatch } from "react-redux";
 import { logOut } from "../redux/AuthSlice";
 import { useAuth } from "../context/AuthContext";
 const NotVerifiedScreen = () => {
-  const { user, authLoading, updateUser } = useAuth();
 
   const dispatch = useDispatch();
   const handelLogout = async () => {
@@ -56,7 +55,7 @@ const NotVerifiedScreen = () => {
             color: Colors.white,
           }}
         >
-          lET YOUR FRIEND MAKE YOU VERIFIED
+          LET YOUR FRIEND MAKE YOU VERIFIED
         </Text>
       </View>
     </SafeAreaView>

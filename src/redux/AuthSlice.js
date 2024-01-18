@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { removeUserData, storeUserData } from "../Storage/SaveData";
 const initialState = { user: null };
 
 const AuthSlice = createSlice({
@@ -9,11 +8,9 @@ const AuthSlice = createSlice({
     setCredentials: (state, action) => {
       const user = action.payload;
       state.user = user;
-      storeUserData(user);
     },
     logOut: (state, action) => {
       state.user = null;
-      removeUserData();
     },
   },
 });

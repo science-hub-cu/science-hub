@@ -37,9 +37,7 @@ export default class UserService {
   }
   static async signInUser(user, signIn, dispatch) {
     try {
-      // get token
       const signInResult = await signIn(user);
-
       if (signInResult.data) {
         const token = signInResult.data.access_token;
         const User = Decode(token);
