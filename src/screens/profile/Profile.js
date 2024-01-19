@@ -17,12 +17,18 @@ import { useLayoutEffect } from "react";
 import ROUTES from "../../constants/routes";
 import { Svg, Rect } from "react-native-svg";
 import ChangeDepartmentOrLevelScreen from "./ChangeDepartmentOrLevelScreen";
+import { useDispatch } from "react-redux";
+import { logOut } from "../../redux/AuthSlice";
 const Profile = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [username, setUserName] = useState("k3br");
   const [code, setCode] = useState("2027115");
   const [points, setPointes] = useState("0");
   const [title, setTilte] = useState("Your Title");
+  const dispatch=useDispatch();
+  const handelLogout = async () => {
+    dispatch(logOut());
+  };
   const [gradientcolors, setgradientcolors] = useState([
     COLORS.blue1,
     COLORS.mainBackground,
@@ -197,7 +203,7 @@ const Profile = ({ navigation }) => {
             ></ProfileButton>
             <ProfileButton
               title="Log Out"
-              onPress={() => UserService.signOut()}
+              onPress={handelLogout}
               iconname="LG"
             ></ProfileButton>
           </View>
