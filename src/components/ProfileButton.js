@@ -50,11 +50,10 @@ const ProfileButton = ({ title, iconname, onPress = () => {} }) => {
           justifyContent: "space-between",
           alignItems: "center",
           flexDirection: "row",
-          paddingVertical: 6,
-          // marginVertical: 10,
+          marginVertical: 5,
           minHeight: 18,
-          // height: "11%",
-          paddingLeft: 10,
+          backgroundColor: "transparent",
+          padding:8,
         }}
       >
         <View style={{ flexDirection: "row" }}>
@@ -62,7 +61,9 @@ const ProfileButton = ({ title, iconname, onPress = () => {} }) => {
           <Text
             style={{
               color: COLORS.white,
-              marginLeft: 10,
+              marginHorizontal: 5,
+              fontSize:14,
+              fontWeight:"400"
             }}
           >
             {title}
@@ -71,7 +72,7 @@ const ProfileButton = ({ title, iconname, onPress = () => {} }) => {
         <MaterialIcons
           name="arrow-right"
           color={COLORS.white}
-          style={{ fontSize: 20, marginRight: 20 }}
+          size={20}
         />
       </View>
     </TouchableNativeFeedback>

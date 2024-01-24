@@ -14,7 +14,7 @@ const MaterialHeader = () => {
           paddingLeft: "5%",
           paddingTop: "2%",
           color: COLORS.white,
-          fontWeight: 700,
+          fontWeight: "700",
           fontSize: 12,
         }}
       >
@@ -24,7 +24,7 @@ const MaterialHeader = () => {
         style={{
           paddingLeft: "5%",
           color: COLORS.gray1,
-          fontWeight: 400,
+          fontWeight: "400",
           fontSize: 9,
         }}
       >

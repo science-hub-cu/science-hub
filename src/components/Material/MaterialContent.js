@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   text: {
     paddingLeft: "5%",
     color: COLORS.white,
-    fontWeight: 400,
+    fontWeight: "400",
     fontSize: 10,
     width: "100%",
     paddingTop: "1%",

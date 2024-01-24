@@ -92,7 +92,7 @@ const Input = (
 
 const style = StyleSheet.create({
   view: {
-    marginTop: 25,
+    marginVertical: 15,
   },
   inputContainer: {
     height: 55,
@@ -106,7 +106,7 @@ const style = StyleSheet.create({
     marginRight: 10,
   },
   textInputStyle: {
-    paddingLeft: 20,
+    padding: 10,
     color: COLORS.white,
     flex: 1,
   },
@@ -118,7 +118,7 @@ const style = StyleSheet.create({
   },
   errors: {
     color: COLORS.red,
-    paddingLeft: 20,
+    padding: 5,
   },
 });
 const forwardInput = forwardRef(Input);

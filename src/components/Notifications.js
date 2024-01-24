@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: COLORS.white,
-    fontWeight: 400,
+    fontWeight: "400",
     fontSize: 32,
     fontFamily: "Trebuchet",
     marginBottom: "2%",
