@@ -27,10 +27,10 @@ const styles = StyleSheet.create({
   image: {
     marginTop: 9,
   },
-  text1: { color: COLORS.gray2, fontWeight: 400, fontSize: 24 },
+  text1: { color: COLORS.gray2, fontWeight: "400", fontSize: 24 },
   text2: {
     color: COLORS.gray2,
     fontSize: 12,
-    fontWeight: 400,
+    fontWeight: "400",
   },
 });

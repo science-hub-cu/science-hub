@@ -19,13 +19,17 @@ import { Svg, Rect } from "react-native-svg";
 import ChangeDepartmentOrLevelScreen from "./ChangeDepartmentOrLevelScreen";
 import { useDispatch } from "react-redux";
 import { logOut } from "../../redux/AuthSlice";
+import { Dimensions } from "react-native";
+const screenHeight = Dimensions.get("window").height;
+
 const Profile = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [username, setUserName] = useState("k3br");
   const [code, setCode] = useState("2027115");
   const [points, setPointes] = useState("0");
   const [title, setTilte] = useState("Your Title");
-  const dispatch=useDispatch();
+
+  const dispatch = useDispatch();
   const handelLogout = async () => {
     dispatch(logOut());
   };
@@ -55,7 +59,8 @@ const Profile = ({ navigation }) => {
   };
   changeusername = () => navigation.navigate(ROUTES.CHANGE_USERNAME_ROUTE);
   changepassword = () => navigation.navigate(ROUTES.CHANGE_PASSWORD_ROUTE);
-  changedepartmentOrLevel = () =>navigation.navigate(ROUTES.CHANGE_DEP_LEV_ROUTE);
+  changedepartmentOrLevel = () =>
+    navigation.navigate(ROUTES.CHANGE_DEP_LEV_ROUTE);
   verifyfriend = () => navigation.navigate(ROUTES.VERIFY_ROUTE);
   savedposts = () => navigation.navigate(ROUTES.SAVED_POTSTS_ROUTE);
   deletemyaccount = () => navigation.navigate(ROUTES.DELETEACC_ROUTE);
@@ -66,7 +71,10 @@ const Profile = ({ navigation }) => {
     <Loading />
   ) : (
     <SafeAreaView style={{ height: "100%", backgroundColor: "#33363F" }}>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        showsVerticalScrollIndicator={false}
+      >
         <LinearGradient
           colors={gradientcolors}
           start={[0, 0]}
@@ -107,7 +115,7 @@ const Profile = ({ navigation }) => {
             />
             <Button
               title={"Edit avatar"}
-              width="28%"
+              width="35%"
               fontColor="#fff"
               backgroundColor="transparent"
               borderWidth={1}
@@ -122,11 +130,11 @@ const Profile = ({ navigation }) => {
               </Text>
             </View>
             <Text style={styles.Title}>{title}</Text>
-            <Text style={styles.points}>you have {points} points</Text>
+            <Text style={styles.points}>You have {points} points</Text>
             <Button
-              title={"add post"}
+              title={" Add post"}
               fontSize={13}
-              width="24%"
+              width="30%"
               height="10%"
               backgroundColor={COLORS.graish}
               onPress={addpost}
@@ -216,19 +224,17 @@ const Profile = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: "55%",
+    height: screenHeight * 0.45,
   },
   topSection: {
-    top: 0,
-    paddingLeft: "4%",
-    paddingTop: "30%",
-    paddingBottom: 10,
+    padding: 20,
     flex: 1,
     flexDirection: "column",
     justifyContent: "flex-start",
   },
   circle: {
-    width: "25%",
+    width: 100,
+    height: 100,
     aspectRatio: 1 / 1,
     borderColor: COLORS.white,
     borderRadius: 180,
@@ -237,6 +243,7 @@ const styles = StyleSheet.create({
   nameAndcode: {
     flexDirection: "row",
     width: "100%",
+    marginTop:4
   },
   text: {
     fontSize: 20,
@@ -253,16 +260,20 @@ const styles = StyleSheet.create({
 
   Title: {
     fontStyle: "normal",
+    fontSize: 13,
     fontWeight: "400",
     color: "rgba(255, 0, 0, 0.7)",
   },
   points: {
     fontStyle: "normal",
     fontWeight: "400",
+    fontSize: 10,
     color: COLORS.gray2,
   },
   container2: {
     backgroundColor: "#33363F",
+    padding: 5,
+    width: "100%",
   },
 });
 export default Profile;

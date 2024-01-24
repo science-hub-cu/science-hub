@@ -135,13 +135,13 @@ const styles = StyleSheet.create({
     fontSize: 32,
     textAlign: "center",
     color: COLORS.white,
-    fontWeight: 400,
+    fontWeight: "400",
   },
   text: {
     fontSize: 25,
     textAlign: "center",
     color: COLORS.white,
-    fontWeight: 400,
+    fontWeight: "400",
     fontFamily: "majalla",
   },
   buttonView: {

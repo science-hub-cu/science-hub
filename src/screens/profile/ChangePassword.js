@@ -82,7 +82,7 @@ const ChangePassword = ({ navigation }) => {
           <View style={styles.content}>
             <Input
               width="88%"
-              placeholder="OldPassword"
+              placeholder="Old Password"
               placeholderTextColor={COLORS.gray2}
               onChangeText={(text) => setOldPassword(text)}
               value={oldpassword}
@@ -92,7 +92,7 @@ const ChangePassword = ({ navigation }) => {
             />
             <Input
               width="88%"
-              placeholder="NewPassword"
+              placeholder="New Password"
               placeholderTextColor={COLORS.gray2}
               onChangeText={(text) => setNewPassword(text)}
               value={newpassword}
@@ -104,7 +104,8 @@ const ChangePassword = ({ navigation }) => {
             <LoadingButton
               ref={btn}
               width="88%"
-              title={"update"}
+              title={"Change"}
+              fontSize={14}
               onPress={() => updatePassword()}
               disabled={false}
             ></LoadingButton>

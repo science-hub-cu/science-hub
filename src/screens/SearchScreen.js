@@ -3,7 +3,9 @@ import { View, SafeAreaView, StyleSheet, Text } from "react-native";
 import COLORS from "../constants/colors";
 import { SearchBar } from "react-native-elements";
 import { useState } from "react";
-
+import KeyboardAvoidingWarper from "../layouts/KeyboardAvoidingWarper";
+import SafeAreaLayout from "../layouts/SafeAreaLayout";
+import { EvilIcons } from "@expo/vector-icons";
 const SearchScreen = () => {
   const [search, setSearch] = useState("");
   updateSearch = (search) => {
@@ -11,49 +13,36 @@ const SearchScreen = () => {
     console.log(search);
   };
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.container1}>
-        <SearchBar
-          placeholder="Type Here..."
-          onChangeText={updateSearch}
-          value={search}
-          round={true}
-          containerStyle={{
-            backgroundColor: COLORS.mainBackground,
-            borderRadius: 30,
-          }}
-          color={COLORS.white}
-          cursorColor={COLORS.white}
-          placeholderTextColor={COLORS.white}
-        />
-      </View>
-    </SafeAreaView>
+    <KeyboardAvoidingWarper style={styles.container}>
+      <SafeAreaLayout>
+        <View>
+          <SearchBar
+            placeholder="What are you looking for?"
+            onChangeText={updateSearch}
+            value={search}
+            platform="android"
+            showCancel={true}
+            color={COLORS.white}
+            searchIcon={null}
+            cancelIcon={null}
+            containerStyle={styles.search}
+          />
+        </View>
+      </SafeAreaLayout>
+    </KeyboardAvoidingWarper>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: COLORS.mainBackground,
-    justifyContent: "center",
-    alignContent: "center",
-    alignItems: "center",
+    height: "100%",
+    padding: 10,
   },
-  container1: {
-    flex: 1,
-    backgroundColor: COLORS.mainBackground,
-    // justifyContent: "center",
-    top: 200,
-    alignContent: "center",
-    width: "90%",
-  },
-  text: {
-    color: COLORS.white,
-    fontWeight: 700,
-    fontSize: 32,
-    textAlign: "center",
-    flex: 1,
-    textAlignVertical: "center",
+  search: {
+    backgroundColor: COLORS.secBackground,
+    marginBottom: 10,
+    borderRadius: 10,
   },
 });
 export default SearchScreen;

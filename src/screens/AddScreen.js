@@ -24,7 +24,7 @@ import { ToastAndroid } from "react-native";
 const AddScreen = ({ navigation }) => {
   const [postText, setPostText] = useState("");
   const [imageUri, setImageUri] = useState(null);
-  const { user } = useAuth();
+  // const { user } = useAuth();
 
   const handleChooseImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -79,7 +79,7 @@ const AddScreen = ({ navigation }) => {
         >
           <View style={styles.header}>
             {/* add X icon action here (pop to prev screen)  */}
-            <TouchableOpacity onPress={() => {navigation.goBack();}} style={styles.headericon}>
+            <TouchableOpacity onPress={() => {navigation.goBack()}}>
               <AntDesign name="close" size={24} color="white" />
             </TouchableOpacity>
             {/* submmit post here and navigate to posts screen*/}
@@ -93,7 +93,7 @@ const AddScreen = ({ navigation }) => {
           </View>
           <View style={styles.textInputView}>
             <TextInput
-              placeholder="enter your post"
+              placeholder="Enter your post"
               placeholderTextColor={COLORS.gray1}
               style={styles.textInput}
               multiline={true}
@@ -114,13 +114,11 @@ const AddScreen = ({ navigation }) => {
                 source={require("../assets/images/uplodeImage.png")}
               ></Image>
             )}
-          </View>
-          <View style={styles.bottomView}>
-            <Button
-              title={imageUri ? "change Image" : "upload Image"}
+             <Button
+              title={imageUri ? "Change Image" : "Upload Image"}
               fontSize={13}
               width="40%"
-              height="15%"
+              height="6%"
               backgroundColor={COLORS.graish}
               onPress={handleChooseImage}
               opacity={0.2}
@@ -137,14 +135,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.mainBackground,
+    padding:10
   },
 
   imageView1: {
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center",flex:1
   },
   imageView2: {
-    paddingTop: "30%",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -152,12 +150,12 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingRight: 10,
+    alignItems: "center",
+    backgroundColor:"transparent",
+    padding:5,
+
   },
-  headericon: {
-    marginTop: "3%",
-    paddingLeft: "3%",
-  },
+ 
   text: {
     color: COLORS.white,
     fontWeight: 700,
@@ -169,23 +167,26 @@ const styles = StyleSheet.create({
   textInput: {
     fontSize: 20,
     color: COLORS.white,
-    paddingLeft: "3%",
     maxHeight: 200,
     fontSize: 20,
   },
   textInputView: {
-    height: "30%",
-    paddingRight: "3%",
-    paddingTop: "3%",
+    height: "auto",
+    backgroundColor:"transparent",
+   padding:10,
+   marginTop:20,
   },
   selectedImage: {
     width: "90%",
-    height: undefined,
+    height: "auto",
     aspectRatio: 1,
+    marginVertical:10,
+    borderRadius:10
   },
   bottomView: {
     height: "35%",
     alignItems: "center",
+    backgroundColor:"tomato"
   },
   image: {
     justifyContent: "center",

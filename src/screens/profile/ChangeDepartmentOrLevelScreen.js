@@ -64,8 +64,8 @@ const ChangeDepartmentOrLevelScreen = ({ navigation }) => {
             marginTop={5}
             width="90%"
             height={50}
-            fontSize={20}
-            title={"update"}
+            fontSize={14}
+            title={"Update"}
             onPress={() => handleUpdateDepLev()}
             disabled={false}
           ></LoadingButton>

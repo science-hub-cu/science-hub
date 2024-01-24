@@ -129,13 +129,13 @@ const styles = StyleSheet.create({
     fontSize: 32,
     textAlign: "center",
     color: COLORS.white,
-    fontWeight: 400,
+    fontWeight: "400",
   },
   text: {
     fontSize: 25,
     textAlign: "center",
     color: COLORS.white,
-    fontWeight: 400,
+    fontWeight: "400",
     fontFamily: "majalla",
   },
   buttonView: {
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: COLORS.white,
-    fontWeight: 700,
+    fontWeight: "700",
     fontSize: 32,
     textAlign: "center",
     flex: 1,

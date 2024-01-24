@@ -50,7 +50,7 @@ const VerifyScreen = ({ navigation }) => {
       <SafeAreaView style={styles.container}>
         <KeyboardAvoidingView
           style={{ flex: 1, paddingBottom: "10%" }}
-          behavior={Platform.OS === 'ios' ? 'height' : 'postion'}
+          behavior={Platform.OS === "ios" ? "height" : "postion"}
         >
           <View style={styles.content}>
             <Text style={styles.caption}>
@@ -65,16 +65,17 @@ const VerifyScreen = ({ navigation }) => {
               handleTextChange={handleTextChange}
               ref={otpInput}
             />
+            <View style={{ height: 15 }} />
             <LoadingButton
               ref={button}
               marginTop={5}
               width="90%"
               height={50}
-              fontSize={20}
+              fontSize={14}
               title={"Verify"}
               onPress={() => verifyCode()}
               disabled={true}
-            ></LoadingButton>
+            />
           </View>
         </KeyboardAvoidingView>
       </SafeAreaView>
@@ -84,10 +85,8 @@ const VerifyScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
     width: "100%",
     height: "100%",
-    flex: 1,
     backgroundColor: COLORS.mainBackground,
   },
   content: {
@@ -99,7 +98,7 @@ const styles = StyleSheet.create({
   },
 
   caption: {
-    fontSize: 20,
+    fontSize: 14,
     color: COLORS.white,
     marginTop: 10,
     marginBottom: 20,

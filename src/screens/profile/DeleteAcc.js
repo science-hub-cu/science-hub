@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Text, View, StyleSheet, SafeAreaView, ScrollView } from "react-native";
+import { Text, View, StyleSheet, SafeAreaView, ScrollView, ViewBase } from "react-native";
 import LoadingButton from "../../components/LoadingButton";
 import COLORS from "../../constants/colors";
 const DeleteAcc = ({ navigation }) => {
@@ -33,17 +33,18 @@ const DeleteAcc = ({ navigation }) => {
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.container}>
         <View style={{ backgroundColor: "#33363F" }}>
-          <Text style={{ color: COLORS.red, fontSize: 20 }}>
-            by deleting account its is impossiple to restore your account please
-            reconsider . if you faced any problem or smth you can always use
+          <Text style={{ color: COLORS.red, fontSize: 14 ,textAlign:"center" }}>
+            By deleting your account its is impossible to restore your account please
+            reconsider. if you faced any problem or smth you can always use
             help center
           </Text>
+          <View style={{ height: 20 }}/>
           <LoadingButton
             ref={btn}
             width="90%"
             height={50}
-            fontSize={20}
-            title={"delete account"}
+            fontSize={14}
+            title={"Delete account"}
             onPress={() => DEL()}
             disabled={true}
             backgroundColor={COLORS.red}

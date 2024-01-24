@@ -65,12 +65,13 @@ const ChangeUserNameScreen = ({ navigation }) => {
           contentContainerStyle={{ minHeight: "100%" }}
         >
           <View style={styles.content}>
-            <View style={{ width: "100%", marginLeft: "10%" }}>
-              <Text style={{ color: COLORS.white, fontSize: 15 }}>
-                by changing Username blah blah we know{" \n"}
+            <View style={{ width: "100%",backgroundColor:"transparent" }}>
+              <Text style={{ color: COLORS.white, fontSize: 15 ,textAlign:"center" }}>
+                By changing Username blah blah we know{" \n"}
                 you won't read this just dont it change it alot
               </Text>
-              <Input
+             <View style={{justifyContent:"center",alignItems:"center"}}>
+             <Input
                 width="88%"
                 onChangeText={(text) => setUsername(text)}
                 value={username}
@@ -79,14 +80,15 @@ const ChangeUserNameScreen = ({ navigation }) => {
                 placeholder="Username"
                 placeholderTextColor={COLORS.gray2}
               />
+             </View>
             </View>
             <Text style={styles.error}>{invalid}</Text>
             <LoadingButton
               ref={btn}
               width="90%"
               height={50}
-              fontSize={20}
-              title={"update"}
+              fontSize={14}
+              title={"Update"}
               onPress={() => updateUserName()}
               disabled={true}
             ></LoadingButton>
@@ -99,11 +101,11 @@ const ChangeUserNameScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
     width: "100%",
     height: "100%",
     flex: 1,
     backgroundColor: COLORS.mainBackground,
+    padding:10
   },
   content: {
     height: "100%",

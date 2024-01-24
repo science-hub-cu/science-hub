@@ -30,7 +30,9 @@ const Reportuser = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Text style={styles.heading}>Report User</Text>
+       <View>
+       <Text style={styles.heading}>Report User</Text>
+       </View>
         <View style={styles.formContainer}>
           <Input
             width="88%"
@@ -39,7 +41,7 @@ const Reportuser = ({ navigation }) => {
             placeholder="Code"
             placeholderTextColor={COLORS.gray2}
           />
-          <View style={{ width: "100%", marginBottom: 10 }}>
+          <View style={{ width: "100%" }}>
             <DropdownList
               data={Reasons}
               labelField={"label"}
@@ -50,11 +52,12 @@ const Reportuser = ({ navigation }) => {
               onChange={(item) => setRes(item)}
             />
           </View>
+          <View style={{height:20}}/>
           <LoadingButton
             ref={btn}
             width="90%"
             height={50}
-            fontSize={20}
+            fontSize={14}
             title={"Report"}
             onPress={() => send()}
             disabled={true}
@@ -67,13 +70,12 @@ const Reportuser = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height:"100%",
     backgroundColor: "#33363F",
-    paddingTop: Platform.OS === "android" ? 25 : 0,
+    padding:5
   },
   scrollContainer: {
     flexGrow: 1,
-    padding: 20,
     justifyContent: "center",
   },
   heading: {
@@ -81,12 +83,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: COLORS.white,
     textAlign: "center",
-    marginVertical: 20,
   },
   formContainer: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    marginVertical:5
   },
   textInput: {
     height: 50,
