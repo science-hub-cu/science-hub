@@ -5,7 +5,9 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ScrollView,
+  Image,
 } from "react-native";
+import BottomSheet from"@gorhom/bottom-sheet";
 import { useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import COLORS from "../../constants/colors";
@@ -20,6 +22,7 @@ import ChangeDepartmentOrLevelScreen from "./ChangeDepartmentOrLevelScreen";
 import { useDispatch } from "react-redux";
 import { logOut } from "../../redux/AuthSlice";
 import { Dimensions } from "react-native";
+import {useMemo} from "react";
 const screenHeight = Dimensions.get("window").height;
 
 const Profile = ({ navigation }) => {
@@ -28,6 +31,7 @@ const Profile = ({ navigation }) => {
   const [code, setCode] = useState("2027115");
   const [points, setPointes] = useState("0");
   const [title, setTilte] = useState("Your Title");
+  const snapPoints = useMemo(() => ["25%", "50%", "70%"], []);
 
   const dispatch = useDispatch();
   const handelLogout = async () => {
@@ -52,7 +56,9 @@ const Profile = ({ navigation }) => {
       .finally(() => setLoading(false));
   }, []);
   handlerEditavatar = () => {
-    console.log("EditAvatar preesed");
+    <BottomSheet snapPoints={snapPoints}>
+      <View>this is awesome</View>
+    </BottomSheet>
   };
   addpost = () => {
     console.log("Addpost preesed");
@@ -110,8 +116,9 @@ const Profile = ({ navigation }) => {
             </Svg>
           </TouchableOpacity>
           <View style={styles.topSection}>
-            <View
-              style={styles.circle} //avatar
+            <Image
+              source={require("../../assets/favicon.png")}
+              style={styles.profileImage}
             />
             <Button
               title={"Edit avatar"}
@@ -232,18 +239,14 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
   },
-  circle: {
+  profileImage: {
     width: 100,
     height: 100,
-    aspectRatio: 1 / 1,
-    borderColor: COLORS.white,
-    borderRadius: 180,
-    backgroundColor: COLORS.gray1,
   },
   nameAndcode: {
     flexDirection: "row",
     width: "100%",
-    marginTop:4
+    marginTop: 4,
   },
   text: {
     fontSize: 20,
