@@ -7,8 +7,7 @@ import {
   ScrollView,
   Image,
 } from "react-native";
-import BottomSheet from"@gorhom/bottom-sheet";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import COLORS from "../../constants/colors";
 import ProfileButton from "../../components/ProfileButton";
@@ -18,11 +17,13 @@ import UserService from "../../services/UserService";
 import { useLayoutEffect } from "react";
 import ROUTES from "../../constants/routes";
 import { Svg, Rect } from "react-native-svg";
-import ChangeDepartmentOrLevelScreen from "./ChangeDepartmentOrLevelScreen";
+import {
+  BottomSheetModalProvider,
+} from "@gorhom/bottom-sheet";
+import AvatarBottomSheetScreen from "./avatarBottmSheetScreen";
 import { useDispatch } from "react-redux";
 import { logOut } from "../../redux/AuthSlice";
 import { Dimensions } from "react-native";
-import {useMemo} from "react";
 const screenHeight = Dimensions.get("window").height;
 
 const Profile = ({ navigation }) => {
@@ -31,8 +32,12 @@ const Profile = ({ navigation }) => {
   const [code, setCode] = useState("2027115");
   const [points, setPointes] = useState("0");
   const [title, setTilte] = useState("Your Title");
-  const snapPoints = useMemo(() => ["25%", "50%", "70%"], []);
-
+  const bottomSheetModalRef = useRef(null);
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  function handelPresentModal() {
+    bottomSheetModalRef.current?.present();
+    setIsBottomSheetOpen(true);
+  }
   const dispatch = useDispatch();
   const handelLogout = async () => {
     dispatch(logOut());
@@ -55,11 +60,6 @@ const Profile = ({ navigation }) => {
       })
       .finally(() => setLoading(false));
   }, []);
-  handlerEditavatar = () => {
-    <BottomSheet snapPoints={snapPoints}>
-      <View>this is awesome</View>
-    </BottomSheet>
-  };
   addpost = () => {
     console.log("Addpost preesed");
   };
@@ -77,153 +77,161 @@ const Profile = ({ navigation }) => {
     <Loading />
   ) : (
     <SafeAreaView style={{ height: "100%", backgroundColor: "#33363F" }}>
-      <ScrollView
-        contentContainerStyle={{ flexGrow: 1 }}
-        showsVerticalScrollIndicator={false}
-      >
-        <LinearGradient
-          colors={gradientcolors}
-          start={[0, 0]}
-          end={[0, 1]}
-          locations={[0, 0.8854]}
-          style={styles.container}
+      <BottomSheetModalProvider>
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1 }}
+          showsVerticalScrollIndicator={false}
         >
-          <TouchableOpacity
-            style={{ padding: 15, flexDirection: "row-reverse" }}
-            onPress={handelbutton}
+          <LinearGradient
+            colors={gradientcolors}
+            start={[0, 0]}
+            end={[0, 1]}
+            locations={[0, 0.8854]}
+            style={styles.container}
           >
-            <Svg width="30" height="30" viewBox="0 0 24 24" fill="none">
-              <Rect
-                x="4"
-                y="5"
-                width="16"
-                height="5"
-                rx="1"
-                stroke="white"
-                strokeWidth="2"
-                strokeLinejoin="round"
+            <TouchableOpacity
+              style={{ padding: 15, flexDirection: "row-reverse" }}
+              onPress={handelbutton}
+            >
+              <Svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+                <Rect
+                  x="4"
+                  y="5"
+                  width="16"
+                  height="5"
+                  rx="1"
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeLinejoin="round"
+                />
+                <Rect
+                  x="4"
+                  y="14"
+                  width="16"
+                  height="5"
+                  rx="1"
+                  stroke="white"
+                  strokeWidth="2"
+                  strokeLinejoin="round"
+                />
+              </Svg>
+            </TouchableOpacity>
+            <View style={styles.topSection}>
+              <Image
+                source={require("../../assets/favicon.png")}
+                style={styles.profileImage}
               />
-              <Rect
-                x="4"
-                y="14"
-                width="16"
-                height="5"
-                rx="1"
-                stroke="white"
-                strokeWidth="2"
-                strokeLinejoin="round"
+
+              <Button
+                title={"Edit avatar"}
+                width="35%"
+                fontColor="#fff"
+                backgroundColor="transparent"
+                borderWidth={1}
+                onPress={handelPresentModal}
+                opacity={0.2}
               />
-            </Svg>
-          </TouchableOpacity>
-          <View style={styles.topSection}>
-            <Image
-              source={require("../../assets/favicon.png")}
-              style={styles.profileImage}
-            />
-            <Button
-              title={"Edit avatar"}
-              width="35%"
-              fontColor="#fff"
-              backgroundColor="transparent"
-              borderWidth={1}
-              onPress={handlerEditavatar}
-              opacity={0.2}
-            />
-            <View style={styles.nameAndcode}>
-              <Text style={styles.text}>{username}</Text>
-              <Text style={styles.text1}>
-                {" #"}
-                {code}
-              </Text>
+
+              <View style={styles.nameAndcode}>
+                <Text style={styles.text}>{username}</Text>
+                <Text style={styles.text1}>
+                  {" #"}
+                  {code}
+                </Text>
+              </View>
+              <Text style={styles.Title}>{title}</Text>
+              <Text style={styles.points}>You have {points} points</Text>
+              <Button
+                title={" Add post"}
+                fontSize={13}
+                width="30%"
+                height="10%"
+                backgroundColor={COLORS.graish}
+                onPress={addpost}
+                icon="plus"
+                opacity={0.2}
+              />
             </View>
-            <Text style={styles.Title}>{title}</Text>
-            <Text style={styles.points}>You have {points} points</Text>
-            <Button
-              title={" Add post"}
-              fontSize={13}
-              width="30%"
-              height="10%"
-              backgroundColor={COLORS.graish}
-              onPress={addpost}
-              icon="plus"
-              opacity={0.2}
-            />
-          </View>
-        </LinearGradient>
-        <View style={styles.container2}>
-          <View
-            style={{
-              backgroundColor: COLORS.navBarBackground,
-              alignItems: "center",
-              justifyContent: "center",
-              paddingVertical: 1,
-              height: 35,
-            }}
-          >
-            <Text
+          </LinearGradient>
+          <View style={styles.container2}>
+            <View
               style={{
-                color: "white",
+                backgroundColor: COLORS.navBarBackground,
+                alignItems: "center",
+                justifyContent: "center",
+                paddingVertical: 1,
+                height: 35,
               }}
             >
-              Settings
-            </Text>
+              <Text
+                style={{
+                  color: "white",
+                }}
+              >
+                Settings
+              </Text>
+            </View>
+            {/* Profile buttons  */}
+            <View>
+              <ProfileButton
+                title="Change username"
+                onPress={changeusername}
+                iconname="Cus"
+              ></ProfileButton>
+
+              <ProfileButton
+                title="Change password"
+                onPress={changepassword}
+                iconname="Cpass"
+              ></ProfileButton>
+
+              <ProfileButton
+                title="Change department or level"
+                onPress={changedepartmentOrLevel}
+                iconname="Cdep"
+              ></ProfileButton>
+
+              <ProfileButton
+                title="Verify friend"
+                onPress={verifyfriend}
+                iconname="VF"
+              ></ProfileButton>
+
+              <ProfileButton
+                title="Saved posts"
+                onPress={savedposts}
+                iconname="SP"
+              ></ProfileButton>
+
+              <ProfileButton
+                title="Delete my account"
+                onPress={deletemyaccount}
+                iconname="DA"
+              ></ProfileButton>
+
+              <ProfileButton
+                title="Report user"
+                onPress={reportuser}
+                iconname="RU"
+              ></ProfileButton>
+              <ProfileButton
+                title="Help Center&questions"
+                onPress={helpcenter}
+                iconname="HC"
+              ></ProfileButton>
+              <ProfileButton
+                title="Log Out"
+                onPress={handelLogout}
+                iconname="LG"
+              ></ProfileButton>
+            </View>
           </View>
-          {/* Profile buttons  */}
-          <View>
-            <ProfileButton
-              title="Change username"
-              onPress={changeusername}
-              iconname="Cus"
-            ></ProfileButton>
-
-            <ProfileButton
-              title="Change password"
-              onPress={changepassword}
-              iconname="Cpass"
-            ></ProfileButton>
-
-            <ProfileButton
-              title="Change department or level"
-              onPress={changedepartmentOrLevel}
-              iconname="Cdep"
-            ></ProfileButton>
-
-            <ProfileButton
-              title="Verify friend"
-              onPress={verifyfriend}
-              iconname="VF"
-            ></ProfileButton>
-
-            <ProfileButton
-              title="Saved posts"
-              onPress={savedposts}
-              iconname="SP"
-            ></ProfileButton>
-
-            <ProfileButton
-              title="Delete my account"
-              onPress={deletemyaccount}
-              iconname="DA"
-            ></ProfileButton>
-
-            <ProfileButton
-              title="Report user"
-              onPress={reportuser}
-              iconname="RU"
-            ></ProfileButton>
-            <ProfileButton
-              title="Help Center&questions"
-              onPress={helpcenter}
-              iconname="HC"
-            ></ProfileButton>
-            <ProfileButton
-              title="Log Out"
-              onPress={handelLogout}
-              iconname="LG"
-            ></ProfileButton>
-          </View>
-        </View>
-      </ScrollView>
+          <AvatarBottomSheetScreen
+            bottomSheetModalRef={bottomSheetModalRef}
+            onDismiss={() => setIsBottomSheetOpen(false)}
+          />
+        </ScrollView>
+      </BottomSheetModalProvider>
     </SafeAreaView>
   );
 };
@@ -278,5 +286,12 @@ const styles = StyleSheet.create({
     padding: 5,
     width: "100%",
   },
+  BottomSheet: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "red",
+  },
 });
+
 export default Profile;
