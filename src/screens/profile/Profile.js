@@ -23,6 +23,7 @@ import AvatarBottomSheetScreen from "./avatarBottmSheetScreen";
 import { useDispatch } from "react-redux";
 import { logOut } from "../../redux/AuthSlice";
 import { Dimensions } from "react-native";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 const screenHeight = Dimensions.get("window").height;
 
 const Profile = ({ navigation }) => {
@@ -50,6 +51,24 @@ const Profile = ({ navigation }) => {
       };
     }, [isBottomSheetOpen])
   );
+
+  //close the bottom sheet when pressing outside of the content
+  const handlePressOutside = () => {
+    if (bottomSheetModalRef.current) {
+      bottomSheetModalRef.current.close();
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        handlePressOutside(); 
+      };
+    }, [])
+  );
+
+  
+
   //handel logout
   const dispatch = useDispatch();
   const handelLogout = async () => {
@@ -81,6 +100,8 @@ const Profile = ({ navigation }) => {
   ) : (
     <SafeAreaView style={{ height: "100%", backgroundColor: "#33363F" }}>
       <BottomSheetModalProvider>
+      <TouchableWithoutFeedback onPress={handlePressOutside}> 
+
         <ScrollView
           contentContainerStyle={{ flexGrow: 1 }}
           showsVerticalScrollIndicator={false}
@@ -234,6 +255,8 @@ const Profile = ({ navigation }) => {
             bottomSheetModalRef={bottomSheetModalRef}
           />
         </ScrollView>
+        </TouchableWithoutFeedback>
+
       </BottomSheetModalProvider>
     </SafeAreaView>
   );
