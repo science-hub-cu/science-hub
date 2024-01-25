@@ -1,19 +1,20 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { useMemo } from "react";
 
-
-const AvatarBottomSheetScreen = ({ bottomSheetModalRef}) => {
-    const snapPoints = useMemo(() => ["40%", "70%"], []);
+const AvatarBottomSheetScreen = ({ bottomSheetModalRef, onDismiss }) => {
+  const snapPoints = useMemo(() => ["40%", "70%"], []);
 
   return (
+    
     <BottomSheetModal
+    
       ref={bottomSheetModalRef}
       index={0}
       snapPoints={snapPoints}
       style={styles.BottomSheet}
       backgroundStyle={styles.backGround}
+      onDismiss={onDismiss}
     >
       <View>
         <Text>omar</Text>
