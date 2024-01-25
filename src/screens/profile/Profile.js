@@ -1,3 +1,4 @@
+import React from "react";
 import {
   StyleSheet,
   Text,
@@ -7,19 +8,17 @@ import {
   ScrollView,
   Image,
 } from "react-native";
-import { useState, useRef } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { useState, useRef, useCallback } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import COLORS from "../../constants/colors";
 import ProfileButton from "../../components/ProfileButton";
 import Loading from "../Loading";
 import Button from "../../components/Button";
-import UserService from "../../services/UserService";
 import { useLayoutEffect } from "react";
 import ROUTES from "../../constants/routes";
 import { Svg, Rect } from "react-native-svg";
-import {
-  BottomSheetModalProvider,
-} from "@gorhom/bottom-sheet";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import AvatarBottomSheetScreen from "./avatarBottmSheetScreen";
 import { useDispatch } from "react-redux";
 import { logOut } from "../../redux/AuthSlice";
@@ -34,10 +33,24 @@ const Profile = ({ navigation }) => {
   const [title, setTilte] = useState("Your Title");
   const bottomSheetModalRef = useRef(null);
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+
+  //open bottom sheet
   function handelPresentModal() {
     bottomSheetModalRef.current?.present();
     setIsBottomSheetOpen(true);
   }
+  //close bottom sheet when navigate to another screen
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        if (isBottomSheetOpen) {
+          bottomSheetModalRef.current?.close();
+          setIsBottomSheetOpen(false);
+        }
+      };
+    }, [isBottomSheetOpen])
+  );
+  //handel logout
   const dispatch = useDispatch();
   const handelLogout = async () => {
     dispatch(logOut());
@@ -49,6 +62,7 @@ const Profile = ({ navigation }) => {
   useLayoutEffect(() => {
     setLoading(false);
   }, []);
+
   addpost = () => {
     console.log("Addpost preesed");
   };
@@ -216,8 +230,8 @@ const Profile = ({ navigation }) => {
             </View>
           </View>
           <AvatarBottomSheetScreen
-            bottomSheetModalRef={bottomSheetModalRef}
             onDismiss={() => setIsBottomSheetOpen(false)}
+            bottomSheetModalRef={bottomSheetModalRef}
           />
         </ScrollView>
       </BottomSheetModalProvider>
