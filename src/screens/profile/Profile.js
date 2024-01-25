@@ -47,18 +47,7 @@ const Profile = ({ navigation }) => {
     COLORS.mainBackground,
   ]);
   useLayoutEffect(() => {
-    setLoading(true);
-    UserService.getCurrentUserData()
-      .then((user) => {
-        setCode(user.code);
-        setUserName(user.username);
-        setTilte(user.title);
-        setPointes(user.points);
-        const BgColor = user.avatar.cover ?? "default";
-        if (BgColor === "gold")
-          setgradientcolors([COLORS.gold, COLORS.mainBackground]);
-      })
-      .finally(() => setLoading(false));
+    setLoading(false);
   }, []);
   addpost = () => {
     console.log("Addpost preesed");
