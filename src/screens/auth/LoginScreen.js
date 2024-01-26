@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert,
 } from "react-native";
 import LoadingButton from "../../components/LoadingButton";
 import COLORS from "../../constants/colors";
@@ -32,7 +33,7 @@ const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
   const [errors, setErrors] = useState({});
   const [invalid, setInvalid] = useState("");
   const btnRef = useRef(null);
-  const [signIn, { isLoading }] = useSignInMutation();
+  const [signIn] = useSignInMutation();
   const dispatch = useDispatch();
 
   // console.log("navig:", navigation);
@@ -53,22 +54,19 @@ const LoginScreen = ({ navigation, state, updateShowOverlay }) => {
 
   /**************** *******************************/
   const loginPress = async () => {
-    try {
-      updateShowOverlay(true);
-      let user = {
-        username,
-        password,
-      };
-
-      if (signInValidation(user, addError)) {
-        await UserService.signInUser(user, signIn, dispatch);
+    updateShowOverlay(true);
+    let user = {
+      username,
+      password,
+    };
+    if (signInValidation(user, addError)) {
+      const res = await UserService.signInUser(user, signIn, dispatch);
+      if (res.error.data) {
+        setInvalid("Invalid username or password");
       }
-    } catch (error) {
-      console.error("Error during login:", error);
-    } finally {
-      btnRef.current?.setLoading(false);
-      updateShowOverlay(false);
     }
+    btnRef.current?.setLoading(false);
+    updateShowOverlay(false);
   };
 
   return (

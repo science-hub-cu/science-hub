@@ -36,17 +36,14 @@ export default class UserService {
     }
   }
   static async signInUser(user, signIn, dispatch) {
-    try {
-      const signInResult = await signIn(user);
-      if (signInResult.data) {
-        const token = signInResult.data.access_token;
-        const User = Decode(token);
-        dispatch(setCredentials(User));
-      }
-      // sign in by token
-    } catch (error) {
-      throw error;
+    const signInResult = await signIn(user);
+    if (signInResult.data) {
+      const token = signInResult.data.access_token;
+      const User = Decode(token);
+      dispatch(setCredentials(User));
+      console.log("Login Done");
     }
+    return signInResult;
   }
 
   static async getCurrentUserData(token, CheckAuth) {
