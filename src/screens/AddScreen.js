@@ -3,6 +3,8 @@ import COLORS from "../constants/colors";
 import Button from "../../src/components/Button";
 import { AntDesign } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+import * as Haptics from "expo-haptics";
+
 import { manipulateAsync, FlipType, SaveFormat } from "expo-image-manipulator";
 
 import {
@@ -26,6 +28,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 const AddScreen = ({ navigation }) => {
   const [postText, setPostText] = useState("");
+  const [hapticTriggered, setHapticTriggered] = useState(false);
   const [imageUri, setImageUri] = useState(null);
   // const { user } = useAuth();
 
@@ -143,7 +146,17 @@ const AddScreen = ({ navigation }) => {
               multiline={true}
               maxLength={250}
               value={postText}
-              onChangeText={(text) => setPostText(text)}
+              onChangeText={(text) => {
+                if (text.length > 200 && !hapticTriggered) {
+                  Haptics.notificationAsync(
+                    Haptics.NotificationFeedbackType.Warning
+                  );
+                  setHapticTriggered(true);
+                } else if (text.length <= 200 && hapticTriggered) {
+                  setHapticTriggered(false);
+                }
+                setPostText(text);
+              }}
             />
           </View>
 
