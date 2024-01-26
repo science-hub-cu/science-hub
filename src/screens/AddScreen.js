@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import COLORS from "../constants/colors";
 import Button from "../../src/components/Button";
 import { AntDesign } from "@expo/vector-icons";
@@ -14,13 +14,16 @@ import {
   Image,
   View,
   Keyboard,
+  Text,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import PostService from "../services/PostService";
 import { useAuth } from "../context/AuthContext";
 import FireBaseStorage from "../services/FireBaseStorage";
 import { ToastAndroid } from "react-native";
-
+import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 const AddScreen = ({ navigation }) => {
   const [postText, setPostText] = useState("");
   const [imageUri, setImageUri] = useState(null);
@@ -79,50 +82,128 @@ const AddScreen = ({ navigation }) => {
         >
           <View style={styles.header}>
             {/* add X icon action here (pop to prev screen)  */}
-            <TouchableOpacity onPress={() => {navigation.goBack()}}>
-              <AntDesign name="close" size={24} color="white" />
-            </TouchableOpacity>
+            <View style={{ flexDirection: "row" }}>
+              <View style={{ justifyContent: "center" }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.goBack();
+                  }}
+                >
+                  <AntDesign name="close" size={24} color="white" />
+                </TouchableOpacity>
+              </View>
+              <View style={{ flexDirection: "row", marginHorizontal: 5 }}>
+                <View
+                  style={{
+                    width: 35,
+                    height: 35,
+                    backgroundColor: "#5865F2",
+                    borderRadius: 25,
+                    marginHorizontal: 6,
+                  }}
+                ></View>
+                <View
+                  style={{
+                    justifyContent: "center",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      color: COLORS.white,
+                      fontWeight: "400",
+                      marginHorizontal: 3,
+                    }}
+                  >
+                    Anyone
+                  </Text>
+                  <FontAwesome name="sort-down" size={11} color="white" />
+                </View>
+              </View>
+            </View>
             {/* submmit post here and navigate to posts screen*/}
             <Button
               title={"Post"}
               width="20%"
               height="75%"
-              onPress={() => {addPost();}}
+              onPress={() => {
+                addPost();
+              }}
               opacity={0.2}
+              disabled={postText.length > 200 ? true : false}
             />
           </View>
           <View style={styles.textInputView}>
             <TextInput
-              placeholder="Enter your post"
+              placeholder="Text what you want little 7amoksha"
               placeholderTextColor={COLORS.gray1}
               style={styles.textInput}
               multiline={true}
+              maxLength={250}
               value={postText}
               onChangeText={(text) => setPostText(text)}
-            ></TextInput>
+            />
           </View>
 
           <View style={styles.imageView1}>
             {imageUri ? (
-              <Image
-                style={styles.selectedImage}
-                source={{ uri: imageUri }}
-              ></Image>
-            ) : (
-              <Image
-                style={styles.image}
-                source={require("../assets/images/uplodeImage.png")}
-              ></Image>
-            )}
-             <Button
-              title={imageUri ? "Change Image" : "Upload Image"}
-              fontSize={13}
-              width="40%"
-              height="6%"
-              backgroundColor={COLORS.graish}
-              onPress={handleChooseImage}
-              opacity={0.2}
-            />
+              <View
+                style={[
+                  styles.selectedImage,
+                  {
+                    justifyContent: "center",
+                    alignItems: "center",
+                  },
+                ]}
+              >
+                <Image
+                  style={styles.selectedImage}
+                  source={{ uri: imageUri }}
+                />
+                <View
+                  style={{ position: "absolute", top: 0, right: 0, padding: 0 }}
+                >
+                  <TouchableWithoutFeedback onPress={() => setImageUri(null)}>
+                    <FontAwesome name="close" size={24} color={COLORS.gray1} />
+                  </TouchableWithoutFeedback>
+                </View>
+              </View>
+            ) : null}
+          </View>
+          <View
+            style={{
+              width: "100%",
+              height: 50,
+              backgroundColor: "transparent",
+              position: "absolute",
+              bottom: 0,
+              justifyContent: "flex-end",
+              alignItems: "flex-end",
+            }}
+          >
+            <View style={{ flexDirection: "row-reverse" }}>
+              <View style={{ justifyContent: "center" }}>
+                <Text
+                  style={{
+                    fontSize: 13,
+                    fontWeight: "400",
+                    color: postText.length > 200 ? COLORS.red : COLORS.white,
+                  }}
+                >
+                  {postText.length}/200
+                </Text>
+              </View>
+              <TouchableOpacity onPress={() => handleChooseImage()}>
+                <Ionicons
+                  style={{ marginHorizontal: 12 }}
+                  name="image"
+                  size={30}
+                  color="white"
+                />
+              </TouchableOpacity>
+            </View>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -133,14 +214,16 @@ export default AddScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: "100%",
     backgroundColor: COLORS.mainBackground,
-    padding:10
+    padding: 10,
   },
 
   imageView1: {
     justifyContent: "center",
-    alignItems: "center",flex:1
+    alignItems: "center",
+    flex: 1,
+    marginBottom: "12%",
   },
   imageView2: {
     justifyContent: "center",
@@ -151,11 +234,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor:"transparent",
-    padding:5,
-
+    backgroundColor: "transparent",
+    padding: 5,
   },
- 
+
   text: {
     color: COLORS.white,
     fontWeight: 700,
@@ -165,28 +247,27 @@ const styles = StyleSheet.create({
     textAlignVertical: "center",
   },
   textInput: {
-    fontSize: 20,
     color: COLORS.white,
     maxHeight: 200,
-    fontSize: 20,
+    fontSize: 14,
+    fontWeight: "400",
   },
   textInputView: {
     height: "auto",
-    backgroundColor:"transparent",
-   padding:10,
-   marginTop:20,
+    backgroundColor: "transparent",
+    padding: 10,
   },
   selectedImage: {
     width: "90%",
     height: "auto",
     aspectRatio: 1,
-    marginVertical:10,
-    borderRadius:10
+    marginVertical: 10,
+    borderRadius: 15,
   },
   bottomView: {
     height: "35%",
     alignItems: "center",
-    backgroundColor:"tomato"
+    backgroundColor: "tomato",
   },
   image: {
     justifyContent: "center",
