@@ -100,163 +100,144 @@ const Profile = ({ navigation }) => {
   ) : (
     <SafeAreaView style={{ height: "100%", backgroundColor: "#33363F" }}>
       <BottomSheetModalProvider>
-      <TouchableWithoutFeedback onPress={handlePressOutside}> 
-
-        <ScrollView
-          contentContainerStyle={{ flexGrow: 1 }}
-          showsVerticalScrollIndicator={false}
-        >
-          <LinearGradient
-            colors={gradientcolors}
-            start={[0, 0]}
-            end={[0, 1]}
-            locations={[0, 0.8854]}
-            style={styles.container}
+        <TouchableWithoutFeedback onPress={handlePressOutside}>
+          <ScrollView
+            contentContainerStyle={{ flexGrow: 1 }}
+            showsVerticalScrollIndicator={false}
           >
-            <TouchableOpacity
-              style={{ padding: 15, flexDirection: "row-reverse" }}
-              onPress={handelbutton}
+            <LinearGradient
+              colors={gradientcolors}
+              start={[0, 0]}
+              end={[0, 1]}
+              locations={[0, 0.8854]}
+              style={styles.container}
             >
-              <Svg width="30" height="30" viewBox="0 0 24 24" fill="none">
-                <Rect
-                  x="4"
-                  y="5"
-                  width="16"
-                  height="5"
-                  rx="1"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeLinejoin="round"
-                />
-                <Rect
-                  x="4"
-                  y="14"
-                  width="16"
-                  height="5"
-                  rx="1"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeLinejoin="round"
-                />
-              </Svg>
-            </TouchableOpacity>
-            <View style={styles.topSection}>
-              <Image
-                source={require("../../assets/favicon.png")}
-                style={styles.profileImage}
-              />
-
-              <Button
-                title={"Edit avatar"}
-                width="35%"
-                fontColor="#fff"
-                backgroundColor="transparent"
-                borderWidth={1}
-                onPress={handelPresentModal}
-                opacity={0.2}
-              />
-
-              <View style={styles.nameAndcode}>
-                <Text style={styles.text}>{username}</Text>
-                <Text style={styles.text1}>
-                  {" #"}
-                  {code}
-                </Text>
+              <View
+                style={styles.notificationIconView}
+              >
+                <TouchableOpacity onPress={handelbutton}>
+                  <Image
+                    source={require("../../assets/images/notificationIcon.png")}
+                    style={styles.notificationIcon}
+                  ></Image>
+                </TouchableOpacity>
               </View>
-              <Text style={styles.Title}>{title}</Text>
-              <Text style={styles.points}>You have {points} points</Text>
-              <Button
-                title={" Add post"}
-                fontSize={13}
-                width="30%"
-                height="10%"
-                backgroundColor={COLORS.graish}
-                onPress={addpost}
-                icon="plus"
-                opacity={0.2}
-              />
-            </View>
-          </LinearGradient>
-          <View style={styles.container2}>
-            <View
-              style={{
-                backgroundColor: COLORS.navBarBackground,
-                alignItems: "center",
-                justifyContent: "center",
-                paddingVertical: 1,
-                height: 35,
-              }}
-            >
-              <Text
+              <View style={styles.topSection}>
+                <Image
+                  source={require("../../assets/favicon.png")}
+                  style={styles.profileImage}
+                />
+
+                <Button
+                  title={"Edit avatar"}
+                  width="35%"
+                  fontColor="#fff"
+                  backgroundColor="transparent"
+                  borderWidth={1}
+                  onPress={handelPresentModal}
+                  opacity={0.2}
+                />
+
+                <View style={styles.nameAndcode}>
+                  <Text style={styles.text}>{username}</Text>
+                  <Text style={styles.text1}>
+                    {" #"}
+                    {code}
+                  </Text>
+                </View>
+                <Text style={styles.Title}>{title}</Text>
+                <Text style={styles.points}>You have {points} points</Text>
+                <Button
+                  title={" Add post"}
+                  fontSize={13}
+                  width="30%"
+                  height="10%"
+                  backgroundColor={COLORS.graish}
+                  onPress={addpost}
+                  icon="plus"
+                  opacity={0.2}
+                />
+              </View>
+            </LinearGradient>
+            <View style={styles.container2}>
+              <View
                 style={{
-                  color: "white",
+                  backgroundColor: COLORS.navBarBackground,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  paddingVertical: 1,
+                  height: 35,
                 }}
               >
-                Settings
-              </Text>
+                <Text
+                  style={{
+                    color: "white",
+                  }}
+                >
+                  Settings
+                </Text>
+              </View>
+              {/* Profile buttons  */}
+              <View>
+                <ProfileButton
+                  title="Change username"
+                  onPress={changeusername}
+                  iconname="Cus"
+                ></ProfileButton>
+
+                <ProfileButton
+                  title="Change password"
+                  onPress={changepassword}
+                  iconname="Cpass"
+                ></ProfileButton>
+
+                <ProfileButton
+                  title="Change department or level"
+                  onPress={changedepartmentOrLevel}
+                  iconname="Cdep"
+                ></ProfileButton>
+
+                <ProfileButton
+                  title="Verify friend"
+                  onPress={verifyfriend}
+                  iconname="VF"
+                ></ProfileButton>
+
+                <ProfileButton
+                  title="Saved posts"
+                  onPress={savedposts}
+                  iconname="SP"
+                ></ProfileButton>
+
+                <ProfileButton
+                  title="Delete my account"
+                  onPress={deletemyaccount}
+                  iconname="DA"
+                ></ProfileButton>
+
+                <ProfileButton
+                  title="Report user"
+                  onPress={reportuser}
+                  iconname="RU"
+                ></ProfileButton>
+                <ProfileButton
+                  title="Help Center&questions"
+                  onPress={helpcenter}
+                  iconname="HC"
+                ></ProfileButton>
+                <ProfileButton
+                  title="Log Out"
+                  onPress={handelLogout}
+                  iconname="LG"
+                ></ProfileButton>
+              </View>
             </View>
-            {/* Profile buttons  */}
-            <View>
-              <ProfileButton
-                title="Change username"
-                onPress={changeusername}
-                iconname="Cus"
-              ></ProfileButton>
-
-              <ProfileButton
-                title="Change password"
-                onPress={changepassword}
-                iconname="Cpass"
-              ></ProfileButton>
-
-              <ProfileButton
-                title="Change department or level"
-                onPress={changedepartmentOrLevel}
-                iconname="Cdep"
-              ></ProfileButton>
-
-              <ProfileButton
-                title="Verify friend"
-                onPress={verifyfriend}
-                iconname="VF"
-              ></ProfileButton>
-
-              <ProfileButton
-                title="Saved posts"
-                onPress={savedposts}
-                iconname="SP"
-              ></ProfileButton>
-
-              <ProfileButton
-                title="Delete my account"
-                onPress={deletemyaccount}
-                iconname="DA"
-              ></ProfileButton>
-
-              <ProfileButton
-                title="Report user"
-                onPress={reportuser}
-                iconname="RU"
-              ></ProfileButton>
-              <ProfileButton
-                title="Help Center&questions"
-                onPress={helpcenter}
-                iconname="HC"
-              ></ProfileButton>
-              <ProfileButton
-                title="Log Out"
-                onPress={handelLogout}
-                iconname="LG"
-              ></ProfileButton>
-            </View>
-          </View>
-          <AvatarBottomSheetScreen
-            onDismiss={() => setIsBottomSheetOpen(false)}
-            bottomSheetModalRef={bottomSheetModalRef}
-          />
-        </ScrollView>
+            <AvatarBottomSheetScreen
+              onDismiss={() => setIsBottomSheetOpen(false)}
+              bottomSheetModalRef={bottomSheetModalRef}
+            />
+          </ScrollView>
         </TouchableWithoutFeedback>
-
       </BottomSheetModalProvider>
     </SafeAreaView>
   );
@@ -318,6 +299,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "red",
   },
+  notificationIconView: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    padding: 15,
+  },
+  notificationIcon: {
+    width: 30,
+    height: 30,
+  }
 });
 
 export default Profile;
